@@ -15,14 +15,14 @@ def grafica_top_jugadores():
     categorias = ['PTS', '3PM', 'FTM', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK']
 
     # Crear una figura y varios subplots
-    fig, axs = plt.subplots(2, 5, figsize=(15, 10))  # Ajustar el tamaño según necesidad
+    fig, axs = plt.subplots(5, 2, figsize=(15, 20))  # Ajustar el tamaño según necesidad
     fig.suptitle('Top 10 jugadores en varias categorías')
 
     for i, cat in enumerate(categorias):
-        ax = axs[i // 3, i % 3]  # Ubicar cada subplot en la posición correcta
+        ax = axs[i // 5, i % 2]  # Ubicar cada subplot en la posición correcta
         top_jugadores = df_jugadores_nba.nlargest(10, cat)
         sns.barplot(x=cat, y='Nombre Completo', data=top_jugadores, ax=ax)
-        ax.set_title(f'Top 10 en {cat}')
+        ax.set_title(f'Top 10 jugadores en {cat}')
         ax.set_xlabel('')
         ax.set_ylabel('')
 
