@@ -3,6 +3,7 @@ import streamlit as st
 from modules.graph.grafica_1 import grafica_victorias_derrotas
 from modules.graph.grafica_2 import grafica_conferencias
 from modules.graph.grafica_3 import mapa_equipos_nba
+from modules.graph.grafica_4 import grafica_top_jugadores
 
 def display():
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
@@ -125,6 +126,26 @@ def display():
     """, unsafe_allow_html=True)
     
     mapa_equipos_nba()
+
+    st.markdown("""
+    ### Top 10 Jugadores en Estadísticas Clave de la NBA
+
+    En esta sección, presento una serie de gráficos que muestran a los líderes de la temporada NBA 2023/2024 en diferentes categorías estadísticas. Cada gráfico destaca a los diez mejores jugadores en las siguientes categorías:
+
+    - **Puntos por partido (PTS)**: Muestra los jugadores con el promedio más alto de puntos por partido, indicando los principales anotadores de la liga.
+    - **Triples hechos (3PM)**: Destaca a los jugadores que más triples han anotado, reflejando la habilidad y efectividad desde la línea de tres puntos.
+    - **Tiros libres hechos (FTM)**: Enfoca a los jugadores con mayor número de tiros libres convertidos, importante para evaluar la eficiencia bajo presión.
+    - **Rebotes ofensivos (OREB)** y **defensivos (DREB)**: Muestra los jugadores que dominan en la captura de rebotes tanto ofensivos como defensivos, fundamentales para el control del juego.
+    - **Rebotes totales (REB)**: Combina los rebotes ofensivos y defensivos para destacar a los mejores reboteadores de la liga.
+    - **Asistencias (AST)**: Resalta a los mejores pasadores, indicando jugadores que facilitan el juego y contribuyen a la ofensiva del equipo.
+    - **Robos (STL)**: Identifica a los jugadores con más robos, lo cual es crucial para la defensa y transiciones rápidas.
+    - **Bloqueos (BLK)**: Muestra a los jugadores que más contribuyen en la defensa cerca del aro, rechazando tiros del equipo contrario.
+
+    Estos gráficos ofrecen una visión clara de quiénes son los jugadores más destacados en aspectos específicos del juego durante la temporada actual. Cada gráfico es interactivo, permitiendo a los usuarios obtener detalles adicionales y una comprensión más profunda del rendimiento de los jugadores.
+
+    """, unsafe_allow_html=True)
+
+    grafica_top_jugadores()
 
 # Llama a la función para mostrar la página
 display()
