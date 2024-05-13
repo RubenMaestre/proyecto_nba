@@ -2,6 +2,7 @@
 import streamlit as st
 from modules.graph.grafica_1 import grafica_victorias_derrotas
 from modules.graph.grafica_2 import grafica_conferencias
+from modules.graph.grafica_3 import mapa_equipos_nba
 
 def display():
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
@@ -46,6 +47,8 @@ def display():
         """, unsafe_allow_html=True)
 
     grafica_conferencias()
+
+    mapa_equipos_nba()
 
 # Llama a la función para mostrar la página
 display()
