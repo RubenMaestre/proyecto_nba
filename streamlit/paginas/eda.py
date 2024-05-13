@@ -1,57 +1,29 @@
-# paginas/eda.py
 import streamlit as st
-#from modules.eda.botones_eda import seleccionar_datos
-#from modules.eda.botones_graficas import seleccionar_grafica
-#from modules.eda.datos_df_cargados import mostrar_estadisticas_df
-#from modules.eda.descripciones_graficas import obtener_descripcion, cargar_descripciones
-#from modules.eda.conclusiones import mostrar_conclusiones
 
-"""def display():
-    st.markdown("<h2 style='text-align: center;'>Página de análisis exploratorio de datos (EDA)</h2>", unsafe_allow_html=True)
-    st.markdown("---")
-    if 'subpagina_eda' not in st.session_state:
-        st.markdown("<h4 style='text-align: center;'>En esta sección de nuestro proyecto, te ofrecemos la oportunidad de explorar un análisis detallado de los datos a través de diversos gráficos y visualizaciones. Este espacio está diseñado para que puedas entender mejor y analizar de forma intuitiva la información que hemos recopilado.</h4>", unsafe_allow_html=True)
-        st.image('sources/mapa_aviones_usa.png')
+def display():
+    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)  # Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
+    # Título
+    st.markdown("<h1 style='text-align: center;'>Análisis Exploratorio de Datos (EDA) en la NBA</h1>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-    if 'mostrar_conclusiones' not in st.session_state:
-        st.session_state['mostrar_conclusiones'] = False
+    # Introducción al EDA
+    st.markdown("""
+    ### ¿Qué es un Análisis Exploratorio de Datos?
+    El **Análisis Exploratorio de Datos**, o EDA por sus siglas en inglés, es un enfoque utilizado en estadística y análisis de datos con el objetivo de descubrir patrones, identificar anomalías, probar hipótesis y verificar supuestos a través de estadísticas descriptivas y visualizaciones gráficas. En resumen, el EDA es un paso fundamental antes de la formalización del análisis predictivo o prescriptivo, permitiéndome familiarizarme con la naturaleza de los datos que estoy manejando.
 
-    if 'content_to_show' not in st.session_state:
-        st.session_state['content_to_show'] = None
+    ### Herramientas de visualización en este proyecto
+    Para este análisis, he utilizado una combinación de librerías de visualización muy potentes en Python, incluyendo:
+    - **Matplotlib**: Para gráficos básicos y la construcción de componentes visuales estilizados.
+    - **Seaborn**: Que se apoya en Matplotlib y facilita la generación de gráficos estadísticos más complejos y atractivos.
+    - **Plotly**: Para visualizaciones interactivas que permiten a los usuarios de mi Streamlit explorar más detalles sobre los datos.
+    - **Folium**: Utilizado específicamente para la representación de datos geográficos que requieren una interacción a nivel de mapa.
 
-    st.markdown("---")
-    descripciones = cargar_descripciones()
+    ### Carga de datos desde Excel
+    Para comenzar con el análisis, primero importamos los datos de los equipos y jugadores de la NBA desde archivos Excel que he preparado y actualizado previamente. Los archivos 'datos_equipos_nba.xlsx' y 'datos_jugadores_nba.xlsx' contienen toda la información necesaria para realizar un análisis detallado y revelador sobre el rendimiento de equipos y jugadores a lo largo de la temporada.
 
-    col1, divider, col2 = st.columns([1, 0.3, 4])
-    with col1:
-        st.write("Selecciona el mes de diciembre de los años 2021, 2022 y 2023, o bien todos los años.")
-        df_seleccionado = seleccionar_datos(key_suffix='eda_page')
-        if df_seleccionado is not None:
-            mostrar_estadisticas_df(df_seleccionado, 'fecha')
-            st.write("* Datos de diciembre")
-            st.markdown("---")
-            st.write("Elige qué tipo de gráfica ver, agrupadas por categorías.")
-            grafica_funcion, grafica_nombre = seleccionar_grafica()
-            if grafica_funcion:
-                st.session_state['content_to_show'] = 'grafica'
-                st.session_state['mostrar_conclusiones'] = False
-        
-        st.markdown("---")
-        st.markdown("<br>", unsafe_allow_html=True)
-        if st.button("Ver conclusiones del EDA"):
-            st.session_state['mostrar_conclusiones'] = True
-            st.session_state['content_to_show'] = 'conclusiones'
+    """, unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
-    with divider:
-        st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
-
-    with col2:
-        if st.session_state['content_to_show'] == 'conclusiones' and st.session_state['mostrar_conclusiones']:
-            mostrar_conclusiones()
-        elif st.session_state['content_to_show'] == 'grafica' and df_seleccionado is not None and grafica_funcion:
-            grafica_funcion(df_seleccionado)
-            selected_year = st.session_state.get('selected_year', 'Default Year')
-            descripcion = obtener_descripcion(selected_year, grafica_nombre, descripciones)
-            st.write("Descripción de la gráfica:")
-            st.markdown(descripcion)
-"""
+# Llama a la función para mostrar la página
+display()
