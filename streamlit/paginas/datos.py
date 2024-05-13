@@ -35,29 +35,23 @@ def display():
         La principal fuente de datos es el sitio web oficial de la NBA, que ofrece una amplia gama de estadísticas de temporadas pasadas y actuales. Los datos incluyen detalles como minutos jugados, puntos, rebotes y más, proporcionados en tiempo real y accesibles mediante técnicas de scraping y APIs. La integridad y la profundidad de estos datos permiten análisis detallados que pueden influir en la toma de decisiones dentro del deporte.
         """)
 
-    # Proceso de extracción explicado más detalladamente
-    st.header('Proceso de extracción')
+    # Límites y datos recogidos
+    st.header('Límites y datos recogidos')
     st.markdown("""
-        El proceso de extracción de datos se inicia con la configuración de Selenium y BeautifulSoup para navegar y parsear el sitio web de la NBA. A continuación, se emplean scripts automatizados para recopilar datos de juegos en curso y estadísticas de jugadores, que luego son estructurados y almacenados en un DataFrame de Pandas para su análisis.
+        El proyecto se centra en la temporada actual de la NBA, analizando datos actualizados hasta la fecha de hoy, 23 de enero de 2024. Hemos recopilado información específica que incluye las victorias y derrotas de los equipos, su clasificación, así como estadísticas detalladas de los jugadores de la temporada en curso. Además, hemos incorporado datos complementarios como equipos, dorsales, edad y país de procedencia de los jugadores.
         """)
-    st.code("""
-        # Ejemplo de código de extracción
-        from selenium import webdriver
-        from bs4 import BeautifulSoup
-        import pandas as pd
 
-        driver = webdriver.Chrome('path_to_chromedriver')
-        driver.get('https://www.nba.com/games')
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-        data = []
+    # Selección de fuentes de datos y análisis a realizar
+    st.header('Selección de fuentes de datos y análisis a realizar')
+    st.markdown("""
+        La principal fuente de datos ha sido el sitio web oficial de la NBA, que ofrece una amplia gama de información estadística de temporadas pasadas y actuales. Nuestro enfoque se ha limitado a los datos de la temporada en curso, priorizando estadísticas clave de jugadores como minutos jugados, puntos, rebotes, entre otros. Con estos datos, planeamos realizar varios análisis, como identificar el top 10 de anotadores, el mejor rookie hasta la fecha y el mejor defensor de la liga, entre otros posibles estudios.
+        """)
 
-        for item in soup.find_all('tag_name', {'class': 'your_class'}):
-            stats = item.text
-            data.append(stats)
-
-        df = pd.DataFrame(data)
-        df.to_csv('nba_data.csv')
-        """, language='python')
+    # Objetivos específicos y desafíos en la extracción de datos
+    st.header('Objetivos específicos y desafíos en la extracción de datos')
+    st.markdown("""
+        Los objetivos primordiales del proyecto fueron la recolección de datos utilizando herramientas como Selenium y BeautifulSoup para la extracción de datos de la web. A pesar de la aparente simplicidad inicial, nos enfrentamos a la complejidad de la estructura del sitio web de la NBA y a restricciones en el acceso a los datos, lo que nos llevó a ser temporalmente vetados del sitio. Esta experiencia resaltó la necesidad de ajustar nuestros métodos de extracción para evitar bloqueos, lo que implicó en un proceso de captura de datos que toma más de 100 minutos.
+        """)
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
