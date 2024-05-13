@@ -233,31 +233,6 @@ def display():
 
         df_teams = pd.DataFrame(team_data)
         df_teams.to_excel('NBA_teams_data.xlsx', index=False)
-                
-        # Función para guardar los datos en Excel sin sobrescribir archivos existentes
-        def guardar_excel_con_numeracion(df, nombre_base):
-            directorio = os.path.join(os.getcwd(), "excels")
-
-            # Si el directorio no existe, se crea
-            if not os.path.exists(directorio):
-                os.makedirs(directorio)
-
-            # Construye la ruta base para el archivo
-            ruta_base = os.path.join(directorio, nombre_base)
-            contador = 0
-            ruta_final = f"{ruta_base}.xlsx"
-
-            # Verifica si el archivo ya existe y actualiza el nombre para evitar sobrescritura
-            while os.path.exists(ruta_final):
-                contador += 1
-                ruta_final = f"{ruta_base}_{contador}.xlsx"
-
-            # Guarda el DataFrame en Excel
-            df.to_excel(ruta_final, index=False, engine='openpyxl')
-            print(f"Archivo guardado como: {ruta_final}")
-
-        # Llamada a la función para guardar los datos recolectados
-        guardar_excel_con_numeracion(df_teams, "equipos_nba")
         """, language='python')
 
 
