@@ -1,6 +1,7 @@
 #paginas/eda.py
 import streamlit as st
 from modules.graph.grafica_1 import grafica_victorias_derrotas
+from modules.graph.grafica_2 import grafica_conferencias
 
 def display():
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
@@ -34,6 +35,19 @@ def display():
     """, unsafe_allow_html=True)
 
     grafica_victorias_derrotas()  # Llama a la función de la gráfica
+
+    st.markdown("""
+                ### Clasificación de equipos por división / conferencia
+
+        En este análisis, os presento la clasificación de los equipos de la NBA divididos por sus respectivas conferencias: Eastern y Western. Mediante barras horizontales, muestro tanto el número de victorias como de derrotas para cada equipo, ordenados de mayor a menor según sus victorias.
+
+        Este enfoque me permite evaluar no solo el rendimiento individual de cada equipo sino también la competitividad dentro de cada conferencia. La distribución de victorias y derrotas destaca los equipos que han dominado su conferencia y aquellos que podrían necesitar mejoras significativas para la próxima temporada. Además, esta visualización facilita la identificación de los equipos que se han clasificado para los playoffs, ofreciendo una representación clara de la temporada 2023/2024.
+
+        Observar estos datos ayuda a entender las dinámicas de la liga y puede ser un indicativo de posibles cambios y estrategias para las próximas temporadas.
+
+        """, unsafe_allow_html=True)
+
+    grafica_conferencias()
 
 # Llama a la función para mostrar la página
 display()
