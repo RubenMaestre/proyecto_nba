@@ -106,42 +106,42 @@ def display():
         Utilizando BeautifulSoup, se procesa el HTML obtenido para extraer información relevante, como los enlaces a los perfiles de cada jugador, lo que permite un análisis más detallado de sus estadísticas individuales. Este enfoque combina la automatización de la navegación con la precisión del scraping de datos estructurados.
         """)
 
- # Espacio para la cabecera y descripción general
-st.markdown("<br><br><br>", unsafe_allow_html=True)
-col1, col2, col3 = st.columns([5, 1, 5])
+    # Espacio para la cabecera y descripción general
+    st.markdown("<br><br><br>", unsafe_allow_html=True)
+    col1, col2, col3 = st.columns([5, 1, 5])
 
-with col1:
-    st.image('streamlit/sources/logo_nba.png', use_column_width=True)
-    st.header('Extracción de datos de jugadores')
-    st.markdown("""
-        Proceso completo para extraer datos de los jugadores de la NBA, desde obtener las URLs de cada perfil utilizando BeautifulSoup hasta recoger y procesar la información individual de cada jugador. Este enfoque incluye retardos aleatorios para evitar bloqueos del servidor y garantizar la fiabilidad de la recopilación de datos.
-        """)
-    
-    # Código para la extracción de datos de jugadores
-    st.code("""
-        # Inicio del proceso de extracción
-        browser.get('https://nba.com/players')
-        soup = BeautifulSoup(browser.page_source, 'html.parser')
-        player_links = [link['href'] for link in soup.find_all('a', class_='player_link')]
+    with col1:
+        st.image('streamlit/sources/logo_nba.png', use_column_width=True)
+        st.header('Extracción de datos de jugadores')
+        st.markdown("""
+            Proceso completo para extraer datos de los jugadores de la NBA, desde obtener las URLs de cada perfil utilizando BeautifulSoup hasta recoger y procesar la información individual de cada jugador. Este enfoque incluye retardos aleatorios para evitar bloqueos del servidor y garantizar la fiabilidad de la recopilación de datos.
+            """)
+        
+        # Código para la extracción de datos de jugadores
+        st.code("""
+    # Inicio del proceso de extracción
+    browser.get('https://nba.com/players')
+    soup = BeautifulSoup(browser.page_source, 'html.parser')
+    player_links = [link['href'] for link in soup.find_all('a', class_='player_link')]
 
-        player_data = []
-        for link in player_links:
-            browser.get(f'https://nba.com{link}')
-            player_soup = BeautifulSoup(browser.page_source, 'html.parser')
-            data = extract_player_data(player_soup)
-            player_data.append(data)
-            sleep(random.uniform(3, 10))  # Retardo aleatorio para evitar bloqueos
+    player_data = []
+    for link in player_links:
+        browser.get(f'https://nba.com{link}')
+        player_soup = BeautifulSoup(browser.page_source, 'html.parser')
+        data = extract_player_data(player_soup)
+        player_data.append(data)
+        sleep(random.uniform(3, 10))  # Retardo aleatorio para evitar bloqueos
 
-        def extract_player_data(soup):
-            # Extraer y retornar datos de un jugador desde el soup
-            name = soup.find('h1', class_='player_name').text
-            stats = {stat.text: value.text for stat, value in zip(soup.find_all('span', class_='stat'), soup.find_all('span', class_='value'))}
-            return {'Name': name, 'Stats': stats}
+    def extract_player_data(soup):
+        # Extraer y retornar datos de un jugador desde el soup
+        name = soup.find('h1', class_='player_name').text
+        stats = {stat.text: value.text for stat, value in zip(soup.find_all('span', class_='stat'), soup.find_all('span', class_='value'))}
+        return {'Name': name, 'Stats': stats}
 
-        # Guardar datos en un DataFrame y a Excel
-        df_players = pd.DataFrame(player_data)
-        save_data_to_excel(df_players, 'players_data')
-            """, language='python')
+    # Guardar datos en un DataFrame y a Excel
+    df_players = pd.DataFrame(player_data)
+    save_data_to_excel(df_players, 'players_data')
+        """, language='python')
 
     with col2:
         st.write("")  # Espacio en blanco para separar las columnas
@@ -155,37 +155,37 @@ with col1:
         
         # Código para la extracción de datos de equipos
         st.code("""
-        # Proceso de extracción de datos de equipos
-        team_urls = ['https://nba.com/teams/{team_id}' for team_id in team_ids]
-        team_data = []
-        for url in team_urls:
-            browser.get(url)
-            soup = BeautifulSoup(browser.page_source, 'html.parser')
-            data = extract_team_data(soup)
-            team_data.append(data)
-            sleep(random.uniform(2, 4))
+    # Proceso de extracción de datos de equipos
+    team_urls = ['https://nba.com/teams/{team_id}' for team_id in team_ids]
+    team_data = []
+    for url in team_urls:
+        browser.get(url)
+        soup = BeautifulSoup(browser.page_source, 'html.parser')
+        data = extract_team_data(soup)
+        team_data.append(data)
+        sleep(random.uniform(2, 4))
 
-        def extract_team_data(soup):
-            # Extraer y retornar datos de un equipo desde el soup
-            team_name = soup.find('span', class_='team_name').text
-            wins_losses = soup.find('div', class_='wins_losses').text.split('-')
-            stats = {stat.find('span', class_='stat').text: stat.find('span', class_='value').text for stat in soup.find_all('div', class_='stat_block')}
-            return {'Team Name': team_name, 'Wins': wins_losses[0], 'Losses': wins_losses[1], 'Stats': stats}
+    def extract_team_data(soup):
+        # Extraer y retornar datos de un equipo desde el soup
+        team_name = soup.find('span', class_='team_name').text
+        wins_losses = soup.find('div', class_='wins_losses').text.split('-')
+        stats = {stat.find('span', class_='stat').text: stat.find('span', class_='value').text for stat in soup.find_all('div', class_='stat_block')}
+        return {'Team Name': team_name, 'Wins': wins_losses[0], 'Losses': wins_losses[1], 'Stats': stats}
 
-        # Guardar datos en un DataFrame y a Excel
-        df_teams = pd.DataFrame(team_data)
-        save_data_to_excel(df_teams, 'team_data')
-            """, language='python')
+    # Guardar datos en un DataFrame y a Excel
+    df_teams = pd.DataFrame(team_data)
+    save_data_to_excel(df_teams, 'team_data')
+        """, language='python')
 
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Funciones auxiliares para extracción y guardado de datos
     st.code("""
-        def save_data_to_excel(df, filename):
-            path = os.path.join('data', f'{filename}.xlsx')
-            df.to_excel(path, index=False)
-            print(f'Data saved to {path}')
-            """, language='python')
+    def save_data_to_excel(df, filename):
+        path = os.path.join('data', f'{filename}.xlsx')
+        df.to_excel(path, index=False)
+        print(f'Data saved to {path}')
+        """, language='python')
 
 
     st.markdown("<h3 style='text-align: center;'>Proceso de extracción automatizado</h3><br>", unsafe_allow_html=True)
