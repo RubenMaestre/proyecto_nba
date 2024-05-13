@@ -30,7 +30,7 @@ def display():
     # Introducción a la gráfica
     st.markdown("""
     ### Análisis de victorias y derrotas por equipo
-    La siguiente visualización muestra el rendimiento de los equipos en la temporada de la NBA, comparando el número de victorias y derrotas de cada uno. Este gráfico de barras ayuda a identificar rápidamente los equipos con el mejor y peor desempeño durante la temporada, proporcionando una vista clara de cuáles equipos dominan la liga y cuáles enfrentan más desafíos. Observar la distribución de victorias y derrotas también puede sugerir la competitividad de la liga en general y señalar equipos que podrían ser considerados como sorpresas o decepciones.
+    La siguiente visualización muestra el rendimiento de los equipos en la temporada de la NBA, comparando el número de victorias y derrotas de cada uno. Este gráfico de barras ayuda a identificar rápidamente los equipos con el mejor y peor desempeño durante la temporada, proporcionando una vista clara de los mejores y los peores equipos de la NBA en la temporada 2023/2024. Observar la distribución de victorias y derrotas también puede sugerir la competitividad de la liga en general y señalar equipos que podrían ser considerados como sorpresas o decepciones.
     """, unsafe_allow_html=True)
 
     grafica_victorias_derrotas()  # Llama a la función de la gráfica
