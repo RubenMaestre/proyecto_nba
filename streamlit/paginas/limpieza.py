@@ -156,7 +156,7 @@ def display():
     - Guardamos el DataFrame resultante en un archivo Excel, asegurando que todos los datos estén actualizados y bien organizados para su uso en análisis posteriores.
     """)
 
-
+    st.markdown("<br>", unsafe_allow_html=True)
     # Título centrado para la sección de conexión con API Airtable
     st.markdown("<h2 style='text-align: center;'>CONEXIÓN CON API AIRTABLE</h2><br>", unsafe_allow_html=True)
 
@@ -236,12 +236,11 @@ def display():
         Esta sección detalla el proceso de conectar con Airtable y enviar datos estructurados directamente desde Python, facilitando la integración y automatización de flujos de trabajo de datos.
         """)
     
-
+    st.markdown("<br>", unsafe_allow_html=True)   
     # Subtítulo para la nueva sección de envío de datos de jugadores
     st.markdown("<h3 style='text-align: center;'>Envío de la tabla de estadísticas de jugadores a Airtable</h3><br>", unsafe_allow_html=True)
 
     # Explicación del proceso de configuración para una nueva tabla en Airtable
-    st.header("Configuración y Envío de Estadísticas de Jugadores")
     st.markdown("""
         A continuación, configuro el entorno para enviar datos de estadísticas de jugadores a una tabla diferente en Airtable. Esto implica configurar nuevas credenciales y preparar los datos específicamente para esta tabla.
         
