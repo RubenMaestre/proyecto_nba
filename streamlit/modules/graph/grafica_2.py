@@ -18,7 +18,7 @@ def grafica_conferencias():
     fig, ax = plt.subplots(figsize=(15, 8))
     ax.barh(df_western['Nombre Equipo'], df_western['Victorias'], color='blue')
     ax.set_xlabel('Victorias')
-    ax.set_title('Número de victorias en la División Western')
+    ax.set_title('Número de victorias en la División Oeste')
 
     # Añadir etiquetas de victorias y derrotas
     for i, (victorias, label) in enumerate(zip(df_western['Victorias'], df_western['Victorias-Derrotas'])):
@@ -30,7 +30,7 @@ def grafica_conferencias():
     fig, ax = plt.subplots(figsize=(15, 8))
     ax.barh(df_eastern['Nombre Equipo'], df_eastern['Victorias'], color='green')
     ax.set_xlabel('Victorias')
-    ax.set_title('Número de victorias en la División Eastern')
+    ax.set_title('Número de victorias en la División Este')
 
     # Añadir etiquetas de victorias y derrotas
     for i, (victorias, label) in enumerate(zip(df_eastern['Victorias'], df_eastern['Victorias-Derrotas'])):
