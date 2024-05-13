@@ -385,7 +385,7 @@ def display():
     """, language='python')
 
 
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.header('Actualización de datos de jugadores de la NBA')
     st.markdown("""
