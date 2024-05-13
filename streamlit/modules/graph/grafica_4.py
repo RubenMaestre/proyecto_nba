@@ -15,7 +15,7 @@ def grafica_top_jugadores():
     categorias = ['PTS', '3PM', 'FTM', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK']
 
     # Crear una figura y varios subplots
-    fig, axs = plt.subplots(3, 3, figsize=(15, 10))  # Ajustar el tamaño según necesidad
+    fig, axs = plt.subplots(2, 5, figsize=(15, 10))  # Ajustar el tamaño según necesidad
     fig.suptitle('Top 10 jugadores en varias categorías')
 
     for i, cat in enumerate(categorias):
