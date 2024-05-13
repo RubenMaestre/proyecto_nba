@@ -106,52 +106,63 @@ def display():
         Utilizando BeautifulSoup, se procesa el HTML obtenido para extraer información relevante, como los enlaces a los perfiles de cada jugador, lo que permite un análisis más detallado de sus estadísticas individuales. Este enfoque combina la automatización de la navegación con la precisión del scraping de datos estructurados.
         """)
 
+ # Espacio para la cabecera y descripción general
     st.markdown("<br><br><br>", unsafe_allow_html=True)
-    col1, col2, col3 = st.columns([5,1,5])
+    col1, col2, col3 = st.columns([5, 1, 5])
 
     with col1:
         st.image('streamlit/sources/logo_nba.png', use_column_width=True)
-        st.header('Automatización del Proceso de Selección')
+        st.header('Extracción de datos de jugadores')
         st.markdown("""
-            Esta función automatiza la selección de elementos en un menú desplegable. Se utiliza específicamente para seleccionar los aeropuertos y aerolíneas previamente almacenados en dos listas. La elección de **By.NAME** se debe al hecho de que estos elementos están identificados por su nombre en el código HTML.
+            Este proceso incluye la obtención del código fuente con Selenium, el uso de BeautifulSoup para parsear el HTML y extraer las URLs de los perfiles de los jugadores, seguido por la recopilación de datos individuales. Se implementa un retardo aleatorio entre solicitudes para evitar bloqueos por parte del servidor de la NBA.
             """)
-
+        
+        # Código para la extracción de datos de jugadores
         st.code("""
-            def seleccionar_por_indice(url, nombre_seleccionado, lista_elementos):
-                \"\"\"Esta función selecciona los aeropuertos y las aerolíneas en el menú desplegable\"\"\"
-                driver = webdriver.Firefox()
-                driver.get(url)
-                seleccion = Select(driver.find_element(By.NAME, nombre_seleccionado))
-                
-                for elemento in lista_elementos:
-                    seleccion.select_by_visible_text(elemento)
-                    sleep(1) 
-        """, language='python')
+        # Proceso de extracción de datos de jugadores utilizando BeautifulSoup y Selenium
+        response = requests.get(url_jugador)
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Extracción de información de un jugador
+        info_jugador = extraer_informacion_jugador(soup, url_jugador)
+                """, language='python')
 
     with col2:
-        st.write("")
+        st.write("")  # Espacio en blanco para separar las columnas
 
     with col3:
-        st.image('streamlit/sources/logo_nba.png', use_column_width=True) 
-        st.header('Función para seleccionar datos')
+        st.image('streamlit/sources/logo_nba.png', use_column_width=True)
+        st.header('Extracción de datos de equipos')
         st.markdown("""
-            La función **preselecciones** se utiliza al inicio para marcar de antemano todas las estadísticas (por qué sale tarde, el tiempo que tarda en despegar, etc.), todos los días del mes, el mes de diciembre y los tres años con los que hemos hecho el trabajo.
+            Utilizamos técnicas de web scraping para recopilar información sobre los equipos de la NBA. Se define una función para procesar cada URL y extraer detalles como el nombre del equipo, registro de victorias y derrotas, y estadísticas clave. Los datos se almacenan en un DataFrame y se guardan sin sobrescribir archivos existentes.
             """)
-
+        
+        # Código para la extracción de datos de equipos
         st.code("""
-            def preselecciones(driver):
-                \"\"\"Preselecciona las casillas necesarias para la extracción\"\"\"
-                driver.find_element(By.ID, "chkAllStatistics").click() 
-                driver.find_element(By.ID, "chkAllDays").click()  
-                driver.find_element(By.ID, "chkMonths_11").click()  # click_mes_diciembre
-                
-                # Selecciona 2021, 2022 y 2023
-                driver.find_element(By.ID, "chkYears_34").click()
-                driver.find_element(By.ID, "chkYears_35").click() 
-                driver.find_element(By.ID, "chkYears_36").click()
-        """, language='python')
+            # Proceso de extracción de datos de equipos utilizando BeautifulSoup
+            response = requests.get(url_equipo)
+            soup = BeautifulSoup(response.text, 'html.parser')
+
+            # Extracción de información de un equipo
+            info_equipo = extraer_informacion_equipo_bs4(soup)
+                    """, language='python')
 
     st.markdown("<br>", unsafe_allow_html=True)
+
+    # Funciones auxiliares para extracción y guardado de datos
+    st.code("""
+        def extraer_informacion_jugador(soup, url):
+            # Lógica para extraer y retornar datos de un jugador
+            pass
+
+        def extraer_informacion_equipo_bs4(soup):
+            # Lógica para extraer y retornar datos de un equipo
+            pass
+
+        def guardar_excel_con_numeracion(df, nombre_base):
+            # Lógica para guardar DataFrame en Excel sin sobrescribir archivos existentes
+            pass
+            """, language='python')
 
     st.markdown("<h3 style='text-align: center;'>Proceso de extracción automatizado</h3><br>", unsafe_allow_html=True)
     colizq, colder = st.columns(2)
