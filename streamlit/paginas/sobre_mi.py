@@ -30,8 +30,11 @@ def display():
         - En el ámbito deportivo, lideré con éxito la sección de fútbol sala del Elche C.F. y la liga local, aplicando estrategias de marketing y comunicación efectivas.
         - Como director del programa 'Crucemos el Rubicón' en Radio Intereconomía, hice del programa un punto de referencia en la región de Alicante.
         - He desarrollado y gestionado proyectos digitales que combinan deporte, comunicación y tecnología, destacando por su innovación y alcance.
-        - He creado mi propia marca de moda donde desarrollo mis habilidades en empresa, marketing y comunicación #SUPERCLAW
-
+        - He creado mi propia marca de moda donde desarrollo mis habilidades en empresa, marketing y comunicación #SUPERCLAW"""
+    )
+    
+    st.markdown("<br>", unsafe_allow_html=True)            
+    st.markdown("""
         **💪 ¿Buscas soluciones basadas en datos para tu negocio?**
         Estoy abierto a colaboraciones y oportunidades que beneficien de mi experiencia en Data Science y marketing digital. Juntos, podemos crear estrategias que marquen la diferencia.
 
