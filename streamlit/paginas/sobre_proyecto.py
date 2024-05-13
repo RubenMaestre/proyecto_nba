@@ -91,7 +91,7 @@ def display():
     # Conclusión final del proyecto
     with st.expander("Conclusión final del proyecto"):
         st.write("""
-            Con la finalización de este proyecto, he alcanzado un hito significativo en mi formación y desarrollo profesional. Este fue el primer proyecto que realicé en Hack a Boss y, desde entonces, he continuado evolucionándolo y ampliándolo, no solo cumpliendo los objetivos iniciales sino también superando mis expectativas en términos de profundidad y alcance del análisis de datos de la NBA.
+            Con la finalización de este proyecto, confieso realmente que fui capaz de entender las grandes oportunidades que se abrían ante mí para realizar todo tipo de proyectos... hasta la realización de este proyecto no era capaz de imaginar las opciones y recursos que tendría en mi mano. Este fue el primer proyecto que realicé en Hack a Boss y, desde entonces, he continuado evolucionándolo y ampliándolo, no solo cumpliendo los objetivos iniciales sino también superando mis expectativas en términos de profundidad y alcance del análisis de datos de la NBA.
 
             El uso integrado de tecnologías como Python, Streamlit, Pandas, y Plotly, entre otros, no solo facilitó la manipulación de grandes volúmenes de datos, sino que también mejoró mi capacidad de presentar datos complejos de manera intuitiva y accesible. Este proyecto ha sido una prueba tangible de cómo la ciencia de datos puede aplicarse para resolver problemas reales y ofrecer soluciones prácticas en el deporte y otros sectores.
 
