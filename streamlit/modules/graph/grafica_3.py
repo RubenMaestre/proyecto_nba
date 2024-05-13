@@ -6,7 +6,7 @@ from folium.features import CustomIcon
 
 def mapa_equipos_nba():
     # Cargar datos
-    ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
+    ruta_equipos_nba = 'proyecto_nba/excels/actualizados/datos_nuevos_equipos_nba.xlsx'
     df_equipos_nba = pd.read_excel(ruta_equipos_nba)
 
     # Crear un mapa base
@@ -18,7 +18,7 @@ def mapa_equipos_nba():
         longitud = fila['Longitud']
         id_equipo = fila['ID Equipo']
         nombre_equipo = fila['Nombre Equipo']
-        ruta_logo = f"logos_equipos/png/{id_equipo}.png"
+        ruta_logo = f"proyecto_nba/logos_equipos/png/{id_equipo}.png"
 
         icono = CustomIcon(
             icon_image=ruta_logo,
