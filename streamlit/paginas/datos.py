@@ -1,41 +1,65 @@
 import streamlit as st
 
-def display():
-    st.title('Extracción de datos y explicación')
 
+import streamlit as st
+
+def display():
+    st.title('Extracción y análisis de datos de la NBA')
+
+    # Introducción y contexto del proyecto
     st.markdown("""
             <div style='text-align: justify;'>
-            <p><strong style='font-size: 18px;'>Los datos presentados en esta plataforma han sido meticulosamente recolectados mediante técnicas avanzadas de web scraping, empleando un conjunto de herramientas especializadas en la extracción y manipulación de información de páginas web. Este proceso se llevó a cabo con el fin de proporcionar análisis detallados y actualizados sobre los vuelos nacionales en Estados Unidos. <br>Uno de los mayores desafíos al iniciar un proyecto de análisis de datos desde cero es, sin duda, la búsqueda y adquisición de datos relevantes y confiables. Antes de decidirnos por este enfoque específico, llevamos a cabo una exhaustiva investigación exploratoria en busca de temas potencialmente interesantes. Durante esta fase, exploramos múltiples fuentes de datos, incluyendo repositorios populares como Kaggle, diversas páginas gubernamentales y otras plataformas especializadas en datos abiertos. Después de evaluar varias opciones y temáticas, nos decantamos por el estudio de la puntualidad en los vuelos internos de Estados Unidos. Esta elección estuvo motivada tanto por la disponibilidad de datos como por la relevancia del tema en el contexto actual de la industria de la aviación, donde la eficiencia operativa es crucial. <br>Este enfoque nos permitió centrarnos en una problemática de alta relevancia y aplicabilidad, donde nuestras habilidades en ciencia de datos podrían ser aplicadas para generar insights significativos y propuestas de valor concretas para mejorar la experiencia de viaje en Estados Unidos.</strong></p>
+            <p><strong style='font-size: 18px;'>Este proyecto analiza meticulosamente los datos de la NBA, empleando técnicas avanzadas de web scraping y API para extraer información actualizada sobre los juegos, jugadores y equipos. El objetivo principal es automatizar la recolección de datos y proporcionar análisis profundos que revelen patrones, tendencias y estadísticas ocultas en el deporte del baloncesto. La complejidad y dinamismo de la NBA hacen de esta una oportunidad única para explorar aspectos del juego que van más allá de las estadísticas convencionales.</strong></p>
             </div>
         """, unsafe_allow_html=True)
 
     st.markdown("<br><br>", unsafe_allow_html=True)
 
+    # Espacio para una imagen representativa, si es necesario
     col1, col2, col3 = st.columns([0.5, 12, 0.5])
-    with col2:  # Utilizamos la columna del medio para la imagen
+    with col2:
         st.image('streamlit/sources/cabecera.jpg')  # Asegúrate de que la ruta de la imagen sea correcta
 
+    # Descripción de las tecnologías utilizadas
     st.header('Tecnologías utilizadas')
     st.markdown("""
-    - **BeautifulSoup**: Una librería de Python que facilita la extracción de información de páginas web, parseando los documentos HTML y permitiendo la manipulación eficiente de los mismos.
-    - **Requests**: Un módulo de Python para enviar solicitudes HTTP de manera sencilla, utilizado para obtener el código fuente de las páginas web desde las cuales recolectamos datos.
-    - **Selenium WebDriver**: Herramienta de automatización para manejar navegadores web, que permite interactuar con elementos web de forma programática en sitios que requieren interacciones dinámicas.
-    - **By**: Módulo en Selenium utilizado para localizar elementos dentro de una página web usando varios métodos como id, name, xpath, entre otros.
-    - **Select**: Clase en Selenium para interactuar con los elementos `<select>` de los formularios HTML, facilitando la selección automática en menús desplegables.
-    - **WebDriverWait y Expected Conditions (EC)**: Utilizados para gestionar la espera de elementos específicos en la página que pueden tardar en aparecer, asegurando que los datos estén disponibles antes de proceder con su extracción.
-    - **sleep (time)**: Función del módulo `time` de Python que pausa la ejecución del script para simular interacciones humanas o cumplir con las políticas de uso de los servidores web, evitando ser detectados como bots.
+    - **BeautifulSoup y Selenium**: Utilizados para el web scraping dinámico, permitiendo interactuar con el sitio web de la NBA y extraer datos en tiempo real.
+    - **Pandas y NumPy**: Claves para la manipulación y estructuración de los datos recolectados, permitiendo la limpieza, transformación y preparación de los mismos para el análisis.
+    - **APIs de la NBA**: Empleadas para acceder a estadísticas detalladas y actualizadas, complementando los datos obtenidos a través del scraping.
+    - **Matplotlib y Seaborn**: Para la visualización de los datos, facilitando la interpretación de complejas estadísticas y la revelación de insights a través de gráficos.
     """)
 
-
+    # Fuente de los datos
     st.header('Fuente de los datos')
     st.markdown("""
-        Los datos para este estudio fueron extraídos del [Departamento de Estadísticas de Transporte de EE. UU. (BTS)](https://www.transtats.bts.gov/ONTIME/Departures.aspx), una entidad del Departamento de Transporte (DOT). El BTS es reconocido como la principal fuente de estadísticas sobre la aviación comercial, la actividad de transporte multimodal de mercancías y la economía del transporte, proporcionando datos esenciales para tomadores de decisiones y el público en general.
-
-        El BTS asegura la credibilidad de sus productos y servicios a través de un análisis riguroso, una calidad de datos transparente y una independencia de la influencia política, promoviendo métodos innovadores de recolección, análisis, visualización y difusión de datos. Estos esfuerzos ayudan a mejorar la eficiencia operativa, explorar temas emergentes y crear productos informativos que contribuyen a un entendimiento profundo del transporte y su papel transformador en la sociedad.
-
-        La directora del BTS, la Sra. Patricia S. Hu, posee una extensa experiencia estadística, un profundo conocimiento del transporte y una sólida formación en investigación. El Dr. Rolf R. Schmitt, el Subdirector, es un experto reconocido en política de transporte y en el desarrollo de estadísticas para informar decisiones de transporte. Ambos lideran un equipo que es clave en el establecimiento de normativas y estrategias que influyen en el panorama del transporte estadounidense y global.
+        La principal fuente de datos es el sitio web oficial de la NBA, que ofrece una amplia gama de estadísticas de temporadas pasadas y actuales. Los datos incluyen detalles como minutos jugados, puntos, rebotes y más, proporcionados en tiempo real y accesibles mediante técnicas de scraping y APIs. La integridad y la profundidad de estos datos permiten análisis detallados que pueden influir en la toma de decisiones dentro del deporte.
         """)
 
+    # Proceso de extracción explicado más detalladamente
+    st.header('Proceso de extracción')
+    st.markdown("""
+        El proceso de extracción de datos se inicia con la configuración de Selenium y BeautifulSoup para navegar y parsear el sitio web de la NBA. A continuación, se emplean scripts automatizados para recopilar datos de juegos en curso y estadísticas de jugadores, que luego son estructurados y almacenados en un DataFrame de Pandas para su análisis.
+        """)
+    st.code("""
+        # Ejemplo de código de extracción
+        from selenium import webdriver
+        from bs4 import BeautifulSoup
+        import pandas as pd
+
+        driver = webdriver.Chrome('path_to_chromedriver')
+        driver.get('https://www.nba.com/games')
+        soup = BeautifulSoup(driver.page_source, 'html.parser')
+        data = []
+
+        for item in soup.find_all('tag_name', {'class': 'your_class'}):
+            stats = item.text
+            data.append(stats)
+
+        df = pd.DataFrame(data)
+        df.to_csv('nba_data.csv')
+        """, language='python')
+
+    st.markdown("<br><br><br>", unsafe_allow_html=True)
 
     st.header('Proceso de extracción')
     st.markdown("""
