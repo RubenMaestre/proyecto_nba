@@ -19,7 +19,7 @@ def display():
         Creo en el poder transformador de la ciencia de datos y la inteligencia artificial en diversas áreas, no solo en la empresa, el marketing y la comunicación. Estas herramientas no solo optimizan la toma de decisiones, sino que también abren caminos hacia soluciones innovadoras y personalizadas.
         """)
 
-    st.image('path_to_your_image.jpg', width=300, caption='Rubén Maestre')
+    st.image('streamlit/paginas/rubénmaestre.jpg', width=300, caption='Rubén Maestre')
 
     # Información de contacto y enlaces sociales
     st.markdown("""
