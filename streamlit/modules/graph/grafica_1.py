@@ -21,7 +21,7 @@ def grafica_victorias_derrotas():
     ax.bar(posiciones - ancho_barra / 2, df_equipos_ordenados['Victorias'], width=ancho_barra, color='blue', label='Victorias')
     ax.bar(posiciones + ancho_barra / 2, df_equipos_ordenados['Derrotas'], width=ancho_barra, color='red', label='Derrotas')
 
-    ax.set_title('Comparación de equipos de la NBA por victorias y derrotas')
+    ax.set_title('Comparación de equipos de la NBA por victorias y derrotas temporada 2023/2024')
     ax.set_xlabel('Nombre del equipo')
     ax.set_ylabel('Cantidad')
     ax.set_xticks(posiciones)
