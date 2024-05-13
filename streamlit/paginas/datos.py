@@ -238,6 +238,76 @@ def display():
 
     st.markdown("<br>", unsafe_allow_html=True)
 
+
+    # Proceso de extracción con Selenium y BeautifulSoup para logos de equipos
+    st.header('Extracción y descarga de escudos de los equipos de la NBA')
+    st.markdown("""
+        Utilizamos Selenium con WebDriver para Chrome para navegar por la página oficial de la NBA y aceptar la política de cookies. Posteriormente, accedemos a la sección de equipos para obtener las URLs de sus perfiles.
+        """)
+
+    # Código de Selenium y BeautifulSoup para extracción de logos
+    st.code("""
+        from selenium import webdriver
+        from selenium.webdriver.common.by import By
+        from bs4 import BeautifulSoup
+        import requests
+        import os
+
+        # Configuración inicial de Selenium con el WebDriver de Chrome
+        browser = webdriver.Chrome()
+        browser.get("https://nba.com/games")
+        browser.maximize_window()
+
+        # Aceptar la política de cookies
+        sleep(1)
+        browser.find_element(by=By.ID, value="onetrust-accept-btn-handler").click()
+
+        # Navegación hasta la página de equipos
+        sleep(2)
+        browser.find_element(by=By.XPATH, value='//*[@id="nav-ul"]/li[7]/a').click()
+
+        # Obtención del HTML de la página actual para realizar scraping con BeautifulSoup
+        html_equipos = browser.page_source
+        soup = BeautifulSoup(html_equipos, "html.parser")
+        urls_equipos_nba = [a['href'] for a in soup.find_all('a', class_='Anchor_anchor__cSc3P TeamFigureLink_teamFigureLink__uqnNO') if '/stats/team/' in a['href']]
+
+        # Función para extraer la URL del logo de un equipo
+        def extraer_logos_equipo_bs4(url):
+            response = requests.get(url)
+            if response.status_code == 200:
+                soup = BeautifulSoup(response.text, 'html.parser')
+                logo_elemento = soup.select_one(".TeamHeader_logoBlock__WjNZB img")
+                id_equipo = url.split('/')[-1]
+                url_logo = logo_elemento['src'] if logo_elemento else None
+                return id_equipo, url_logo
+
+        # Función para descargar el logo
+        def descargar_logo(id_equipo, url, ruta_carpeta):
+            if url:
+                response = requests.get(url)
+                if response.status_code == 200:
+                    nombre_archivo = f"{id_equipo}.svg"  # Usar el ID del equipo para el nombre del archivo
+                    ruta_completa = os.path.join(ruta_carpeta, nombre_archivo)
+                    with open(ruta_completa, 'wb') as file:
+                        file.write(response.content)
+
+        # Carpeta para guardar los logos
+        ruta_carpeta_logos = "logos_equipos"
+        if not os.path.exists(ruta_carpeta_logos):
+            os.makedirs(ruta_carpeta_logos)
+
+        # Proceso para descargar cada logo
+        for url_equipo in urls_equipos_nba:
+            id_equipo, url_logo = extraer_logos_equipo_bs4(url_equipo)
+            if url_logo:
+                descargar_logo(id_equipo, url_logo, ruta_carpeta_logos)
+        """, language='python')
+
+    st.markdown("""
+        Este enfoque permite descargar y almacenar localmente los logos de los equipos de la NBA. Cada logo se guarda en formato SVG utilizando el identificador del equipo como nombre de archivo, lo que facilita su organización y acceso posterior.
+        """)
+  
+
     st.markdown("<h3 style='text-align: center;'>Proceso de extracción automatizado</h3><br>", unsafe_allow_html=True)
     colizq, colder = st.columns(2)
     with colizq:
