@@ -161,9 +161,9 @@ def display():
     st.markdown("<h2 style='text-align: center;'>CONEXIÓN CON API AIRTABLE</h2><br>", unsafe_allow_html=True)
 
     # Introducción y configuración inicial para la conexión con Airtable
-    st.header("Configuración Inicial y Envío de Datos a Airtable")
+    st.header("Configuración inicial y envío de datos a Airtable")
     st.markdown("""
-        **Configuración Inicial:**
+        **Configuración inicial:**
         - **API Key**: Clave de usuario para autenticarse con la API de Airtable.
         - **Base ID y Table ID**: Identificadores únicos para la base de datos y la tabla dentro de Airtable donde se enviarán los datos.
         - **Headers**: Configuración necesaria para las solicitudes HTTP, incluyendo la autorización y el tipo de contenido.
@@ -193,7 +193,7 @@ def display():
     """, language='python')
 
     st.markdown("""
-        **Envío de Datos:**
+        **Envío de datos:**
         - Se preparan los datos a enviar en grupos de registros utilizando pandas y se envían a Airtable en lotes de 10 registros para gestionar mejor el rendimiento y los límites de la API.
         - Se utiliza un bucle para enviar todos los registros presentes en el DataFrame, asegurando que todos los datos se transfieran correctamente.
         """)
@@ -244,7 +244,7 @@ def display():
     st.markdown("""
         A continuación, configuro el entorno para enviar datos de estadísticas de jugadores a una tabla diferente en Airtable. Esto implica configurar nuevas credenciales y preparar los datos específicamente para esta tabla.
         
-        **Configuración de Credenciales:**
+        **Configuración de credenciales:**
         - **API Key, Base ID, Table ID**: Se actualizan para acceder a la tabla específica de estadísticas de jugadores en Airtable.
         - **Headers y Endpoint**: Se configuran para autenticar y dirigir las solicitudes a la API adecuada.
         """)
