@@ -4,13 +4,12 @@ import streamlit as st
 def display():
     st.title("Sobre mí")
 
-    col1, col2 = st.columns([7, 3])
+    st.markdown("### 🚀 Impulsando innovación a través de la ciencia de datos en diversos sectores, incluyendo el deportivo.")
 
+    col1, col2 = st.columns([7, 3])
     with col1:
         st.markdown("""
-            ### 🚀 Impulsando innovación a través de la ciencia de datos en diversos sectores, incluyendo el deportivo.
-            
-            Bienvenido a mi perfil. Soy Rubén Maestre, un profesional con una pasión por la sinergia entre la tecnología, la comunicación y los negocios. Mi trayectoria, que incluye un MBA en Gestión Deportiva y una profunda experiencia en Marketing Digital, ha evolucionado hacia una especialización en Data Science y tecnologías emergentes, aplicables en una amplia gama de industrias.
+           Bienvenido a mi perfil. Soy Rubén Maestre, un profesional con una pasión por la sinergia entre la tecnología, la comunicación y los negocios. Mi trayectoria, que incluye un MBA en Gestión Deportiva y una profunda experiencia en Marketing Digital, ha evolucionado hacia una especialización en Data Science y tecnologías emergentes, aplicables en una amplia gama de industrias.
 
             **¿Qué puedo ofrecerte?**
             - **Especializado en Data Science**: Con habilidades en Python, SQL, Machine Learning y Big Data, proporciono soluciones analíticas y basadas en datos para optimizar estrategias en diversos campos, desde el marketing hasta la gestión operativa.
