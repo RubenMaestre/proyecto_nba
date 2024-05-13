@@ -26,29 +26,34 @@ def display():
     - **Matplotlib y Seaborn**: Utilizo estas bibliotecas para la visualización de los datos, facilitando la interpretación de complejas estadísticas y la revelación de insights a través de gráficos.
     """)
 
-    # Fuente de los datos
-    st.header('Fuente de los datos')
-    st.markdown("""
-        La principal fuente de datos es el sitio web oficial de la NBA, que ofrece una amplia gama de estadísticas de temporadas pasadas y actuales. Los datos incluyen detalles como minutos jugados, puntos, rebotes y más, proporcionados en tiempo real y accesibles mediante técnicas de scraping y APIs. La integridad y la profundidad de estos datos permiten análisis detallados que pueden influir en la toma de decisiones dentro del deporte.
-        """)
+    # Creación de dos columnas con Streamlit
+    col1, col2 = st.columns(2)
 
-    # Límites y datos recogidos
-    st.header('Límites y datos recogidos')
-    st.markdown("""
-        Me centro en la temporada actual de la NBA, analizando datos actualizados hasta hoy, 23 de enero de 2024. He recopilado información específica que incluye las victorias y derrotas de los equipos, su clasificación, así como estadísticas detalladas de los jugadores de la temporada en curso. Además, he incorporado datos complementarios como equipos, dorsales, edad y país de procedencia de los jugadores.
-        """)
+    with col1:
+        # Fuente de los datos
+        st.header('Fuente de los datos')
+        st.markdown("""
+            La principal fuente de datos es el sitio web oficial de la NBA, que ofrece una amplia gama de estadísticas de temporadas pasadas y actuales. Los datos incluyen detalles como minutos jugados, puntos, rebotes y más, proporcionados en tiempo real y accesibles mediante técnicas de scraping y APIs. La integridad y la profundidad de estos datos permiten análisis detallados que pueden influir en la toma de decisiones dentro del deporte.
+            """)
 
-    # Selección de fuentes de datos y análisis a realizar
-    st.header('Selección de fuentes de datos y análisis a realizar')
-    st.markdown("""
-        La principal fuente de datos ha sido el sitio web oficial de la NBA, que ofrece una amplia gama de información estadística de temporadas pasadas y actuales. Mi enfoque se ha limitado a los datos de la temporada en curso, priorizando estadísticas clave de jugadores como minutos jugados, puntos, rebotes, entre otros. Con estos datos, planeo realizar varios análisis, como identificar el top 10 de anotadores, el mejor rookie hasta la fecha y el mejor defensor de la liga, entre otros posibles estudios.
-        """)
+        # Límites y datos recogidos
+        st.header('Límites y datos recogidos')
+        st.markdown("""
+            Me centro en la temporada actual de la NBA, analizando datos actualizados hasta hoy, 23 de enero de 2024. He recopilado información específica que incluye las victorias y derrotas de los equipos, su clasificación, así como estadísticas detalladas de los jugadores de la temporada en curso. Además, he incorporado datos complementarios como equipos, dorsales, edad y país de procedencia de los jugadores.
+            """)
 
-    # Objetivos específicos y desafíos en la extracción de datos
-    st.header('Objetivos específicos y desafíos en la extracción de datos')
-    st.markdown("""
-        Mi principal objetivo fue la recolección de datos utilizando herramientas como Selenium y BeautifulSoup para la extracción de datos de la web. A pesar de la aparente simplicidad inicial, me enfrenté a la complejidad de la estructura del sitio web de la NBA y a restricciones en el acceso a los datos, lo que me llevó a ser temporalmente vetado del sitio. Esta experiencia resaltó la necesidad de ajustar mis métodos de extracción para evitar bloqueos, lo que implicó un proceso de captura de datos que tomó más de 100 minutos.
-        """)
+    with col2:
+        # Selección de fuentes de datos y análisis a realizar
+        st.header('Selección de fuentes de datos y análisis a realizar')
+        st.markdown("""
+            La principal fuente de datos ha sido el sitio web oficial de la NBA, que ofrece una amplia gama de información estadística de temporadas pasadas y actuales. Mi enfoque se ha limitado a los datos de la temporada en curso, priorizando estadísticas clave de jugadores como minutos jugados, puntos, rebotes, entre otros. Con estos datos, planeo realizar varios análisis, como identificar el top 10 de anotadores, el mejor rookie hasta la fecha y el mejor defensor de la liga, entre otros posibles estudios.
+            """)
+
+        # Objetivos específicos y desafíos en la extracción de datos
+        st.header('Objetivos específicos y desafíos en la extracción de datos')
+        st.markdown("""
+            Mi principal objetivo fue la recolección de datos utilizando herramientas como Selenium y BeautifulSoup para la extracción de datos de la web. A pesar de la aparente simplicidad inicial, me enfrenté a la complejidad de la estructura del sitio web de la NBA y a restricciones en el acceso a los datos, lo que me llevó a ser temporalmente vetado del sitio. Esta experiencia resaltó la necesidad de ajustar mis métodos de extracción para evitar bloqueos, lo que implicó un proceso de captura de datos que tomó más de 100 minutos.
+            """)
 
     st.markdown("<br>", unsafe_allow_html=True)
 
