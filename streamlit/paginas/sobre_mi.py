@@ -23,7 +23,7 @@ def display():
     with col2:
         st.image('streamlit/sources/ruben_maestre.jpg', width=300, caption='Rubén Maestre')
 
-
+    st.markdown("<br>", unsafe_allow_html=True)
     # Información de contacto y enlaces sociales
     st.markdown("""
         **🌟 Logros destacados**
