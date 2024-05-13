@@ -10,7 +10,7 @@ def display():
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     # Espacio para una imagen representativa, si es necesario
     col1, col2, col3 = st.columns([0.5, 12, 0.5])
@@ -107,7 +107,7 @@ def display():
         """)
 
     # Espacio para la cabecera y descripción general
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
     col1, col2, col3 = st.columns([5, 1, 5])
 
     with col1:
@@ -308,7 +308,7 @@ def display():
         """)
   
 
-    st.markdown("<h3 style='text-align: center;'>Extracción de estadísticas de jugadores de la NBA utilizando su ID</h3><br>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Extracción de estadísticas de jugadores de la NBA utilizando su ID</h2><br>", unsafe_allow_html=True)
     colizq, colder = st.columns(2)
     with colizq:
         
