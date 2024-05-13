@@ -1,15 +1,12 @@
 import streamlit as st
 
-
-import streamlit as st
-
 def display():
     st.title('Extracción y análisis de datos de la NBA')
 
     # Introducción y contexto del proyecto
     st.markdown("""
             <div style='text-align: justify;'>
-            <p><strong style='font-size: 18px;'>Este proyecto analiza meticulosamente los datos de la NBA, empleando técnicas avanzadas de web scraping y API para extraer información actualizada sobre los juegos, jugadores y equipos. El objetivo principal es automatizar la recolección de datos y proporcionar análisis profundos que revelen patrones, tendencias y estadísticas ocultas en el deporte del baloncesto. La complejidad y dinamismo de la NBA hacen de esta una oportunidad única para explorar aspectos del juego que van más allá de las estadísticas convencionales.</strong></p>
+            <p><strong style='font-size: 18px;'>Este proyecto analiza meticulosamente los datos de la NBA, empleando técnicas avanzadas de web scraping y API para extraer información actualizada sobre los juegos, jugadores y equipos. Mi objetivo principal es automatizar la recolección de datos y proporcionar análisis profundos que revelen patrones, tendencias y estadísticas ocultas en el deporte del baloncesto. La complejidad y dinamismo de la NBA hacen de esta una oportunidad única para explorar aspectos del juego que van más allá de las estadísticas convencionales.</strong></p>
             </div>
         """, unsafe_allow_html=True)
 
@@ -23,10 +20,10 @@ def display():
     # Descripción de las tecnologías utilizadas
     st.header('Tecnologías utilizadas')
     st.markdown("""
-    - **BeautifulSoup y Selenium**: Utilizados para el web scraping dinámico, permitiendo interactuar con el sitio web de la NBA y extraer datos en tiempo real.
-    - **Pandas y NumPy**: Claves para la manipulación y estructuración de los datos recolectados, permitiendo la limpieza, transformación y preparación de los mismos para el análisis.
-    - **APIs de la NBA**: Empleadas para acceder a estadísticas detalladas y actualizadas, complementando los datos obtenidos a través del scraping.
-    - **Matplotlib y Seaborn**: Para la visualización de los datos, facilitando la interpretación de complejas estadísticas y la revelación de insights a través de gráficos.
+    - **BeautifulSoup y Selenium**: Empleo estas herramientas para el web scraping dinámico, lo que me permite interactuar con el sitio web de la NBA y extraer datos en tiempo real.
+    - **Pandas y NumPy**: Son claves para la manipulación y estructuración de los datos recolectados, permitiéndome limpiar, transformar y preparar los mismos para el análisis.
+    - **APIs de la NBA**: Las uso para acceder a estadísticas detalladas y actualizadas, complementando los datos obtenidos a través del scraping.
+    - **Matplotlib y Seaborn**: Utilizo estas bibliotecas para la visualización de los datos, facilitando la interpretación de complejas estadísticas y la revelación de insights a través de gráficos.
     """)
 
     # Fuente de los datos
@@ -38,19 +35,19 @@ def display():
     # Límites y datos recogidos
     st.header('Límites y datos recogidos')
     st.markdown("""
-        El proyecto se centra en la temporada actual de la NBA, analizando datos actualizados hasta la fecha de hoy, 23 de enero de 2024. Hemos recopilado información específica que incluye las victorias y derrotas de los equipos, su clasificación, así como estadísticas detalladas de los jugadores de la temporada en curso. Además, hemos incorporado datos complementarios como equipos, dorsales, edad y país de procedencia de los jugadores.
+        Me centro en la temporada actual de la NBA, analizando datos actualizados hasta hoy, 23 de enero de 2024. He recopilado información específica que incluye las victorias y derrotas de los equipos, su clasificación, así como estadísticas detalladas de los jugadores de la temporada en curso. Además, he incorporado datos complementarios como equipos, dorsales, edad y país de procedencia de los jugadores.
         """)
 
     # Selección de fuentes de datos y análisis a realizar
     st.header('Selección de fuentes de datos y análisis a realizar')
     st.markdown("""
-        La principal fuente de datos ha sido el sitio web oficial de la NBA, que ofrece una amplia gama de información estadística de temporadas pasadas y actuales. Nuestro enfoque se ha limitado a los datos de la temporada en curso, priorizando estadísticas clave de jugadores como minutos jugados, puntos, rebotes, entre otros. Con estos datos, planeamos realizar varios análisis, como identificar el top 10 de anotadores, el mejor rookie hasta la fecha y el mejor defensor de la liga, entre otros posibles estudios.
+        La principal fuente de datos ha sido el sitio web oficial de la NBA, que ofrece una amplia gama de información estadística de temporadas pasadas y actuales. Mi enfoque se ha limitado a los datos de la temporada en curso, priorizando estadísticas clave de jugadores como minutos jugados, puntos, rebotes, entre otros. Con estos datos, planeo realizar varios análisis, como identificar el top 10 de anotadores, el mejor rookie hasta la fecha y el mejor defensor de la liga, entre otros posibles estudios.
         """)
 
     # Objetivos específicos y desafíos en la extracción de datos
     st.header('Objetivos específicos y desafíos en la extracción de datos')
     st.markdown("""
-        Los objetivos primordiales del proyecto fueron la recolección de datos utilizando herramientas como Selenium y BeautifulSoup para la extracción de datos de la web. A pesar de la aparente simplicidad inicial, nos enfrentamos a la complejidad de la estructura del sitio web de la NBA y a restricciones en el acceso a los datos, lo que nos llevó a ser temporalmente vetados del sitio. Esta experiencia resaltó la necesidad de ajustar nuestros métodos de extracción para evitar bloqueos, lo que implicó en un proceso de captura de datos que toma más de 100 minutos.
+        Mi principal objetivo fue la recolección de datos utilizando herramientas como Selenium y BeautifulSoup para la extracción de datos de la web. A pesar de la aparente simplicidad inicial, me enfrenté a la complejidad de la estructura del sitio web de la NBA y a restricciones en el acceso a los datos, lo que me llevó a ser temporalmente vetado del sitio. Esta experiencia resaltó la necesidad de ajustar mis métodos de extracción para evitar bloqueos, lo que implicó un proceso de captura de datos que tomó más de 100 minutos.
         """)
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
