@@ -387,271 +387,97 @@ def display():
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
+    st.header('Actualización de datos de jugadores de la NBA')
     st.markdown("""
-    Por ir adelantando alguna cosa... aquí tenéis datos preliminares de lo que hemos descargado.
-    """)
-
-    colizq, colder = st.columns([1, 2.5])
-
-    with colizq:
-        st.subheader('Extracción de días festivos en Estados Unidos')
-        st.markdown("<br>", unsafe_allow_html=True)
-        st.markdown("""
-        Lo siguiente que hemos trabajado es recopilar información sobre los días festivos en Estados Unidos desde 2019 hasta 2023. El proceso de extracción se realiza mediante web scraping en el sitio web: [Cuando en el Mundo](https://www.cuandoenelmundo.com/calendario/estados-unidos/2023).
-
-        La función `fechar_festivos` se encarga de:
-        - **Inicialización de listas**: Se crean tres listas vacías para almacenar los días, meses y años de cada festivo detectado.
-        - **Iteración por año**: El proceso itera desde 2019 hasta 2023. Para cada año, construye una URL específica al calendario de días festivos de Estados Unidos.
-        - **Extracción de datos**: Realiza una solicitud HTTP GET para obtener y analizar el HTML del calendario anual de festivos. Utilizando BeautifulSoup, busca elementos HTML que representen los días festivos.
-        - **Almacenamiento de datos**: Los días y meses festivos se extraen y almacenan en las listas correspondientes.
-        - **Creación de dataFrame**: Utilizando pandas, se crea un DataFrame con los datos recopilados y se mapean los nombres de los meses a números para facilitar su procesamiento.
-        - **Conversión y almacenamiento**: Se convierten las columnas a tipos de datos apropiados y se combinan para formar una columna de fecha completa en formato `datetime`. Finalmente, se guarda el DataFrame en un archivo pickle para su uso posterior.
+        Realizo actualizaciones periódicas de los datos de jugadores para asegurar que toda nueva información se refleje adecuadamente y los datos obsoletos se corrijan o actualicen. Este proceso implica la verificación de los archivos existentes, la selección del más reciente y la comparación de datos para garantizar la integridad de la información.
         """)
 
-    with colder:
-        st.code("""
-    def fechar_festivos():
-        dias_festivos = list()
-        mes_festivos = list()
-        years = list()
-
-        for year in range(2019, 2024):
-            url = f'https://www.cuandoenelmundo.com/calendario/estados-unidos/{year}'
-            response = requests.get(url)
-            soup = BeautifulSoup(response.text, "html.parser")
-
-            # Días festivos
-            reddays = soup.find_all('td', class_='day redday')
-            for d in reddays:
-                dias_festivos.append(d.text)
-
-            # Meses festivos
-            redmonths = soup.find_all('td', class_='month redday')
-            for m in redmonths:
-                mes_festivos.append(m.text)
-
-            # Añadir el año
-            for y in reddays:
-                years.append(year)
-
-        df = pd.DataFrame({
-            'dia': dias_festivos,
-            'mes': mes_festivos,
-            'ano': years
-        })
-
-        diccionario = {'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5,
-                    'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9,
-                    'octubre': 10, 'noviembre': 11, 'diciembre': 12}
-
-        df['dia'] = df['dia'].astype(int)
-        df['mes'] = df['mes'].map(diccionario)
-        df['festivos'] = pd.to_datetime(df['ano'].astype(str) + '-' +
-                                        df['mes'].astype(str) + '-' +
-                                        df['dia'].astype(str))
-        df.to_pickle('fecha_festivos.pkl')
-
-    fechar_festivos()
-        """, language='python')
-
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
-    st.header('Obtención de las coordenadas de los aeropuertos de Estados Unidos')
-
-    st.markdown("""
-    Tras haber recolectado y procesado los datos iniciales de vuelos y días festivos, el siguiente paso en nuestro proyecto implica la visualización geográfica de estos datos. Para ello, es esencial disponer de las coordenadas precisas de cada aeropuerto en Estados Unidos. La importancia de integrar estos datos geoespaciales radica en nuestra capacidad para presentar información de manera más intuitiva y accesible mediante mapas interactivos.
-
-    La utilización de las coordenadas de los aeropuertos nos permite implementar visualizaciones en mapas mediante la biblioteca Folium, una herramienta poderosa para la creación de mapas interactivos en Python. Estos mapas no solo enriquecerán visualmente nuestra presentación de datos, sino que también facilitarán análisis más complejos, como la evaluación de patrones de tráfico aéreo y la identificación de zonas con alta frecuencia de retrasos.
-
-    Así, la obtención de las coordenadas geográficas se convierte en un componente crucial para la expansión de nuestro análisis, permitiendo no solo una mejor comprensión de la distribución geográfica de los aeropuertos y su actividad, sino también ofreciendo una base sólida para futuras investigaciones y desarrollos dentro del proyecto.
-    """)
-    st.markdown("<br><br>", unsafe_allow_html=True)
-    colizq, colder = st.columns([1, 1.5])
-
-    with colizq:
-        st.subheader('**Proceso de obtención de coordenadas**')
-        st.markdown("""
-        El proceso para adquirir las coordenadas de los aeropuertos implica varias etapas críticas, comenzando por la identificación de fuentes de datos confiables y culminando con la integración de estas coordenadas en nuestro conjunto de datos existente. Uno de los primeros pasos es la consolidación de los datos de aeropuertos para asegurar que manejamos un conjunto único y preciso para cada ubicación.
-
-        Para comenzar, se realiza una limpieza inicial de los datos, donde se separan y preparan los aeropuertos de origen y destino. Dado que nuestros datos incluyen tanto el aeropuerto de origen como el de destino para cada vuelo, es esencial reducir estos a una lista única para evitar duplicidades y simplificar el análisis posterior.
-
-        Esta preparación incluye la creación de dos dataframes temporales, uno para los aeropuertos de origen y otro para los de destino, los cuales luego se concatenan para formar un único dataframe. Posteriormente, eliminamos los duplicados y reorganizamos las columnas para que el dataframe final solo contenga información única sobre cada aeropuerto, incluyendo su nombre, ciudad y estado.
-        """)
-
-    with colder:
-        st.code("""
-        # Código para consolidar los aeropuertos en un dataframe único
-        df_origen = df_aviones[['aeropuerto_origen', 'ciudad_origen', 'estado_origen']].copy()
-        df_destino = df_aviones[['aeropuerto_destino']].copy()
-        df_destino.columns = ['aeropuerto_origen']
-        df_destino['ciudad_origen'] = None
-        df_destino['estado_origen'] = None
-
-        # Concatenar los dataframes de origen y destino
-        df_aeropuertos_concatenados = pd.concat([df_origen, df_destino])
-
-        # Eliminar duplicados y resetear el índice
-        df_aeropuertos_unicos = df_aeropuertos_concatenados.drop_duplicates(subset=['aeropuerto_origen'])
-        df_aeropuertos_unicos.reset_index(drop=True, inplace=True)
-
-        # Renombrar las columnas para claridad
-        df_aeropuertos_unicos.rename(columns={
-            'aeropuerto_origen': 'nombre_aeropuerto',
-            'ciudad_origen': 'ciudad',
-            'estado_origen': 'estado'
-        }, inplace=True)
-
-        print(df_aeropuertos_unicos)
-        """, language='python')
-
-    st.markdown("""
-    Con este proceso, aseguramos que cada aeropuerto esté representado una sola vez en nuestra base de datos, lo cual es crucial para la etapa siguiente donde se vincularán las coordenadas geográficas. La claridad y precisión en esta fase son fundamentales para evitar errores en el mapeo y en la visualización de datos.
-    """)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.header('Obtención de Coordenadas Usando la API de Foursquare')
-
-    col_izq, col_der = st.columns([3, 1])
-
-    with col_izq:
-        st.code("""
-        # API de Foursquare
-        CLIENT_ID = "xxxxxxxxxxxxxxxx"
-        CLIENT_SECRET = "xxxxxxxxxxxxxxxxx"
-        API_KEY = "xxxxxxxxxxxxxxxxx"
-
-        headers = {"Accept": "application/json", "Authorization": API_KEY}
-
-        df_aeropuertos_unicos['latitude'] = None
-        df_aeropuertos_unicos['longitude'] = None
-        df_aeropuertos_unicos['direccion'] = None
-
-        for index, row in df_aeropuertos_unicos.iterrows():
-            url_params = {
-                "query": "airport" + row['nombre_aeropuerto'],
-                "near": f"{row['ciudad']}, {row['estado']}, USA",
-                "limit": 1
-            }
-
-            response = requests.get(url="https://api.foursquare.com/v3/places/search", params=url_params, headers=headers)
-
-            if response.status_code == 200:
-                data = response.json()
-                
-                if data['results']:
-                    result = data['results'][0] 
-                    latitude = result['geocodes']['main']['latitude']
-                    longitude = result['geocodes']['main']['longitude']
-                    direccion = result['location']['formatted_address']
-                
-                    df_aeropuertos_unicos.at[index, 'latitude'] = latitude
-                    df_aeropuertos_unicos.at[index, 'longitude'] = longitude
-                    df_aeropuertos_unicos.at[index, 'direccion'] = direccion
-            else:
-                print(f"Error en la fila {index} con el aeropuerto {row['nombre_aeropuerto']}. Respuesta: {response.status_code}")
-
-        print(df_aeropuertos_unicos.head())
-            """, language='python')
-
-    with col_der:
-        st.markdown("""
-        **Explicación del proceso de uso de la API de Foursquare**
-
-        Hemos decidido utilizar la API de Foursquare para obtener las coordenadas geográficas de los aeropuertos debido a la familiaridad con esta plataforma durante nuestra formación en Hack a Boss. Al buscar por palabras clave relacionadas con "aeropuerto" y ciudades específicas, esperábamos ubicar precisamente cada aeropuerto.
-
-        Aunque la API funcionó bien en muchos casos, es importante destacar que la precisión de la ubicación no fue del 100%. En ocasiones, los resultados indicaban posiciones centradas en la ciudad en lugar del aeropuerto exacto, o cerca de este. Aunque consideramos corregir estos datos manualmente, decidimos que no era prioritario dado que la precisión absoluta no era crítica para nuestros propósitos.
-
-        Posteriormente, al utilizar estas coordenadas en mapas de Folium, observamos y corregimos algunos errores evidentes, como aeropuertos incorrectamente ubicados en la Ciudad de México o en Trinidad y Tobago en lugar de Guam. Estos ajustes fueron posibles gracias a nuestra comprensión geográfica y a las capacidades interactivas de Folium, que permitieron una revisión visual directa de las ubicaciones.
-        """)
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.header('Ampliación de datos de interés a través de la API de Wikipedia')
-
-    st.markdown("""
-    Después de consolidar los datos geográficos de los aeropuertos y aerolíneas, decidimos complementar nuestro conjunto de datos con información adicional que podría ser relevante para análisis futuros. Para lograr esto, recurrimos a la API de Wikipedia, una fuente rica y accesible de información estructurada.
-
-    ### Información sobre Aeropuertos
-    Para cada aeropuerto listado en nuestro conjunto de datos, utilizamos la API de Wikipedia para obtener descripciones detalladas, datos históricos, y otras informaciones clave como las terminales y servicios disponibles. Estos datos no solo proporcionan contexto adicional sobre cada ubicación, sino que también enriquecen nuestras visualizaciones y análisis, permitiéndonos ofrecer una perspectiva más completa sobre el funcionamiento y la importancia de cada aeropuerto.
-
-    ### Información sobre Aerolíneas
-    De manera similar, extrajimos información detallada sobre cada aerolínea incluida en nuestro estudio. Utilizando la misma API, obtuvimos datos sobre el tamaño de las flotas, la antigüedad de las aeronaves, alianzas con otras aerolíneas, y detalles operativos que son cruciales para entender su posicionamiento en la industria. Además, recopilamos los logos de cada aerolínea, lo que nos permitirá incorporar estos elementos gráficos en presentaciones y dashboards para una identificación rápida y visual.
-
-    Este proceso de enriquecimiento de datos no solo fortalece la base de nuestro análisis, sino que también nos prepara mejor para cualquier evaluación detallada que pueda surgir en el futuro. Con estos datos adicionales, podemos explorar desde tendencias históricas hasta dinámicas actuales del mercado aéreo, proporcionando insights más profundos y fundamentados.
-    A continuación, se muestra el código utilizado para buscar y extraer información detallada de Wikipedia sobre aeropuertos utilizando la API de Wikipedia. Este proceso implica buscar primero el título de una página relacionada con el aeropuerto y luego extraer el contenido completo de esa página.
-    """)
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.header('Obtención de información detallada de wikipedia, ejemplo de aeropuertos')
-
+    # Código para la actualización de datos de jugadores
     st.code("""
-    import pandas as pd
-    import requests
+        import os
+        import pandas as pd
+        import re
 
-    # Cargamos el archivo .pkl
-    aeropuertos_df = pd.read_pickle('data/aeropuertos_unicos.pkl')
+        def obtener_archivos_ordenados(path, prefijo):
+            archivos = [archivo for archivo in os.listdir(path) if archivo.startswith(prefijo) and archivo.endswith('.xlsx')]
+            archivos_ordenados = sorted(archivos, key=lambda x: int(re.search(r'(\d+)', x.replace(prefijo, '').replace('.xlsx', '')).group(1) if re.search(r'(\d+)', x) else 0))
+            archivos_ordenados = [os.path.join(path, archivo) for archivo in archivos_ordenados]
+            return archivos_ordenados
 
-    # Seleccionamos un aeropuerto de ejemplo y añade la palabra "aeropuerto" al final
-    nombre_aeropuerto_ejemplo = "aeropuerto " + aeropuertos_df.iloc[4]['nombre_aeropuerto']
+        def actualizar_datos_estadisticas(archivos):
+            df_final = pd.DataFrame()
+            for archivo in archivos:
+                df_actual = pd.read_excel(archivo)
+                df_actual.replace('none', pd.NA, inplace=True)
+                if not df_final.empty:
+                    for columna in df_actual.columns:
+                        if columna != 'id_jugador':
+                            df_final = pd.merge(df_final, df_actual[['id_jugador', columna]], on='id_jugador', suffixes=('', '_actual'))
+                            df_final[columna] = df_final.apply(lambda fila: fila[columna] if pd.isna(fila[columna + '_actual']) else fila[columna + '_actual'], axis=1)
+                            df_final.drop(columna + '_actual', axis=1, inplace=True)
+                else:
+                    df_final = df_actual
+            return df_final
 
-    def buscar_info_completa_wikipedia(titulo):
-        S = requests.Session()
-        URL = "https://es.wikipedia.org/w/api.php"
+        path = 'excels/'
+        prefijo_archivo = 'estadisticas_puntos_jugadores'
+        archivos_ordenados = obtener_archivos_ordenados(path, prefijo_archivo)
+        df_estadisticas_actualizado = actualizar_datos_estadisticas(archivos_ordenados)
+        path_actualizado = 'excels/actualizados/'
+        if not os.path.exists(path_actualizado):
+            os.makedirs(path_actualizado)
+        nombre_archivo = 'estadistica_jugadores_nba_actualizado.xlsx'
+        df_estadisticas_actualizado.to_excel(os.path.join(path_actualizado, nombre_archivo), index=False)
+        """, language='python')
 
-        # Primero buscamos el título de la página usando la función de búsqueda
-        SEARCH_PARAMS = {
-            "action": "query",
-            "list": "search",
-            "srsearch": titulo,
-            "format": "json",
-            "srlimit": 1
-        }
-
-        search_response = S.get(url=URL, params=SEARCH_PARAMS)
-        search_data = search_response.json()
-
-        search_results = search_data['query']['search']
-        if search_results:
-            page_title = search_results[0]['title']
-
-            # Luego vamos a por el contenido completo de la página encontrada
-            CONTENT_PARAMS = {
-                "action": "parse",
-                "page": page_title,
-                "format": "json",
-                "prop": "text"  # Obtener el texto completo de la página
-            }
-
-            content_response = S.get(url=URL, params=CONTENT_PARAMS)
-            content_data = content_response.json()
-
-            if 'parse' in content_data:
-                text = content_data['parse']['text']['*']
-                return text  # Esto devolverá HTML
-        return 'No se encontró información.'
-
-    # Usamos el título del artículo obtenido anteriormente para obtener información completa
-    info_completa_aeropuerto = buscar_info_completa_wikipedia(nombre_aeropuerto_ejemplo)
-    print(info_completa_aeropuerto)
-    """, language='python')
+    st.markdown("""
+        Este método asegura que siempre dispongo de la versión más actualizada de los datos, manteniendo un historial de las extracciones anteriores y proporcionando una visión completa y actualizada de las estadísticas de los jugadores.
+        """)
+   
     st.markdown("<br>", unsafe_allow_html=True)
-    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
 
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.header('Uso de los datos')
+    st.header('Actualización de datos de equipos de la NBA')
+    st.markdown("""
+        Similarmente a los jugadores, también actualizo los datos de los equipos de la NBA utilizando un proceso que verifica y actualiza los datos para reflejar la información más reciente y precisa disponible.
+        """)
+
+    # Código para la actualización de datos de equipos
+    st.code("""
+        def obtener_archivos_ordenados(path, prefijo):
+            archivos = [archivo for archivo in os.listdir(path) if archivo.startswith(prefijo) and archivo.endswith('.xlsx')]
+            archivos_ordenados = sorted(archivos, key=lambda x: int(re.search(r'(\d+)', x.replace(prefijo, '').replace('.xlsx', '')).group(1) if re.search(r'(\d+)', x) else 0))
+            archivos_ordenados = [os.path.join(path, archivo) for archivo in archivos_ordenados]
+            return archivos_ordenados
+
+        def actualizar_datos_nba_modificado(archivos):
+            df_final = pd.DataFrame()
+            for archivo in archivos:
+                df_actual = pd.read_excel(archivo)
+                df_actual.replace('none', pd.NA, inplace=True)
+                if not df_final.empty:
+                    for columna in df_actual.columns:
+                        if columna != 'ID Equipo':
+                            df_final = pd.merge(df_final, df_actual[['ID Equipo', columna]], on='ID Equipo', suffixes=('', '_actual'))
+                            df_final[columna] = df_final.apply(lambda fila: fila[columna] if pd.isna(fila[columna + '_actual']) else fila[columna + '_actual'], axis=1)
+                            df_final.drop(columna + '_actual', axis=1, inplace=True)
+                else:
+                    df_final = df_actual
+            return df_final
+
+        path = 'excels/'
+        prefijo_archivo = 'equipos_nba'
+        archivos_ordenados = obtener_archivos_ordenados(path, prefijo_archivo)
+        df_equipos_nba_actualizado = actualizar_datos_nba_modificado(archivos_ordenados)
+        path_actualizado = 'excels/actualizados/'
+        if not os.path.exists(path_actualizado):
+            os.makedirs(path_actualizado)
+        nombre_archivo = 'equipos_nba_actualizado.xlsx'
+        df_equipos_nba_actualizado.to_excel(os.path.join(path_actualizado, nombre_archivo), index=False)
+        """, language='python')
 
     st.markdown("""
-    Esta importante recopilación de datos no solo facilita una variedad de análisis y visualizaciones, sino que también nos ayuda a comprender mejor sobre las dinámicas existentes en la aviación. Con estos datos, podemos explorar tendencias en el tráfico aéreo, evaluar la puntualidad de las aerolíneas, y identificar los aeropuertos más activos. Esta información es esencial no solo para investigadores y analistas sino también para entusiastas de la aviación que buscan entender mejor los patrones y comportamientos del sector. Además, permite a las partes interesadas en la industria tomar decisiones más informadas basadas en tendencias históricas y actuales.
-    """)
-
-    st.header('Compromiso futuro')
-
-    st.markdown("""
-    Mirando hacia adelante, nuestro compromiso con la expansión y mejora de este proyecto es firme. Planeamos incorporar datos de todos los meses y años disponibles para obtener una visión más completa y representativa del tráfico aéreo. Aunque el enorme volumen de datos presentó un desafío inicial, la selección de los meses de diciembre de los últimos tres años fue estratégica, permitiéndonos arrancar el proyecto y establecer una base sólida. A medida que nuestro sistema y capacidades de procesamiento evolucionen, expandiremos nuestro conjunto de datos para incluir más periodos y variables, enriqueciendo aún más nuestro análisis y aumentando su precisión y relevancia.
-    """)
-
-    st.markdown("""
-    Estas iniciativas no solo refuerzan nuestro proyecto actual, sino que también allanan el camino para futuras investigaciones y desarrollos. Al mantenernos al día con las tecnologías emergentes y las metodologías analíticas, aseguramos que nuestro trabajo continúe siendo de vanguardia y de máximo valor para la comunidad.
-    """)
-
-
+        A través de este proceso, aseguro que los datos que utilizo y presento son siempre los más precisos y actuales disponibles, facilitando un análisis robusto y confiable del rendimiento de los equipos.
+        """)
+  
 # Llama a la función para mostrar la página
 display()
