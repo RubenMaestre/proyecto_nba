@@ -15,7 +15,8 @@ def display():
             - **Especializado en Data Science**: Con habilidades en Python, SQL, Machine Learning y Big Data, proporciono soluciones analíticas y basadas en datos para optimizar estrategias en diversos campos, desde el marketing hasta la gestión operativa.
             - **Visión integradora en negocios y tecnología**: Mi experiencia en marketing y gestión deportiva, combinada con mi conocimiento en Data Science, me permite ofrecer perspectivas únicas y estrategias efectivas adaptadas a cada sector.
             - **Experiencia en liderazgo y comunicación digital**: Como director y creador de contenidos en medios de comunicación, tengo un historial probado en el desarrollo y ejecución de campañas comunicativas exitosas, con un enfoque especial en la narrativa digital.
-            
+            - **Creatividad e historias en los datos**: La importancia de saber comunicar y dar una visión de los datos es esencial en cualquier tipo de negocio, ya sea en un club deportivo, en una empresa de marketing digital o en cualquier PYMES. Saber contar las historias que están detrás de los datos ayudan a su comprensión y visualización para conseguir los objetivos.
+                    
             **Mi enfoque**
             Creo en el poder transformador de la ciencia de datos y la inteligencia artificial en diversas áreas, no solo en la empresa, el marketing y la comunicación. Estas herramientas no solo optimizan la toma de decisiones, sino que también abren caminos hacia soluciones innovadoras y personalizadas.
             """)
