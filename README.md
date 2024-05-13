@@ -23,9 +23,9 @@ La analítica deportiva ofrece insights únicos que pueden transformar estrategi
   - `Plotly` para visualizaciones interactivas
   - `Folium` para mapas si fuera necesario
 
-## Características Principales
+## Características principales
 
-- **Automatización de la Extracción de Datos:** Desarrollo de scripts reutilizables que automatizan la recopilación de datos de la NBA.
-- **Limpieza y Estructuración:** Procesamiento de datos crudos para transformarlos en un formato óptimo para análisis.
-- **Análisis Estadístico:** Identificación de tendencias y realización de análisis predictivo sobre el rendimiento de jugadores y equipos.
-- **Visualización de Datos:** Creación de visualizaciones atractivas y reveladoras que cuentan la "historia" detrás de los datos.
+- **Automatización de la extracción de datos:** Desarrollo de scripts reutilizables que automatizan la recopilación de datos de la NBA.
+- **Limpieza y estructuración:** Procesamiento de datos crudos para transformarlos en un formato óptimo para análisis.
+- **Análisis estadístico:** Identificación de tendencias y realización de análisis predictivo sobre el rendimiento de jugadores y equipos.
+- **Visualización de datos:** Creación de visualizaciones atractivas y reveladoras que cuentan la "historia" detrás de los datos.
