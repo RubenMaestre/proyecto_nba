@@ -1,6 +1,6 @@
 # Breve análisis de datos en la NBA
 
-## Descripción del Proyecto
+## Descripción del proyecto
 
 Este proyecto surge de una pasión por el deporte y una fascinación por los datos detallados que la NBA proporciona a través de su sitio web oficial. El objetivo es explorar, analizar y revelar historias ocultas en los datos estadísticos del baloncesto profesional, enfocándonos en la temporada actual.
 
@@ -8,17 +8,17 @@ Este proyecto surge de una pasión por el deporte y una fascinación por los dat
 
 La analítica deportiva ofrece insights únicos que pueden transformar estrategias y decisiones dentro del campo. Este proyecto no solo busca entender mejor el juego a través de los números, sino también desafiar mis propios límites, al elegir un deporte que, aunque no es mi primera pasión, presenta complejidades y datos ricos para un análisis profundo.
 
-## Herramientas y Tecnologías
+## Herramientas y tecnologías
 
-- **Extracción de Datos:**
+- **Extracción de datos:**
   - Web scraping con Selenium y BeautifulSoup
   - APIs para acceder a datos en tiempo real
 
-- **Transformación y Manipulación de Datos:**
+- **Transformación y manipulación de datos:**
   - `Pandas` para la manipulación de DataFrames
   - `NumPy` para cálculos numéricos
 
-- **Visualización de Datos:**
+- **Visualización de datos:**
   - `Matplotlib` y `Seaborn` para gráficos estadísticos
   - `Plotly` para visualizaciones interactivas
   - `Folium` para mapas si fuera necesario
