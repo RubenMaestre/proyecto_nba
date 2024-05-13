@@ -22,16 +22,13 @@ def display():
 
     with col2:
         st.image('streamlit/sources/ruben_maestre.jpg', width=300, caption='Rubén Maestre')
-        # Crear un layout de columna interna para centrar los botones
-        col21, col22, col23 = st.columns([1, 2, 1])
-        
-        with col22:  # Utilizar la columna central para alinear los botones al centro
-            linkedin_url = 'https://www.linkedin.com/in/rubenmaestrezaplana/'
-            github_url = 'https://github.com/RubenMaestre'
-            if st.button("LinkedIn", key='linkedin-RubenMaestre', help="Visita mi perfil de LinkedIn"):
-                st.write(f"Redirigiendo a {linkedin_url}")
-            if st.button("GitHub", key='github-RubenMaestre', help="Visita mi perfil de GitHub"):
-                st.write(f"Redirigiendo a {github_url}")
+        # Botones de LinkedIn y GitHub
+        linkedin_url = 'https://www.linkedin.com/in/rubenmaestrezaplana/'
+        github_url = 'https://github.com/RubenMaestre'
+        if st.button("LinkedIn", key='linkedin-RubenMaestre', help="Visita mi perfil de LinkedIn"):
+            st.write(f"Redirigiendo a {linkedin_url}")
+        if st.button("GitHub", key='github-RubenMaestre', help="Visita mi perfil de GitHub"):
+            st.write(f"Redirigiendo a {github_url}")
 
     st.markdown("<br>", unsafe_allow_html=True)
     # Información de contacto y enlaces sociales
