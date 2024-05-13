@@ -22,17 +22,24 @@ def display():
 
     with col2:
         st.image('streamlit/sources/ruben_maestre.jpg', width=300, caption='Rubén Maestre')
+        # Botones de LinkedIn y GitHub
+        linkedin_url = 'https://www.linkedin.com/in/rubenmaestrezaplana/'
+        github_url = 'https://github.com/RubenMaestre'
+        if st.button("LinkedIn", key='linkedin-RubenMaestre', help="Visita mi perfil de LinkedIn"):
+            st.write(f"Redirigiendo a {linkedin_url}")
+        if st.button("GitHub", key='github-RubenMaestre', help="Visita mi perfil de GitHub"):
+            st.write(f"Redirigiendo a {github_url}")
 
     st.markdown("<br>", unsafe_allow_html=True)
     # Información de contacto y enlaces sociales
     st.markdown("""
         **🌟 Logros destacados**
-        - En el ámbito deportivo, lideré con éxito la sección de fútbol sala del Elche C.F. y la liga local, aplicando estrategias de marketing y comunicación efectivas.
+        - En el ámbito deportivo, lideré con éxito la sección de fútbol sala del Elche C.F. y la liga local de fútbol sala de Elche, el Xaloc Alacant F.S., Manresa F.S., la Media Maratón de Elche, he participado en el desarrollo de eventos y organizaciones, aplicando estrategias de marketing y comunicación efectivas.
         - Como director del programa 'Crucemos el Rubicón' en Radio Intereconomía, hice del programa un punto de referencia en la región de Alicante.
         - He desarrollado y gestionado proyectos digitales que combinan deporte, comunicación y tecnología, destacando por su innovación y alcance.
         - He creado mi propia marca de moda donde desarrollo mis habilidades en empresa, marketing y comunicación #SUPERCLAW"""
     )
-    
+
     st.markdown("<br>", unsafe_allow_html=True)            
     st.markdown("""
         **💪 ¿Buscas soluciones basadas en datos para tu negocio?**
