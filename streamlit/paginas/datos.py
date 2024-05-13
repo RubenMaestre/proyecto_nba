@@ -308,55 +308,81 @@ def display():
         """)
   
 
-    st.markdown("<h3 style='text-align: center;'>Proceso de extracción automatizado</h3><br>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Extracción de estadísticas de jugadores de la NBA utilizando su ID</h3><br>", unsafe_allow_html=True)
     colizq, colder = st.columns(2)
     with colizq:
         
         st.markdown("""
-            Este script automatiza completamente el proceso de extracción de datos de la página web para cada combinación de aeropuertos y aerolíneas. A continuación se detallan los pasos clave del proceso:
-
-            1. **Inicialización del navegador**: Utilizamos Selenium para iniciar una instancia del navegador Firefox, lo cual nos permite cargar la URL específica desde donde se extraerán los datos. Este enfoque simula una sesión de navegación real, esencial para interactuar con los elementos web dinámicos.
-
-            2. **Configuración inicial**: Antes de comenzar la extracción de datos, es crucial configurar correctamente las opciones en el sitio web. Para ello, llamamos a la función `preselecciones` que automatiza la selección de todas las estadísticas relevantes, días específicos, el mes de diciembre y los años 2021, 2022 y 2023. Este paso asegura que los datos que vamos a extraer son precisamente los que necesitamos para nuestro análisis.
-
-            3. **Iteración sobre aeropuertos y aerolíneas**: El script ejecuta un bucle que recorre cada aeropuerto listado y, para cada uno de ellos, un bucle anidado itera sobre cada aerolínea disponible. Esta estructura de bucle doble es fundamental para asegurar que se exploran todas las combinaciones posibles de aeropuertos y aerolíneas.
-
-            4. **Extracción de datos**: Durante la iteración, el script intenta seleccionar la combinación específica de aeropuerto y aerolínea y solicita la descarga del archivo .CSV correspondiente. Si la combinación no opera (es decir, no hay datos disponibles), el script omite esta y continúa con la siguiente. Además, se implementa una función de desplazamiento en la página para asegurar que el enlace de descarga está visible y accesible.
-
-            5. **Cierre y limpieza**: Una vez finalizado el proceso de extracción para todas las combinaciones, el script cierra el navegador para terminar la sesión. Este paso es crucial para liberar recursos y evitar problemas de rendimiento en el sistema.
+            Este proceso comienza con el uso de Selenium para navegar por la página oficial de la NBA y aceptar las cookies. Luego accedemos a la sección de estadísticas de los líderes de la temporada y utilizamos BeautifulSoup para extraer las URLs de las páginas de estadísticas de los jugadores líderes.
+            
+            **Acceso a la web y cookies:**
+            - Inicializamos Selenium con WebDriver para Chrome.
+            - Abrimos y maximizamos la ventana del navegador.
+            - Accedemos a la página de juegos de la NBA y aceptamos la política de cookies.
+            
+            **Navegación a la sección de estadísticas:**
+            - Navegamos a la sección de estadísticas de la temporada y luego a la opción de líderes de la temporada.
+            
+            **Extracción de URLs de estadísticas de jugadores:**
+            - Obtenemos el código fuente de la página con `browser.page_source`.
+            - Parseamos el HTML con BeautifulSoup y extraemos las URLs de las páginas de estadísticas de los jugadores líderes.
             """)
         
-
     with colder:
         st.code("""
-        driver = webdriver.Firefox()
-        driver.get(url)
+        browser = webdriver.Chrome()
+        browser.get("https://nba.com/games")
+        browser.maximize_window()
 
-        preselecciones(driver)
+        # Aceptar cookies
+        sleep(1)
+        browser.find_element(by=By.ID, value="onetrust-accept-btn-handler").click()
 
-        for aeropuerto in listado_aeropuertos:
-            select_aeropuerto = Select(driver.find_element(By.NAME, "cboAirport"))
-            select_aeropuerto.select_by_visible_text(aeropuerto)
+        # Navegación a la página de estadísticas
+        sleep(3.2)
+        browser.find_element(by=By.XPATH, value='//*[@id="nav-ul"]/li[5]/a').click()
 
-            for aerolinea in listado_aerolineas:
-                select_aerolinea = Select(driver.find_element(By.NAME, "cboAirline"))
-                select_aerolinea.select_by_visible_text(aerolinea)
+        # Acceder a la sección de líderes de la temporada
+        sleep(1.4)
+        browser.find_element(by=By.XPATH, value='//*[@id="__next"]/div[2]/div[2]/div[3]/div/div[1]/section[1]/div/div[2]/button[2]').click()
 
-                click_submit = driver.find_element(By.ID, "btnSubmit").click()
-                driver.execute_script("window.scrollBy(0, 200);")
-
-                try:
-                    element = WebDriverWait(driver, 3).until(
-                        EC.presence_of_element_located((By.ID, "DL_CSV")))
-                    element.click()
-                except:
-                    pass
-
-        driver.quit()
+        # Extracción de URLs
+        html_season_leaders = browser.page_source
+        soup = BeautifulSoup(html_season_leaders, "html.parser")
+        url_estadisticas_lideres = [a['href'] for a in soup.find_all('a', class_='Anchor_anchor__cSc3P LeaderBoardCard_lbcLink__GZTl1 Link_styled__okbXW')]
+        urls_estadisticas_lideres = ["https://www.nba.com" + url for url in url_estadisticas_lideres]
         """, language='python')
-        st.markdown("""
-            Este proceso está diseñado para ser lo más eficiente posible, minimizando la interacción humana y maximizando la precisión y la repetibilidad del proceso de extracción. La automatización mediante Selenium permite un control detallado sobre el navegador, crucial para interactuar con elementos web que de otro modo serían inaccesibles mediante métodos de extracción de datos más estáticos.
-            """)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    st.markdown("""
+        **Función para la extracción de datos:**
+        - Desarrollamos funciones para extraer los nombres de las columnas y los datos específicos de cada jugador, incluyendo el ID del jugador y del equipo, obtenidos de los enlaces.
+
+        **Proceso de extracción de datos de jugadores:**
+        - Accedemos a la primera URL de estadísticas de jugadores y ajustamos la vista para mostrar todas las estadísticas y jugadores.
+        - Utilizamos las funciones definidas para obtener los nombres de las columnas y los datos respectivos de cada fila de la tabla de estadísticas.
+
+        **Creación del DataFrame y almacenamiento de datos:**
+        - Almacenamos los datos en un DataFrame de pandas.
+        - Implementamos un mecanismo de guardado en archivos Excel utilizando una función que evita la sobreescritura de datos existentes.
+        """)
+
+    st.code("""
+    # Ejemplo de función para extraer y guardar datos
+    def guardar_excel_con_numeracion(df, nombre_base):
+        directorio = os.path.join(os.getcwd(), "excels")
+        if not os.path.exists(directorio):
+            os.makedirs(directorio)
+        ruta_base = os.path.join(directorio, nombre_base)
+        contador = 0
+        ruta_final = f"{ruta_base}.xlsx"
+        while os.path.exists(ruta_final):
+            contador += 1
+            ruta_final = f"{ruta_base}_{contador}.xlsx"
+        df.to_excel(ruta_final, index=False, engine='openpyxl')
+        print(f"Archivo guardado como: {ruta_final}")
+    """, language='python')
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
