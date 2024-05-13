@@ -75,7 +75,7 @@ def display():
         """)
 
     # ¿Qué lecciones hemos aprendido con el proyecto?
-    with st.expander("¿Qué lecciones hemos aprendido con el proyecto?"):
+    with st.expander("¿Qué lecciones he aprendido con el proyecto?"):
         st.write("""
             La lección más impactante que he aprendido durante este proyecto es la complejidad de gestionar la extracción de datos en una escala amplia. Experimenté de primera mano que la captura de datos puede ser extremadamente desafiante, especialmente cuando se trata de datos de deportes en tiempo real como la NBA, que involucra una gran cantidad de variables y cambios constantes.
 
