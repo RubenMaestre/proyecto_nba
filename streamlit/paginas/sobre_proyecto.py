@@ -1,3 +1,4 @@
+#paginas/sobre_proyecto.py
 import streamlit as st
 
 def display():
@@ -5,28 +6,29 @@ def display():
     
     st.write("Aquí encontrarás respuestas a algunas preguntas frecuentes sobre nuestro proyecto.")
 
-        # FAQ 1: Objetivo del Proyecto
+    # FAQ 1: Objetivo del Proyecto
     with st.expander("¿Cuál es el objetivo de este proyecto?"):
         st.write("""
-            Este proyecto constituye el trabajo final del Bootcamp de Data Science e Inteligencia Artificial en Hack a Boss. El objetivo principal es ofrecer una plataforma interactiva donde los usuarios puedan analizar y visualizar datos de vuelos, ayudando a entender mejor las tendencias y comportamientos en el tráfico aéreo de los Estados Unidos. Buscamos abordar un desafío crítico en la gestión aeronáutica: la optimización de la puntualidad y la gestión de retrasos en vuelos.
-
-            A través de un análisis exploratorio de datos, proporcionamos perspectivas sobre las causas y factores que influyen en la puntualidad aérea y desarrollamos un modelo predictivo para mejorar la eficiencia de las operaciones aeroportuarias y la satisfacción de los pasajeros. El proyecto no solo cumple con los requisitos académicos de Hack a Boss, sino que también aplica lo aprendido en la solución de problemas prácticos, reflejando nuestra competencia técnica y determinación por innovar y ser creativos en la realización de proyectos.
+            Este proyecto fue el primer desafío que enfrenté dentro de Hack a Boss. Se me solicitó realizar la extracción, limpieza y visualización de datos, lo que concluí con éxito. Con el tiempo, he seguido mejorando este proyecto, implementando nuevos conocimientos y herramientas para enriquecerlo, culminando en la creación de esta página en Streamlit con datos actualizados de los equipos y jugadores de la NBA para la temporada regular 23/24.
         """)
 
-    # Otras FAQs
-    with st.expander("¿Qué tecnologías se utilizan en el proyecto?"):
+    # FAQ 2: Tecnologías utilizadas en el proyecto
+    with st.expander("¿Qué tecnologías he utilizado en el proyecto?"):
         st.write("""
-            En este proyecto, hemos utilizado una amplia variedad de tecnologías y bibliotecas para la recolección, análisis y visualización de datos. La recolección de datos se realizó mediante técnicas de web scraping utilizando **BeautifulSoup** y **Selenium**, herramientas que nos permitieron automatizar la interacción con páginas web y extraer información de manera eficiente. **Requests** fue usado para manejar las solicitudes HTTP durante el scraping.
+            **EXTRACCIÓN DE DATOS**:
+            Utilicé técnicas de **web scraping** y conexiones a **APIs** para automatizar la recolección de datos, desarrollando scripts que me permiten obtener datos de forma consistente y adaptable.
 
-            Para el análisis y manipulación de datos, empleamos **Pandas**, una biblioteca fundamental en ciencia de datos para operaciones de manipulación de datos, y **NumPy** para operaciones numéricas complejas. **Datetime** facilitó la manipulación de fechas y tiempos.
+            **TRANSFORMACIÓN Y MANIPULACIÓN DE DATOS**:
+            - **Pandas** y **NumPy** son mis herramientas principales para la limpieza, estructuración y transformación de datos, facilitando la creación de nuevas variables y la automatización del proceso.
+            
+            **VISUALIZACIÓN DE DATOS**:
+            - He empleado **Matplotlib**, **Seaborn**, **Plotly** y **Folium** para la creación de gráficos estáticos e interactivos, así como mapas que mejoran la comprensión de los datos.
+            
+            **PLATAFORMAS Y LIBRERÍAS ADICIONALES**:
+            - Utilizo **Airtable** y **Foursquare API** para enriquecer mis datos, por ejemplo, al obtener las coordenadas de los pabellones de la NBA.
+            - Para el desarrollo de fichas deportivas detalladas, he incorporado librerías de diseño y análisis matemático con Python.
 
-            La visualización de datos es crucial para interpretar eficazmente las tendencias y patrones. Utilizamos **Matplotlib** y **Seaborn** para generar gráficos estáticos, mientras que **Plotly** nos permitió crear visualizaciones interactivas y dinámicas. **Folium** fue utilizado específicamente para mapas interactivos, permitiendo una contextualización geográfica de los datos.
-
-            En cuanto al modelado predictivo, implementamos varios modelos de aprendizaje automático utilizando bibliotecas como **Scikit-learn**, que nos proporcionó algoritmos de clasificación como KNeighbors, DecisionTree, RandomForest y GradientBoosting, entre otros. **Imblearn** fue crucial para manejar el desbalance de clases mediante técnicas de OverSampling y UnderSampling.
-
-            Para la interfaz de usuario, elegimos **Streamlit** por su capacidad para desarrollar aplicaciones de ciencia de datos de manera rápida y con un alto nivel de interactividad. Además, para el control de versiones y manejo de grandes volúmenes de datos, utilizamos **Git** con **GitHub** y **Git LFS** (Large File Storage), lo que nos permitió gestionar eficientemente los archivos de tamaño considerable generados durante el proyecto.
-
-            Todas estas herramientas y tecnologías juntas nos han permitido crear un sistema robusto que no solo cumple con los requisitos técnicos del análisis de datos, sino que también proporciona una plataforma accesible y fácil de usar para cualquier usuario interesado en la puntualidad aérea.
+            En conjunto, todas estas tecnologías me han permitido crear un sistema robusto que no solo cumple con los requisitos técnicos del análisis de datos sino que también proporciona una plataforma accesible para cualquier usuario interesado en la dinámica de la NBA.
         """)
 
     # FAQ Nueva 1
