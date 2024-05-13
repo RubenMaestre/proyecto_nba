@@ -2,7 +2,7 @@
 import streamlit as st
 
 def display():
-    st.image('sources/cabecera.jpg', use_column_width=True)
+    #st.image('sources/cabecera.jpg', use_column_width=True)
     st.markdown("<br><br>", unsafe_allow_html=True) #Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
     # Título
     st.markdown("<h1 style='text-align: center;'>Breve análisis de datos en la NBA</h1>", unsafe_allow_html=True)
