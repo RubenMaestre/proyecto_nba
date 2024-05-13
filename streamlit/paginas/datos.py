@@ -119,29 +119,58 @@ def display():
         
         # Código para la extracción de datos de jugadores
         st.code("""
-    # Inicio del proceso de extracción
-    browser.get('https://nba.com/players')
-    soup = BeautifulSoup(browser.page_source, 'html.parser')
-    player_links = [link['href'] for link in soup.find_all('a', class_='player_link')]
+        def extraer_informacion_jugador(soup, url):
+            id_jugador = url.split('/')[-3]
+            elementos_nombre = soup.select(".PlayerSummary_playerNameText___MhqC")
+            nombre = elementos_nombre[0].get_text() if len(elementos_nombre) >= 2 else "none"
+            apellido = elementos_nombre[1].get_text() if len(elementos_nombre) >= 2 else "none"
 
-    player_data = []
-    for link in player_links:
-        browser.get(f'https://nba.com{link}')
-        player_soup = BeautifulSoup(browser.page_source, 'html.parser')
-        data = extract_player_data(player_soup)
-        player_data.append(data)
-        sleep(random.uniform(3, 10))  # Retardo aleatorio para evitar bloqueos
+            equipo_dorsal_posicion = soup.find("p", class_="PlayerSummary_mainInnerInfo__jv3LO")
+            equipo, dorsal, posicion = None, None, None
+            if equipo_dorsal_posicion:
+                partes = equipo_dorsal_posicion.get_text().split('|')
+                equipo = partes[0].strip() if len(partes) > 0 else "none"
+                dorsal = partes[1].strip() if len(partes) > 1 else "none"
+                posicion = partes[2].strip() if len(partes) > 2 else "none"
 
-    def extract_player_data(soup):
-        # Extraer y retornar datos de un jugador desde el soup
-        name = soup.find('h1', class_='player_name').text
-        stats = {stat.text: value.text for stat, value in zip(soup.find_all('span', class_='stat'), soup.find_all('span', class_='value'))}
-        return {'Name': name, 'Stats': stats}
+            stats = {
+                'ppg': soup.find("p", class_="PlayerSummary_playerStatValue___EDg_", text="PPG").next_element.strip(),
+                'rpg': soup.find("p", class_="PlayerSummary_playerStatValue___EDg_", text="RPG").next_element.strip(),
+                'apg': soup.find("p", class_="PlayerSummary_playerStatValue___EDg_", text="APG").next_element.strip(),
+                'pie': soup.find("p", class_="PlayerSummary_playerStatValue___EDg_", text="PIE").next_element.strip()
+            }
 
-    # Guardar datos en un DataFrame y a Excel
-    df_players = pd.DataFrame(player_data)
-    save_data_to_excel(df_players, 'players_data')
+            detalles = {det.get_text(strip=True): det.next_element.strip() for det in soup.find_all("p", class_="PlayerSummary_playerInfoLabel__JS8_v")}
+            altura, peso, pais, ultimo_equipo, edad, cumpleaños, draft, experiencia = detalles.values()
+
+            return {
+                "id_jugador": id_jugador, "nombre": nombre, "apellido": apellido, "equipo": equipo, 
+                "dorsal": dorsal, "posicion": posicion, **stats, **detalles
+            }
+
+        urls_jugadores_nba = ['https://www.nba.com/player/1629027/luka_doncic', ...]  # Lista de URLs
+        jugadores_data = []
+        for url in urls_jugadores_nba:
+            response = requests.get(url)
+            soup = BeautifulSoup(response.text, "html.parser")
+            jugador_info = extraer_informacion_jugador(soup, url)
+            jugadores_data.append(jugador_info)
+            sleep(random.uniform(3, 10))  # Random delay to avoid blocking
+
+        df_jugadores = pd.DataFrame(jugadores_data)
+        def guardar_excel_con_numeracion(df, nombre_base):
+            ruta_base = os.path.join('data', nombre_base)
+            contador = 1
+            ruta_final = f"{ruta_base}_{contador}.xlsx"
+            while os.path.exists(ruta_final):
+                contador += 1
+                ruta_final = f"{ruta_base}_{contador}.xlsx"
+            df.to_excel(ruta_final, index=False)
+            print(f"Data saved to {ruta_final}")
+
+        guardar_excel_con_numeracion(df_jugadores, 'jugadores_nba')
         """, language='python')
+
 
     with col2:
         st.write("")  # Espacio en blanco para separar las columnas
@@ -155,38 +184,84 @@ def display():
         
         # Código para la extracción de datos de equipos
         st.code("""
-    # Proceso de extracción de datos de equipos
-    team_urls = ['https://nba.com/teams/{team_id}' for team_id in team_ids]
-    team_data = []
-    for url in team_urls:
-        browser.get(url)
-        soup = BeautifulSoup(browser.page_source, 'html.parser')
-        data = extract_team_data(soup)
-        team_data.append(data)
-        sleep(random.uniform(2, 4))
+        def extraer_informacion_equipo_bs4(url):
+            try:
+                response = requests.get(url)
+                soup = BeautifulSoup(response.text, 'html.parser')
+                
+                id_equipo = url.split('/')[-1]
+                nombre_equipo = soup.select_one(".TeamHeader_name__MmHlP").text.strip() if soup.select_one(".TeamHeader_name__MmHlP") else "none"
+                registro_elemento = soup.select_one(".TeamHeader_record__wzofp")
+                
+                if registro_elemento:
+                    registro_datos = registro_elemento.text.split('|')
+                    victorias_derrotas = registro_datos[0].strip()
+                    puesto = registro_datos[1].split('in')[0].strip()
+                    division = registro_datos[1].split('in')[1].strip()
+                else:
+                    victorias_derrotas = puesto = division = "none"
+                
+                stats = {
+                    'PPG': soup.find('span', text='PPG').find_next('span').text if soup.find('span', text='PPG') else "none",
+                    'RPG': soup.find('span', text='RPG').find_next('span').text if soup.find('span', text='RPG') else "none",
+                    'APG': soup.find('span', text='APG').find_next('span').text if soup.find('span', text='APG') else "none",
+                    'OPPG': soup.find('span', text='OPPG').find_next('span').text if soup.find('span', text='OPPG') else "none"
+                }
 
-    def extract_team_data(soup):
-        # Extraer y retornar datos de un equipo desde el soup
-        team_name = soup.find('span', class_='team_name').text
-        wins_losses = soup.find('div', class_='wins_losses').text.split('-')
-        stats = {stat.find('span', class_='stat').text: stat.find('span', class_='value').text for stat in soup.find_all('div', class_='stat_block')}
-        return {'Team Name': team_name, 'Wins': wins_losses[0], 'Losses': wins_losses[1], 'Stats': stats}
+                return {
+                    "id_equipo": id_equipo,
+                    "nombre_equipo": nombre_equipo,
+                    "victorias_derrotas": victorias_derrotas,
+                    "puesto": puesto,
+                    "division": division,
+                    **stats
+                }
+            except Exception as e:
+                print(f"Error processing {url}: {e}")
+                return {}
 
-    # Guardar datos en un DataFrame y a Excel
-    df_teams = pd.DataFrame(team_data)
-    save_data_to_excel(df_teams, 'team_data')
+        url_base = "https://www.nba.com"
+        team_urls = [url_base + a['href'] for a in soup.find_all('a', class_='team_link')]
+        team_data = []
+
+        for url in team_urls:
+            print(f"Accessing {url}")
+            team_info = extraer_informacion_equipo_bs4(url)
+            if team_info:
+                team_data.append(team_info)
+            sleep(random.uniform(2, 4))
+
+        df_teams = pd.DataFrame(team_data)
+        df_teams.to_excel('NBA_teams_data.xlsx', index=False)
+                
+        # Función para guardar los datos en Excel sin sobrescribir archivos existentes
+        def guardar_excel_con_numeracion(df, nombre_base):
+            directorio = os.path.join(os.getcwd(), "excels")
+
+            # Si el directorio no existe, se crea
+            if not os.path.exists(directorio):
+                os.makedirs(directorio)
+
+            # Construye la ruta base para el archivo
+            ruta_base = os.path.join(directorio, nombre_base)
+            contador = 0
+            ruta_final = f"{ruta_base}.xlsx"
+
+            # Verifica si el archivo ya existe y actualiza el nombre para evitar sobrescritura
+            while os.path.exists(ruta_final):
+                contador += 1
+                ruta_final = f"{ruta_base}_{contador}.xlsx"
+
+            # Guarda el DataFrame en Excel
+            df.to_excel(ruta_final, index=False, engine='openpyxl')
+            print(f"Archivo guardado como: {ruta_final}")
+
+        # Llamada a la función para guardar los datos recolectados
+        guardar_excel_con_numeracion(df_teams, "equipos_nba")
         """, language='python')
+
 
     st.markdown("<br>", unsafe_allow_html=True)
-
-    # Funciones auxiliares para extracción y guardado de datos
-    st.code("""
-    def save_data_to_excel(df, filename):
-        path = os.path.join('data', f'{filename}.xlsx')
-        df.to_excel(path, index=False)
-        print(f'Data saved to {path}')
-        """, language='python')
-
 
     st.markdown("<h3 style='text-align: center;'>Proceso de extracción automatizado</h3><br>", unsafe_allow_html=True)
     colizq, colder = st.columns(2)
