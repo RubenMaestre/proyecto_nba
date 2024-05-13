@@ -78,5 +78,83 @@ def display():
     - Convertimos valores a numéricos donde es posible y asignamos 'none' donde no se puede convertir.
     """)
 
+    # Limpieza de la columna 'Edad'
+    st.header("Limpieza de la columna 'Edad'")
+    st.code("""
+    def limpiar_edad(valor):
+        if pd.isna(valor) or not str(valor).endswith("years"):
+            return None
+        return str(valor).replace("years", "").strip()
+
+    df1['Edad'] = df1['Edad'].apply(limpiar_edad)
+    """, language='python')
+
+    st.markdown("""
+    **Explicación:**
+    - Se limpia la columna 'Edad' eliminando el texto 'years' y asegurando que los datos sean coherentes. Valores no válidos se convierten en `None`.
+    """)
+
+    # Limpieza de la columna 'Experiencia'
+    st.header("Limpieza de la columna 'Experiencia'")
+    st.code("""
+    def limpiar_experiencia(valor):
+        if pd.isna(valor):
+            return None
+        if valor == "Rookie":
+            return valor
+        if str(valor).lower().endswith("years") or str(valor).lower().endswith("year"):
+            return str(valor).replace("Years", "").replace("years", "").replace("Year", "").replace("year", "").strip()
+        return None
+
+    df1['Experiencia'] = df1['Experiencia'].apply(limpiar_experiencia)
+    """, language='python')
+
+    st.markdown("""
+    **Explicación:**
+    - La columna 'Experiencia' se normaliza retirando los sufijos relacionados con los años y tratando los casos especiales como 'Rookie'.
+    """)
+
+    # Transformación de la columna 'Cumpleaños'
+    st.header("Formato de fecha para 'Cumpleaños'")
+    st.code("""
+    df1['Cumpleaños'] = pd.to_datetime(df1['Cumpleaños'], errors='coerce').dt.strftime('%d-%m-%Y')
+    df1['Cumpleaños'] = df1['Cumpleaños'].where(df1['Cumpleaños'].notna(), None)
+    """, language='python')
+
+    st.markdown("""
+    **Explicación:**
+    - Convertimos la columna 'Cumpleaños' a un formato de fecha más reconocible en España (`dd-mm-yyyy`). Valores no convertibles se marcan como `None`.
+    """)
+
+    # Fusión de DataFrames y reorganización de columnas
+    st.header("Fusión y reorganización de DataFrames")
+    st.code("""
+    df_jugadores = pd.merge(df2, df1, on='id_jugador', how='left', suffixes=('', '_df1'))
+
+    orden_columnas = ['id_jugador', 'Nombre', 'Apellido', 'ID Equipo'] + \
+                     [col for col in df1.columns if col not in ['id_jugador', 'Nombre', 'Apellido']] + \
+                     [col for col in df2.columns if col not in ['id_jugador', 'ID Equipo']]
+
+    df_jugadores = df_jugadores[orden_columnas]
+    df_jugadores.fillna('None', inplace=True)
+    """, language='python')
+
+    st.markdown("""
+    **Explicación:**
+    - Realizamos la fusión de los DataFrames `df1` y `df2` usando 'id_jugador' como clave. Reorganizamos las columnas y llenamos los valores faltantes con 'None' para mantener la consistencia en el DataFrame resultante.
+    """)
+
+    # Guardar el DataFrame final
+    st.header("Guardado del DataFrame final")
+    st.code("""
+    ruta_archivo = 'excels/actualizados/jugadores_completos.xlsx'
+    df_jugadores.to_excel(ruta_archivo, index=False)
+    """, language='python')
+
+    st.markdown("""
+    **Explicación:**
+    - Guardamos el DataFrame resultante en un archivo Excel, asegurando que todos los datos estén actualizados y bien organizados para su uso en análisis posteriores.
+    """)
+
 # Llama a la función para mostrar la página
 display()
