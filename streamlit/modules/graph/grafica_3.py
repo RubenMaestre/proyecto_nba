@@ -27,5 +27,5 @@ def mapa_equipos_nba():
         ).add_to(mapa)
     
     # Utiliza st_folium para mostrar el mapa en Streamlit
-    st_folium(mapa, width=725, height=500)
+    st_folium(mapa, width=960, height=500)
 
