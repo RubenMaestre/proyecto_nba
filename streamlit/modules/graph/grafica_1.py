@@ -5,7 +5,7 @@ import numpy as np
 import streamlit as st
 
 def grafica_victorias_derrotas():
-    ruta_equipos_nba = 'C:/Users/34670/Desktop/python/Hack a boss/proyecto_1/proyecto_nba/excels/actualizados/equipos_nba_actualizado.xlsx'
+    ruta_equipos_nba = 'excels/actualizados/equipos_nba_actualizado.xlsx'
     df_equipos_nba = pd.read_excel(ruta_equipos_nba)
     df_equipos_nba[['Victorias', 'Derrotas']] = df_equipos_nba['Victorias-Derrotas'].str.split(' - ', expand=True)
     df_equipos_nba['Victorias'] = df_equipos_nba['Victorias'].astype(int)
