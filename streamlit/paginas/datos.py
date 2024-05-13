@@ -313,19 +313,19 @@ def display():
     with colizq:
         
         st.markdown("""
-            Este proceso comienza con el uso de Selenium para navegar por la página oficial de la NBA y aceptar las cookies. Luego accedemos a la sección de estadísticas de los líderes de la temporada y utilizamos BeautifulSoup para extraer las URLs de las páginas de estadísticas de los jugadores líderes.
+            Este proceso comienzo usando Selenium para navegar por la página oficial de la NBA y aceptar las cookies. Luego accedo a la sección de estadísticas de los líderes de la temporada y uso BeautifulSoup para extraer las URLs de las páginas de estadísticas de los jugadores líderes.
             
             **Acceso a la web y cookies:**
-            - Inicializamos Selenium con WebDriver para Chrome.
-            - Abrimos y maximizamos la ventana del navegador.
-            - Accedemos a la página de juegos de la NBA y aceptamos la política de cookies.
+            - Inicializo Selenium con WebDriver para Chrome.
+            - Abro y maximizo la ventana del navegador.
+            - Accedo a la página de juegos de la NBA y acepto la política de cookies.
             
             **Navegación a la sección de estadísticas:**
-            - Navegamos a la sección de estadísticas de la temporada y luego a la opción de líderes de la temporada.
+            - Navego a la sección de estadísticas de la temporada y luego a la opción de líderes de la temporada.
             
             **Extracción de URLs de estadísticas de jugadores:**
-            - Obtenemos el código fuente de la página con `browser.page_source`.
-            - Parseamos el HTML con BeautifulSoup y extraemos las URLs de las páginas de estadísticas de los jugadores líderes.
+            - Obtengo el código fuente de la página con `browser.page_source`.
+            - Parseo el HTML con BeautifulSoup y extraigo las URLs de las páginas de estadísticas de los jugadores líderes.
             """)
         
     with colder:
@@ -357,15 +357,15 @@ def display():
 
     st.markdown("""
         **Función para la extracción de datos:**
-        - Desarrollamos funciones para extraer los nombres de las columnas y los datos específicos de cada jugador, incluyendo el ID del jugador y del equipo, obtenidos de los enlaces.
+        - Desarrollo funciones para extraer los nombres de las columnas y los datos específicos de cada jugador, incluyendo el ID del jugador y del equipo, obtenidos de los enlaces.
 
         **Proceso de extracción de datos de jugadores:**
-        - Accedemos a la primera URL de estadísticas de jugadores y ajustamos la vista para mostrar todas las estadísticas y jugadores.
-        - Utilizamos las funciones definidas para obtener los nombres de las columnas y los datos respectivos de cada fila de la tabla de estadísticas.
+        - Accedo a la primera URL de estadísticas de jugadores y ajusto la vista para mostrar todas las estadísticas y jugadores.
+        - Utilizo las funciones definidas para obtener los nombres de las columnas y los datos respectivos de cada fila de la tabla de estadísticas.
 
         **Creación del DataFrame y almacenamiento de datos:**
-        - Almacenamos los datos en un DataFrame de pandas.
-        - Implementamos un mecanismo de guardado en archivos Excel utilizando una función que evita la sobreescritura de datos existentes.
+        - Almaceno los datos en un DataFrame de pandas.
+        - Implemento un mecanismo de guardado en archivos Excel utilizando una función que evita la sobreescritura de datos existentes.
         """)
 
     st.code("""
@@ -383,6 +383,7 @@ def display():
         df.to_excel(ruta_final, index=False, engine='openpyxl')
         print(f"Archivo guardado como: {ruta_final}")
     """, language='python')
+
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
