@@ -13,7 +13,7 @@ def display():
 
     col1, col2, col3 = st.columns([0.5, 12, 0.5])
     with col2:  # Utilizamos la columna del medio para la imagen
-        st.image('sources/cabecera_datos.jpg')  # Asegúrate de que la ruta de la imagen sea correcta
+        st.image('streamlit/sources/cabecera.jpg')  # Asegúrate de que la ruta de la imagen sea correcta
 
     st.header('Tecnologías utilizadas')
     st.markdown("""
@@ -68,7 +68,7 @@ def display():
     col1, col2, col3 = st.columns([5,1,5])
 
     with col1:
-        st.image('sources/datos_1.jpg', use_column_width=True)
+        st.image('streamlit/sources/logo_nba.png', use_column_width=True)
         st.header('Automatización del Proceso de Selección')
         st.markdown("""
             Esta función automatiza la selección de elementos en un menú desplegable. Se utiliza específicamente para seleccionar los aeropuertos y aerolíneas previamente almacenados en dos listas. La elección de **By.NAME** se debe al hecho de que estos elementos están identificados por su nombre en el código HTML.
@@ -90,7 +90,7 @@ def display():
         st.write("")
 
     with col3:
-        st.image('sources/datos_2.jpg', use_column_width=True) 
+        st.image('streamlit/sources/logo_nba.png', use_column_width=True) 
         st.header('Función para seleccionar datos')
         st.markdown("""
             La función **preselecciones** se utiliza al inicio para marcar de antemano todas las estadísticas (por qué sale tarde, el tiempo que tarda en despegar, etc.), todos los días del mes, el mes de diciembre y los tres años con los que hemos hecho el trabajo.
@@ -283,7 +283,7 @@ def display():
     Con este proceso, aseguramos que cada aeropuerto esté representado una sola vez en nuestra base de datos, lo cual es crucial para la etapa siguiente donde se vincularán las coordenadas geográficas. La claridad y precisión en esta fase son fundamentales para evitar errores en el mapeo y en la visualización de datos.
     """)
     st.markdown("<br>", unsafe_allow_html=True)
-    st.image('sources/map_usa.jpg', use_column_width=True)
+    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
     st.markdown("<br>", unsafe_allow_html=True)
     st.header('Obtención de Coordenadas Usando la API de Foursquare')
 
@@ -409,7 +409,7 @@ def display():
     print(info_completa_aeropuerto)
     """, language='python')
     st.markdown("<br>", unsafe_allow_html=True)
-    st.image('sources/wikipedia.jpg', use_column_width=True)
+    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.header('Uso de los datos')
