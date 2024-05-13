@@ -52,34 +52,61 @@ def display():
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
 
+    # Proceso de extracción con Selenium y BeautifulSoup
     st.header('Proceso de extracción')
     st.markdown("""
-        El proceso de extracción se inició almacenando la URL de la página web de vuelos desde la que extraeríamos la información. Esta URL corresponde a la página oficial del [Departamento de Estadísticas de Transporte de EE. UU.](https://www.transtats.bts.gov/ONTIME/Departures.aspx).
-
-        Desarrollamos una función en Python diseñada para desplegar y extraer las opciones disponibles de los menús desplegables de la página. La función, denominada `obtener_opciones`, realiza una solicitud GET a la URL, analiza el HTML de la página utilizando BeautifulSoup y extrae las opciones del menú especificado. A continuación, se muestra un ejemplo de cómo funciona esta función para obtener las listas de aeropuertos y aerolíneas:
+        El proceso de extracción de datos comienza con el uso de Selenium para navegar por la página oficial de la NBA. Debido a las redirecciones basadas en la localización geográfica, es necesario especificar la URL exacta para evitar ser dirigido a versiones locales del sitio. A continuación, se describen los pasos seguidos para acceder a la información deseada y aceptar la política de cookies, que es un requisito común en muchos sitios web hoy en día.
         """)
 
+    # Código de Selenium y BeautifulSoup para extracción
     st.code("""
-        url = "https://www.transtats.bts.gov/ONTIME/Departures.aspx"
+            import numpy as np
+            import pandas as pd
+            import os
 
-        def obtener_opciones(url, aeropuertos_aerolineas):
-            response = requests.get(url)
-            soup = BeautifulSoup(response.text, 'html.parser')
-            seleccionar_aeropuerto_aerolinea = soup.find("select", attrs={"name": aeropuertos_aerolineas})
-            opciones = seleccionar_aeropuerto_aerolinea.find_all("option")
-            listado_opciones = [opcion.text for opcion in opciones]
-            return listado_opciones
+            import requests
+            from bs4 import BeautifulSoup
 
-        listado_aeropuertos = obtener_opciones(url, "cboAirport")
-        listado_aerolineas = obtener_opciones(url, "cboAirline")
+            from selenium import webdriver
+            from selenium.webdriver.common.by import By
+
+            from time import sleep
+            import random
+
+            # Configuración inicial de Selenium con el WebDriver de Chrome
+            chrome_driver = "chromedriver.exe"
+            browser = webdriver.Chrome(chrome_driver)
+
+            # Acceso a la página de juegos de la NBA
+            browser.get("https://nba.com/games")
+            browser.maximize_window()
+
+            # Aceptar la política de cookies
+            sleep(1)
+            browser.find_element(by=By.ID, value="onetrust-accept-btn-handler").click()
+
+            # Navegación hasta la página de estadísticas de jugadores
+            sleep(2)
+            browser.find_element(by=By.XPATH, value="//span[contains(text(), 'Players')]").click()
+
+            # Selección del menú para listar todos los jugadores de la temporada
+            sleep(0.3)
+            seleccion_menu = browser.find_element(by=By.CSS_SELECTOR, value=".DropDown_select__4pIg9")
+            seleccion_menu.click()  # Listar todos los jugadores
+
+            # Obtención del HTML de la página actual para realizar scraping con BeautifulSoup
+            web_jugadores = browser.page_source
+            soup = BeautifulSoup(web_jugadores, "html.parser")
+
+            # Extracción de los enlaces de los jugadores
+            urls_jugadores_nba = [a["href"] for a in soup.find_all("a", class_="Anchor_anchor__cSc3P RosterRow_playerLink__qw1vG")]
         """, language='python')
 
     st.markdown("""
-        Utilizando estas listas, procedimos a iterar sobre cada combinación de aeropuerto y aerolínea, aplicando filtros en la página para obtener datos de vuelos específicos de diciembre de los años 2021, 2022 y 2023. Este método automatizado facilitó la recolección sistemática y eficiente de los datos necesarios para nuestro análisis.
+        Utilizando BeautifulSoup, se procesa el HTML obtenido para extraer información relevante, como los enlaces a los perfiles de cada jugador, lo que permite un análisis más detallado de sus estadísticas individuales. Este enfoque combina la automatización de la navegación con la precisión del scraping de datos estructurados.
         """)
 
     st.markdown("<br><br><br>", unsafe_allow_html=True)
-
     col1, col2, col3 = st.columns([5,1,5])
 
     with col1:
