@@ -315,8 +315,8 @@ def display():
         categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
         N = len(categorias)
 
-        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 5
-        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(5)
+        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 3
+        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(3)
 
         # Normalizamos las estadísticas para cada jugador
         for cat in categorias:
