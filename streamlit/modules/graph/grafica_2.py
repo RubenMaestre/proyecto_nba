@@ -4,6 +4,12 @@ import numpy as np
 import streamlit as st
 
 def grafica_conferencias():
+    st.markdown("""
+    ### Clasificación de equipos por división / conferencia
+    En este análisis, presento la clasificación de los equipos de la NBA divididos por sus respectivas conferencias: Eastern y Western. Mediante barras horizontales, muestro tanto el número de victorias como de derrotas para cada equipo, ordenados de mayor a menor según sus victorias.
+    Este enfoque permite evaluar no solo el rendimiento individual de cada equipo sino también la competitividad dentro de cada conferencia. La distribución de victorias y derrotas destaca los equipos que han dominado su conferencia y aquellos que podrían necesitar mejoras significativas para la próxima temporada. Además, esta visualización facilita la identificación de los equipos que se han clasificado para los playoffs, ofreciendo una representación clara de la temporada 2023/2024.
+    """, unsafe_allow_html=True)
+    
     ruta_equipos_nba = 'excels/actualizados/equipos_nba_actualizado.xlsx'
     df_equipos_nba = pd.read_excel(ruta_equipos_nba)
     df_equipos_nba[['Victorias', 'Derrotas']] = df_equipos_nba['Victorias-Derrotas'].str.split(' - ', expand=True)

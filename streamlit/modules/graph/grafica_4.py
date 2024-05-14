@@ -4,6 +4,18 @@ import seaborn as sns
 import streamlit as st
 
 def grafica_top_jugadores():
+    st.markdown("""
+    ### Top 10 Jugadores en Estadísticas Clave de la NBA
+    En esta sección, presento una serie de gráficos que muestran a los líderes de la temporada NBA 2023/2024 en diferentes categorías estadísticas. Cada gráfico destaca a los diez mejores jugadores en las siguientes categorías:
+    - **Puntos por partido (PTS)**
+    - **Triples hechos (3PM)**
+    - **Tiros libres hechos (FTM)**
+    - **Rebotes ofensivos (OREB) y defensivos (DREB)**
+    - **Rebotes totales (REB)**
+    - **Asistencias (AST)**
+    - **Robos (STL)**
+    - **Bloqueos (BLK)**
+    """, unsafe_allow_html=True)
     # Rutas de los archivos Excel
     ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
     df_jugadores_nba = pd.read_excel(ruta_jugadores_nba)

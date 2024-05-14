@@ -5,6 +5,11 @@ import seaborn as sns
 import streamlit as st
 
 def grafica_correlacion_ppg_apg():
+    st.markdown("""
+    ### Correlación entre Puntos por Partido (PPG) y Asistencias por Partido (APG)
+    Esta gráfica de dispersión explora la relación entre los puntos anotados por partido y las asistencias por partido de los jugadores de la NBA durante la temporada 2023/2024. 
+    Los puntos por partido (PPG) representan la capacidad ofensiva de un jugador, mientras que las asistencias por partido (APG) reflejan su habilidad para facilitar el juego y contribuir al éxito del equipo de manera colaborativa.
+    """, unsafe_allow_html=True)
     # Carga de datos
     ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
     df_jugadores_nba = pd.read_excel(ruta_jugadores_nba)
