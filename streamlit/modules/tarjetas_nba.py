@@ -107,7 +107,7 @@ def obtener_imagen_jugador(jugador):
     """
     Obtiene la ruta de la imagen de un jugador.
     """
-    nombre_fichero = f"{jugador['Nombre']}_{jugador['Apellido']}.png"
+    nombre_fichero = f"{jugador['Nombre']}_{jugador['Apellido']}_tarjeta.png"
     ruta_fichero = os.path.join('fichas_nba', nombre_fichero)
     if os.path.exists(ruta_fichero):
         return ruta_fichero
