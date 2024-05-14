@@ -183,4 +183,87 @@ def display():
         Esta idea me permite crear una especie de sistema de clasificación para catalogar a los jugadores de la NBA, combinando varias estadísticas clave en una sola puntuación. Este sistema no solo me da una visión general del rendimiento de los jugadores, sino que también me permite identificar a los jugadores más destacados en distintas áreas del juego. Puedo ver quiénes son los mejores ofensivamente, defensivamente, etc.
         """)
 
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Asignación de valores monetarios ficticios a jugadores de la NBA</h3>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    # Explicación del proceso de asignación de valores monetarios ficticios
+    col11, col12 = st.columns([2, 2])
+
+    with col11:
+        st.markdown("""
+        #### Establecimiento de valores máximos y mínimos
+        Definí un valor máximo de 300 millones de dólares y un mínimo de 5 millones, con una puntuación máxima de 100 para escalar los valores monetarios. No podía tener un jugador con valor infinito, había que poner un máximo.
+
+        #### Escalar valor monetario
+        Desarrollé una función `escalar_valor_monetario` para asignar a cada jugador un valor monetario basado en su puntuación total, utilizando una escala lineal entre los valores mínimo y máximo.
+
+        #### Ajustes por cuartiles y varianza
+        Realicé ajustes adicionales en los valores monetarios basándome en los cuartiles y la varianza de las puntuaciones totales.
+        Incrementé el valor para los jugadores en el cuartil superior y lo disminuí para aquellos en el cuartil inferior.
+        También ajusté los valores en función de la varianza para reflejar la consistencia en el rendimiento del jugador.
+
+        #### Aplicación de la función de ajuste
+        Apliqué la función `ajustar_valor_monetario` para obtener los valores monetarios finales para cada jugador.
+
+        #### Visualización de los valores monetarios
+        Finalmente, ordené y presenté los jugadores según su valor monetario ajustado, ofreciendo una visión de su "valor" en un contexto ficticio basado en su rendimiento.
+
+        #### Significado y uso de este enfoque
+        Este enfoque me permite visualizar el valor de los jugadores de una manera novedosa y entretenida, similar a cómo los videojuegos clasifican y valoran a los jugadores.
+        Aunque los valores son ficticios, proporcionan una perspectiva interesante sobre cómo el rendimiento estadístico podría traducirse en valor monetario en un contexto hipotético.
+        """)
+
+    with col12:
+        st.code("""
+        # Ahora se me ha ocurrido asignarle valores ficticios monetarios en dólares a los jugadores de la NBA
+        # Entonces, siguiendo el mismo modelo que ya empleamos para repartir puntos contemplando los mejores y 
+        # peores con los Q3 y Q1, y con la corrección de la varianza asignar valores monetarios con la puntuación
+        # total entre 300 millones de dólares y 5 millones de dólares
+
+        # Parámetros de valoración
+        valor_maximo = 300  # En millones de dólares
+        valor_minimo = 5    # En millones de dólares
+        puntuacion_maxima = 100
+
+        # Escalar el valor monetario base según la puntuación
+        def escalar_valor_monetario(puntuacion, valor_minimo, valor_maximo, puntuacion_maxima):
+            return ((valor_maximo - valor_minimo) / puntuacion_maxima) * puntuacion + valor_minimo
+
+        def ajustar_valor_monetario(df, valor_minimo, valor_maximo, puntuacion_maxima, q1_total, q3_total, varianza_total, umbral_varianza, ajuste_cuartiles, ajuste_varianza):
+            df['Valor_Monetario'] = df['Puntuacion_Total'].apply(lambda x: escalar_valor_monetario(x, valor_minimo, valor_maximo, puntuacion_maxima))
+
+            # Ajuste por cuartiles
+            df.loc[df['Puntuacion_Total'] > q3_total, 'Valor_Monetario'] += ajuste_cuartiles
+            df.loc[df['Puntuacion_Total'] < q1_total, 'Valor_Monetario'] -= ajuste_cuartiles
+
+            # Ajuste por varianza
+            if varianza_total > umbral_varianza:
+                df['Valor_Monetario'] -= ajuste_varianza
+            elif varianza_total < umbral_varianza:
+                df['Valor_Monetario'] += ajuste_varianza
+
+            df['Valor_Monetario'] = df['Valor_Monetario'].clip(lower=valor_minimo, upper=valor_maximo)
+            return df
+
+        # Parámetros adicionales para el ajuste
+        ajuste_cuartiles = 15  # Ajuste monetario para jugadores en los cuartiles superior e inferior
+        ajuste_varianza = 10   # Ajuste monetario para la varianza
+
+        # Calcula 'Puntuacion_Total'
+        columnas_puntuaciones = [stat + '_por_GP_normalizado' for stat in estadisticas]
+        df_puntuaciones_finales['Puntuacion_Total'] = df_puntuaciones_finales[columnas_puntuaciones].mean(axis=1)
+
+        # Convertir 'Puntuacion_Total' a escala de 0 a 100, si aún no se ha hecho
+        df_puntuaciones_finales['Puntuacion_Total'] = (df_puntuaciones_finales['Puntuacion_Total'] * 10).round(2)
+
+        # Aplicar ajustes al valor monetario con los nuevos cuartiles y varianza
+        if 'Puntuacion_Total' in df_puntuaciones_finales.columns:
+            df_puntuaciones_finales = ajustar_valor_monetario(df_puntuaciones_finales, valor_minimo, valor_maximo, puntuacion_maxima, q1_total, q3_total, varianza_total, umbral_varianza, ajuste_cuartiles, ajuste_varianza)
+
+        # Imprimir el resultado
+        print(df_puntuaciones_finales[['Nombre', 'Apellido', 'Puntuacion_Total', 'Valor_Monetario']].sort_values(by='Valor_Monetario', ascending=False))
+                """)
+
 display()
