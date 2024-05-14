@@ -37,9 +37,9 @@ def display():
         mapa_equipos_nba()
     elif choice == "Top 10 jugadores en estadísticas clave":
         grafica_top_jugadores()
-    elif choice == "Correlación entre Puntos por Partido y Asistencias por Partido":
+    elif choice == "Correlación entre puntos por partido y asistencias por partido en jugadores":
         grafica_correlacion_ppg_apg()
-    elif choice == "Correlación entre Puntos por Partido y Asistencias por Partido en Equipos":
+    elif choice == "Correlación entre puntos por partido y asistencias por partido en equipos":
         grafica_correlacion_equipos_ppg_apg()
 
 display()
