@@ -6,7 +6,7 @@ from paginas import inicio, datos, limpieza, eda, sobre_proyecto, sobre_mi, fich
 def create_sidebar():
     st.sidebar.markdown(
         f'<div style="text-align: center; margin-bottom: 30px;">'
-        f'<img src="proyecto_nba/streamlit/sources/logo_ruben_maestre.png" alt="Logo" style="width: 100%; max-width: 200px;">'
+        f'<img src="streamlit/sources/logo_ruben_maestre.png" alt="Logo" style="width: 100%; max-width: 200px;">'
         f'</div>',
         unsafe_allow_html=True
     )
