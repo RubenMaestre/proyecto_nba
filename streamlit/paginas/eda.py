@@ -11,9 +11,9 @@ from modules.graph.grafica_8 import grafica_top_jugadores_por_minutos
 from modules.graph.grafica_9 import grafica_relacion_minutos_puntos
 
 def display():
-    st.image('streamlit/sources/cabecera_eda.jpg', use_column_width=True)
-    st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown("<h1 style='text-align: center;'>Análisis Exploratorio de Datos (EDA) en la NBA</h1>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.image('streamlit/sources/cabecera_eda.jpg', use_column_width=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
 
     st.markdown("""
