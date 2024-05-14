@@ -442,6 +442,10 @@ def display():
     with col15:
         st.markdown("### Top 20 Jugadores")
         jugadores = obtener_top_20_jugadores(df_puntuaciones_finales)
+
+        if 'jugador_seleccionado' not in st.session_state:
+            st.session_state['jugador_seleccionado'] = jugadores.index[0]
+
         for index, jugador in jugadores.iterrows():
             if st.button(f"{jugador['Nombre']} {jugador['Apellido']}"):
                 st.session_state['jugador_seleccionado'] = index
