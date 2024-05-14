@@ -29,7 +29,7 @@ def display():
     """)
 
     # Creación de dos columnas con Streamlit
-    col19, col20, col21 = st.columns(2,0.5,2)
+    col19, col20, col21 = st.columns([2, 0.5, 2])
 
     with col19:
         # Fuente de los datos
