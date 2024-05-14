@@ -27,9 +27,4 @@ def display():
     with col2:
         st.image('streamlit/sources/ficha_ejemplo.png', use_column_width=True)
 
-    # Continuar con el resto de la página
-    st.markdown("### Ejemplo de tarjeta de jugador")
-    st.image('streamlit/sources/ficha_ejemplo.png', caption='Ejemplo de tarjeta de jugador', use_column_width=True)
-
-
 display()
