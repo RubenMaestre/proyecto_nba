@@ -6,9 +6,11 @@ def display():
     # Introducción y contexto del proyecto
     st.markdown("""
             <div style='text-align: justify;'>
-            <p><strong style='font-size: 18px;'>Este proyecto analiza meticulosamente los datos de la NBA, empleando técnicas avanzadas de web scraping y API para extraer información actualizada sobre los juegos, jugadores y equipos. Mi objetivo principal es automatizar la recolección de datos y proporcionar análisis profundos que revelen patrones, tendencias y estadísticas ocultas en el deporte del baloncesto. La complejidad y dinamismo de la NBA hacen de esta una oportunidad única para explorar aspectos del juego que van más allá de las estadísticas convencionales.</strong></p>
+            <p><strong style='font-size: 18px;'>Este proyecto representa un análisis exhaustivo de los datos de la NBA, aprovechando técnicas sofisticadas de web scraping y APIs para obtener información actual y detallada de partidos, jugadores y equipos de la temporada 2023/2024. Mi enfoque ha sido automatizar la recolección de datos para ofrecer análisis profundos que descubren patrones y tendencias que suelen pasar inadvertidos en las estadísticas tradicionales del baloncesto. La complejidad y la naturaleza siempre cambiante de la NBA presentan una oportunidad excepcional para examinar aspectos del juego que raramente son explorados por métodos convencionales.</strong></p>
+            <p><strong style='font-size: 18px;'>Con el objetivo de transformar la forma en que se visualizan y comprenden las estadísticas deportivas, este proyecto no solo busca informar sino también innovar en la interpretación de los datos del deporte. Al integrar tecnologías avanzadas en la recopilación y análisis de datos, se abren nuevas perspectivas para apreciar la estrategia y el rendimiento en el baloncesto, permitiendo tanto a aficionados como a profesionales del deporte obtener una comprensión más profunda y enriquecida de cada encuentro.</strong></p>
             </div>
         """, unsafe_allow_html=True)
+
 
     st.markdown("<br>", unsafe_allow_html=True)
 
@@ -39,8 +41,11 @@ def display():
         # Límites y datos recogidos
         st.header('Límites y datos recogidos')
         st.markdown("""
-            Me centro en la temporada actual de la NBA, analizando datos actualizados hasta hoy, 23 de enero de 2024. He recopilado información específica que incluye las victorias y derrotas de los equipos, su clasificación, así como estadísticas detalladas de los jugadores de la temporada en curso. Además, he incorporado datos complementarios como equipos, dorsales, edad y país de procedencia de los jugadores.
-            """)
+            <div style='text-align: justify;'>
+                <p>El proyecto inicialmente se centró en datos recogidos hasta el 23 de enero de 2024, ofreciendo una fotografía detallada de la temporada en curso de la NBA en ese momento. Esta primera fase del análisis incluyó victorias, derrotas, clasificaciones y estadísticas detalladas de los jugadores, además de información complementaria como equipos, dorsales, edad y país de procedencia.</p>
+                <p>Actualmente, el proyecto ha sido ampliado y actualizado en Streamlit para reflejar la temporada regular completa de 2023/2024. Esta actualización permite una visualización y análisis exhaustivos de todos los datos recogidos durante la temporada, sin incluir los playoff, proporcionando una herramienta dinámica y actualizada para aficionados y analistas del deporte.</p>
+            </div>
+        """, unsafe_allow_html=True)
 
     with col2:
         # Selección de fuentes de datos y análisis a realizar
