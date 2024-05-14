@@ -15,10 +15,9 @@ def grafica_top_jugadores():
     categorias = ['PTS', '3PM', 'FTM', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK']
 
     # Crear una figura y varios subplots
-    fig, axs = plt.subplots(5, 2, figsize=(15, 20))  # Ajusta aquí las dimensiones según necesites
+    fig, axs = plt.subplots(5, 2, figsize=(15, 20))  # Ajustar tamaño según necesidades
     fig.suptitle('Top 10 jugadores en varias categorías')
 
-    # Iterar sobre cada categoría y asignar a un subplot
     for i, cat in enumerate(categorias):
         ax = axs[i % 5, i // 5]  # Ubicar cada subplot en la posición correcta
         top_jugadores = df_jugadores_nba.nlargest(10, cat)
@@ -27,6 +26,5 @@ def grafica_top_jugadores():
         ax.set_xlabel('')
         ax.set_ylabel('')
 
-    # Ajustar el layout para evitar superposición de títulos y labels
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])  # Ajustar el layout para el título superior
     st.pyplot(fig)
