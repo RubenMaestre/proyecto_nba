@@ -147,7 +147,8 @@ def display():
                 """)
 
 
-        st.markdown("### Cálculo de la puntuación total")
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("### Cálculo de la puntuación total")
 
     # Explicación del cálculo de la puntuación total
     col9, col10 = st.columns([2, 2])
