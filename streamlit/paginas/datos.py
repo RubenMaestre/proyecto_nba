@@ -17,7 +17,7 @@ def display():
     # Espacio para una imagen representativa, si es necesario
     col1, col2, col3 = st.columns([0.5, 12, 0.5])
     with col2:
-        st.image('streamlit/sources/cabecera.jpg')  # Asegúrate de que la ruta de la imagen sea correcta
+        st.image('streamlit/sources/cabecera_datos.jpg')  # Asegúrate de que la ruta de la imagen sea correcta
 
     # Descripción de las tecnologías utilizadas
     st.header('Tecnologías utilizadas')
