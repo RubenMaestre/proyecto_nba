@@ -27,9 +27,18 @@ def display():
 
     Mi objetivo es proporcionar una comprensión profunda y detallada de los datos de la NBA, permitiendo a aficionados y profesionales del deporte apreciar mejor la estrategia y el rendimiento en el baloncesto.
     """, unsafe_allow_html=True)
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
-
+    # Custom CSS for the selectbox
+    st.markdown(
+        """
+        <style>
+        .custom-selectbox .stSelectbox div {
+            font-size: 1.5em;
+        }
+        </style>
+        """, 
+        unsafe_allow_html=True
 
     options = ["Análisis de victorias y derrotas por equipo", 
                "Clasificación de equipos por división / conferencia",
@@ -41,7 +50,7 @@ def display():
                "Eficiencia de los jugadores con mayor tiempo en pista",
                "Relación entre minutos en pista y puntos anotados"]
 
-    choice = st.selectbox("Seleccione el análisis que desea visualizar:", options)
+    choice = st.selectbox("Seleccione la gráfica o mapa que desee visualizar:", options, key="custom-selectbox")
 
     if choice == "Análisis de victorias y derrotas por equipo":
         grafica_victorias_derrotas()
