@@ -34,7 +34,7 @@ def display():
         """
         <style>
         .custom-selectbox .stSelectbox div {
-            font-size: 1.5em;
+            font-size: 2.5em;
         }
         </style>
         """, 
