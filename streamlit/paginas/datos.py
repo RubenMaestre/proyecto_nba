@@ -121,7 +121,7 @@ def display():
     col1, col2, col3 = st.columns([5, 1, 5])
 
     with col1:
-        st.image('streamlit/sources/logo_nba.png', use_column_width=True)
+        st.image('streamlit/sources/descarga_jugadores.jpg', use_column_width=True)
         st.header('Extracción de datos de jugadores')
         st.markdown("""
             Proceso completo para extraer datos de los jugadores de la NBA, desde obtener las URLs de cada perfil utilizando BeautifulSoup hasta recoger y procesar la información individual de cada jugador. Este enfoque incluye retardos aleatorios para evitar bloqueos del servidor y garantizar la fiabilidad de la recopilación de datos.
@@ -186,7 +186,7 @@ def display():
         st.write("")  # Espacio en blanco para separar las columnas
 
     with col3:
-        st.image('streamlit/sources/logo_nba.png', use_column_width=True)
+        st.image('streamlit/sources/descarga_equipos.jpg', use_column_width=True)
         st.header('Extracción de datos de equipos')
         st.markdown("""
             Descripción del método para extraer información de los equipos de la NBA, que incluye la navegación a través de URLs específicas para recoger datos como victorias, derrotas y estadísticas clave. La información se procesa y almacena utilizando pandas, y se guarda con un enfoque que evita la sobreescritura de archivos existentes.
