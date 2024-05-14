@@ -331,8 +331,7 @@ def display():
             fig.add_trace(go.Scatterpolar(
                 r=[jugador[cat] for cat in categorias],
                 theta=categorias,
-                fill='toself',
-                name=f"{jugador['Nombre']} {jugador['Apellido']}"
+                fill='toself'
             ))
 
             fig.update_layout(
@@ -341,7 +340,7 @@ def display():
                         visible=True,
                         range=[0, 1]
                     )),
-                showlegend=True,
+                showlegend=False,
                 title=f"Estadísticas de {jugador['Nombre']} {jugador['Apellido']}"
             )
 
