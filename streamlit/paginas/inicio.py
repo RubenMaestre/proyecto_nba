@@ -2,20 +2,19 @@
 import streamlit as st
 
 def display():
-    st.markdown(
-    """
-    <div style='text-align: center;'>
-        <img src='streamlit/sources/logo_nba.png' width='350'>
-    </div>
-    """,
-    unsafe_allow_html=True
-    )
-    st.markdown("<br><br>", unsafe_allow_html=True)  # Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
-    # Título
-    st.markdown("<h1 style='text-align: center;'>Breve análisis de datos en la NBA</h1>", unsafe_allow_html=True)
+    # Crear dos columnas con tamaños 5 y 1
+    col1, col2 = st.columns([5,1])
+
+    # En la primera columna, colocamos el título
+    with col1:
+        st.markdown("<h1 style='text-align: center;'>Breve análisis de datos en la NBA</h1>", unsafe_allow_html=True)
+
+    # En la segunda columna, colocamos el logo
+    with col2:
+        st.image("streamlit/sources/logo_nba.png", width=350)
+
     st.markdown("<br><br>", unsafe_allow_html=True)
-    
-   
+       
     st.markdown("""
             <div style='text-align: justify;'>
                 <h3>Proyecto realizado por Rubén Maestre</h3>
