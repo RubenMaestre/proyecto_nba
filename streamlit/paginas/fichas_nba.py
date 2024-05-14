@@ -269,67 +269,67 @@ def display():
         print(df_puntuaciones_finales[['Nombre', 'Apellido', 'Puntuacion_Total', 'Valor_Monetario']].sort_values(by='Valor_Monetario', ascending=False))
                 """)
 
-   # Continúa con la siguiente sección de la página
-st.markdown("<br>", unsafe_allow_html=True)
-st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
-st.markdown("<br>", unsafe_allow_html=True)
+    # Continúa con la siguiente sección de la página
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
-# Explicación y gráficos de radar
-col1, col2 = st.columns([2, 5])
-# Calcular las puntuaciones utilizando la función de calculos_finales.py
-df_puntuaciones_finales = calcular_puntuaciones()
+    # Explicación y gráficos de radar
+    col1, col2 = st.columns([2, 5])
+    # Calcular las puntuaciones utilizando la función de calculos_finales.py
+    df_puntuaciones_finales = calcular_puntuaciones()
 
-with col1:
-    st.markdown("""
-    #### Elección de categorías estadísticas
-    Seleccioné categorías clave como porcentajes de tiros de campo (FG%), triples (3P%) y tiros libres (FT%), rebotes, asistencias, robos, bloqueos, pérdidas y faltas personales.
+    with col1:
+        st.markdown("""
+        #### Elección de categorías estadísticas
+        Seleccioné categorías clave como porcentajes de tiros de campo (FG%), triples (3P%) y tiros libres (FT%), rebotes, asistencias, robos, bloqueos, pérdidas y faltas personales.
 
-    #### Normalización de estadísticas
-    Normalicé las estadísticas para cada jugador en relación con el valor máximo de cada categoría entre los tres mejores jugadores, permitiendo una comparación justa.
+        #### Normalización de estadísticas
+        Normalicé las estadísticas para cada jugador en relación con el valor máximo de cada categoría entre los tres mejores jugadores, permitiendo una comparación justa.
 
-    #### Configuración y creación del gráfico
-    Configuré un gráfico de radar para cada uno de los tres mejores jugadores.
-    Utilicé un bucle para graficar los valores normalizados de cada jugador en las categorías seleccionadas.
-    Añadí estilos y colores para mejorar la legibilidad y estética del gráfico.
+        #### Configuración y creación del gráfico
+        Configuré un gráfico de radar para cada uno de los tres mejores jugadores.
+        Utilicé un bucle para graficar los valores normalizados de cada jugador en las categorías seleccionadas.
+        Añadí estilos y colores para mejorar la legibilidad y estética del gráfico.
 
-    #### Presentación de los resultados
-    Cada gráfico muestra visualmente cómo cada jugador se compara en las diferentes categorías estadísticas.
-    Los títulos de los gráficos incluyen el nombre del jugador, lo que facilita la identificación.
+        #### Presentación de los resultados
+        Cada gráfico muestra visualmente cómo cada jugador se compara en las diferentes categorías estadísticas.
+        Los títulos de los gráficos incluyen el nombre del jugador, lo que facilita la identificación.
 
-    #### Uso de Plotly para gráficos interactivos
-    Repetí el proceso de normalización y creación de gráficos de radar utilizando Plotly.
-    """)
+        #### Uso de Plotly para gráficos interactivos
+        Repetí el proceso de normalización y creación de gráficos de radar utilizando Plotly.
+        """)
 
-with col2:
-     # Ya tenemos los cálculos hechos... ahora vamos a graficar
-    # Primero vamos a poner el top3 de jugadores ofensivos en un gráfico tipo radar 
+    with col2:
+        # Ya tenemos los cálculos hechos... ahora vamos a graficar
+        # Primero vamos a poner el top3 de jugadores ofensivos en un gráfico tipo radar 
 
-    # Categorías para el gráfico de radar
-    categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
-    N = len(categorias)
+        # Categorías para el gráfico de radar
+        categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
+        N = len(categorias)
 
-    # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 3
-    top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(3)
+        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 3
+        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(3)
 
-    # Normalizamos las estadísticas para cada jugador
-    for cat in categorias:
-        max_value = top_jugadores[cat].max()
-        if max_value > 0:
-            top_jugadores[cat] = top_jugadores[cat] / max_value
+        # Normalizamos las estadísticas para cada jugador
+        for cat in categorias:
+            max_value = top_jugadores[cat].max()
+            if max_value > 0:
+                top_jugadores[cat] = top_jugadores[cat] / max_value
 
-    # Crear un gráfico de radar para cada jugador
-    for index, jugador in top_jugadores.iterrows():
-        valores = [jugador[cat] for cat in categorias] + [jugador[categorias[0]]]  # Repite el primer valor al final para cerrar el círculo
-        angulos = [n / float(N) * 2 * np.pi for n in range(N)]
-        angulos += angulos[:1]
+        # Crear un gráfico de radar para cada jugador
+        for index, jugador in top_jugadores.iterrows():
+            valores = [jugador[cat] for cat in categorias] + [jugador[categorias[0]]]  # Repite el primer valor al final para cerrar el círculo
+            angulos = [n / float(N) * 2 * np.pi for n in range(N)]
+            angulos += angulos[:1]
 
-        fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
-        plt.xticks(angulos[:-1], categorias)
+            fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
+            plt.xticks(angulos[:-1], categorias)
 
-        ax.plot(angulos, valores)
-        ax.fill(angulos, valores, 'teal', alpha=0.1)
+            ax.plot(angulos, valores)
+            ax.fill(angulos, valores, 'teal', alpha=0.1)
 
-        plt.title(f"Estadísticas de {jugador['Nombre']} {jugador['Apellido']}")
-        st.pyplot(fig)
-        
+            plt.title(f"Estadísticas de {jugador['Nombre']} {jugador['Apellido']}")
+            st.pyplot(fig)
+
 display()
