@@ -4,6 +4,7 @@ from modules.graph.grafica_1 import grafica_victorias_derrotas
 from modules.graph.grafica_2 import grafica_conferencias
 from modules.graph.grafica_3 import mapa_equipos_nba
 from modules.graph.grafica_4 import grafica_top_jugadores
+from modules.graph.grafica_5 import grafica_correlacion_ppg_apg
 
 def display():
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
@@ -146,6 +147,9 @@ def display():
     """, unsafe_allow_html=True)
 
     grafica_top_jugadores()
+
+
+    grafica_correlacion_ppg_apg()
 
 # Llama a la función para mostrar la página
 display()
