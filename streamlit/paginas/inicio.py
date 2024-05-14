@@ -2,15 +2,14 @@
 import streamlit as st
 
 def display():
-    
+    st.image("streamlit/sources/logo_nba.png")
     st.markdown("<br><br>", unsafe_allow_html=True)  # Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
     # Título
     st.markdown("<h1 style='text-align: center;'>Breve análisis de datos en la NBA</h1>", unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
     
-    col1, col2, col3 = st.columns([5,0.5,2])
-    with col1:
-        st.markdown("""
+   
+    st.markdown("""
             <div style='text-align: justify;'>
                 <h3>Proyecto realizado por Rubén Maestre</h3>
                 <p><strong style='font-size: 18px;'>Este proyecto nace de mi primer desafío en el bootcamp de Hack a Boss y se ha convertido en una exploración continua y detallada del rendimiento de equipos y jugadores de la NBA, mostrando cómo los datos pueden transformar nuestra visión del deporte. A lo largo de mi formación en ciencia de datos, he evolucionado este análisis inicial, enriqueciéndolo con nuevas funcionalidades y visualizaciones, como la integración en Streamlit que mejora la interacción y el acceso a la información.</strong></p>
@@ -18,13 +17,9 @@ def display():
             </div>
         """, unsafe_allow_html=True)
 
-    with col2:
-        st.write("")
 
-    with col3:
-        st.image("streamlit/sources/logo_nba.png")
 
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     col4, col5, col6 = st.columns([5, 0.8, 5])
 
@@ -47,7 +42,7 @@ def display():
             </div>
         """, unsafe_allow_html=True)
 
-    st.markdown("<br><br><br>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     st.markdown("""
         <div style='text-align: justify;'>
@@ -55,5 +50,5 @@ def display():
             El principal desafío que enfrenté fue la automatización de la recolección de datos ante las complejidades técnicas y las restricciones del sitio web de la NBA. No solo logré superar estos retos desarrollando un código adaptable y robusto contra errores, sino que además, meses después de finalizar el proyecto, pude verificar que el código seguía funcionando de manera eficiente, actualizando los datos hasta el final de la temporada regular 2023/2024. Esta capacidad para extraer datos sin ser limitado por las restricciones del sitio demostró la robustez y la escalabilidad de la solución implementada.
         </div>
     """, unsafe_allow_html=True)
-
+    st.markdown("<br><br>", unsafe_allow_html=True)
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
