@@ -32,7 +32,8 @@ def grafica_correlacion_ppg_apg():
 
     fig.update_layout(title_font_size=24,
                       xaxis_title_font_size=18,
-                      yaxis_title_font_size=18)
+                      yaxis_title_font_size=18,
+                      width=960)
 
     st.plotly_chart(fig)
 
