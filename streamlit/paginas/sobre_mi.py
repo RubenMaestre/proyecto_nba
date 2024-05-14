@@ -36,12 +36,14 @@ def display():
     st.markdown("<br>", unsafe_allow_html=True)
     # Información de contacto y enlaces sociales
     st.markdown("""
-        **🌟 Logros destacados**
-        - En el ámbito deportivo, lideré con éxito la sección de fútbol sala del Elche C.F. y la liga local de fútbol sala de Elche, el Xaloc Alacant F.S., Manresa F.S., la Media Maratón de Elche, he participado en el desarrollo de eventos y organizaciones, aplicando estrategias de marketing y comunicación efectivas.
-        - Como director del programa 'Crucemos el Rubicón' en Radio Intereconomía, hice del programa un punto de referencia en la región de Alicante.
-        - He desarrollado y gestionado proyectos digitales que combinan deporte, comunicación y tecnología, destacando por su innovación y alcance.
-        - He creado mi propia marca de moda donde desarrollo mis habilidades en empresa, marketing y comunicación #SUPERCLAW"""
-    )
+    **🌟 Logros destacados**
+    - En el ámbito deportivo, lideré con éxito la sección de fútbol sala del Elche C.F. y la liga local de fútbol sala de Elche, el Xaloc Alacant F.S., Manresa F.S. y la Media Maratón de Elche. He participado en el desarrollo de eventos y organizaciones, aplicando estrategias de marketing y comunicación efectivas.
+    - Como director del programa 'Crucemos el Rubicón' en Radio Intereconomía, hice del programa un punto de referencia en la región de Alicante. Durante más de dos años, estuve al mando del programa, realizando entrevistas, cubriendo noticias de economía, política y sociedad, demostrando mi capacidad para comunicar y organizarme, además de habilidades sociales destacadas.
+    - He desarrollado y gestionado proyectos digitales que combinan deporte, comunicación y tecnología, destacando por su innovación y alcance. Mi capacidad de liderazgo y gestión de equipos deportivos como entrenador o gerente de clubes ha sido clave para captar a través de las emociones y la creatividad los sentimientos de los usuarios mediante campañas de marketing.
+    - He creado mi propia marca de moda, #SUPERCLAW, donde desarrollo mis habilidades en empresa, marketing y comunicación.
+    - En el ámbito digital, he creado páginas web, gestionado redes sociales y diseñado gráficos. Recientemente, he aplicado mis conocimientos en Python para desarrollar programas como uno que automatiza la marca de agua en fotografías y otro que envía mensajes personalizados de WhatsApp.
+    """)
+
 
     st.markdown("<br>", unsafe_allow_html=True)            
     st.markdown("""
