@@ -2,12 +2,9 @@ import os
 import plotly.graph_objects as go
 from PIL import Image, ImageDraw, ImageFont
 import kaleido
+from io import BytesIO
 
 def crear_ficha_jugador(df_puntuaciones_finales, jugador):
-    carpeta = 'fichas_nba/'
-    if not os.path.exists(carpeta):
-        os.makedirs(carpeta)
-
     categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
     
     jugador_normalizado = jugador.copy()
@@ -33,15 +30,9 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
         plot_bgcolor='rgba(0,0,0,0)'   # Fondo transparente
     )
 
-    nombre_archivo = f"{jugador['Nombre']}_{jugador['Apellido']}.png"
+    img_bytes = fig.to_image(format="png", width=430, height=600, scale=1)
+    grafica_radar = Image.open(BytesIO(img_bytes))
 
-    try:
-        fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
-    except ValueError as e:
-        st.error(f"Error al guardar la imagen: {e}")
-        return None
-
-    carpeta_imagenes = 'fichas_nba/'
     carpeta_logos = 'logos_equipos/png/'
     ruta_fuente = "c:/windows/fonts/arialn.ttf"
     tamaño_fuente_grande = 60
@@ -66,10 +57,8 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
     }
     espaciado_vertical = 70
 
-    imagen_fondo = Image.open(carpeta_imagenes + 'tarjeta_base_nba.png')
-
-    nombre_grafica = f"{jugador['Nombre']}_{jugador['Apellido']}.png"
-    grafica_radar = Image.open(carpeta_imagenes + nombre_grafica)
+    # Cargar la imagen de fondo
+    imagen_fondo = Image.open('streamlit/sources/tarjeta_base_nba.png')
     grafica_radar = grafica_radar.resize((700, 977))
     imagen_fondo.paste(grafica_radar, (450, 150), grafica_radar)
 
@@ -108,7 +97,9 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
     posicion_valor_monetario = (150, 1550)
     draw.text(posicion_valor_monetario, texto_valor_monetario, fill=(255, 255, 255), font=fuente_grande)
 
-    nombre_tarjeta = f"{jugador['Nombre']}_{jugador['Apellido']}_tarjeta.png"
-    imagen_fondo.save(carpeta_imagenes + nombre_tarjeta)
+    # Guardar la imagen final en BytesIO
+    buffer = BytesIO()
+    imagen_fondo.save(buffer, format="PNG")
+    buffer.seek(0)
 
-    return imagen_fondo
+    return buffer
