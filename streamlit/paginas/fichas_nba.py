@@ -3,7 +3,7 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-from modules.calculos_finales import calcular_puntuaciones
+from modules.calculos_finales import cargar_datos, calcular_puntuaciones
 from modules.tarjetas_nba import cargar_datos, calcular_puntuaciones, obtener_top_20_jugadores, obtener_imagen_jugador
 
 def display():
@@ -275,6 +275,16 @@ def display():
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
+
+    # Definir las rutas de los archivos
+    ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
+    ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
+
+    # Cargar los datos
+    df_jugadores_nba = cargar_datos(ruta_equipos_nba, ruta_jugadores_nba)
+
+    # Calcular las puntuaciones
+    df_puntuaciones_finales = calcular_puntuaciones(df_jugadores_nba)
 
     # Explicación y gráficos de radar
     col1, col2 = st.columns([2, 2])

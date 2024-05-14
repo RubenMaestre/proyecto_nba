@@ -1,27 +1,41 @@
 import pandas as pd
 
-def calcular_puntuaciones():
-    # Lo primero es importar los datos descargados de airtable que tenemos almacenados en un excel para hacer gráficas.
-    ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
-    ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
+def cargar_datos(ruta_equipos, ruta_jugadores):
+    """
+    Carga los datos de los equipos y jugadores desde archivos Excel.
 
-    df_equipos_nba = pd.read_excel(ruta_equipos_nba)
-    df_jugadores_nba = pd.read_excel(ruta_jugadores_nba)
+    Args:
+    ruta_equipos (str): Ruta del archivo Excel con los datos de los equipos.
+    ruta_jugadores (str): Ruta del archivo Excel con los datos de los jugadores.
 
-    # Vamos a calcular de todos los jugadores respecto a los partidos jugados la media, varianza y cuartiles 1 y 3 de todos sus datos
+    Returns:
+    pd.DataFrame: DataFrame con los datos de los jugadores.
+    """
+    df_equipos_nba = pd.read_excel(ruta_equipos)
+    df_jugadores_nba = pd.read_excel(ruta_jugadores)
+    return df_jugadores_nba
 
-    # Lo primero vamos a crear un nuevo dataframe que sea copia del original para trabajar en él y tener el original por si necesitamos incorporar algún dato sin modificar
-    df_estadisticas_jugadores = df_jugadores_nba.copy()
-    
-    # Calculamos la media
+def calcular_puntuaciones(df_jugadores_nba):
+    """
+    Calcula las puntuaciones de los jugadores y devuelve el DataFrame con las puntuaciones finales.
+
+    Args:
+    df_jugadores_nba (pd.DataFrame): DataFrame que contiene los datos de los jugadores.
+
+    Returns:
+    pd.DataFrame: DataFrame con las puntuaciones finales de los jugadores.
+    """
     estadisticas = ['MIN', 'PTS', 'FGM', 'FGA', '3PM', '3PA', 'FTM', 'FTA', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'EFF']
+    
+    # Crear un DataFrame para trabajar
+    df_estadisticas_jugadores = df_jugadores_nba.copy()
     for stat in estadisticas:
         df_estadisticas_jugadores[stat + '_por_GP'] = df_estadisticas_jugadores[stat] / df_estadisticas_jugadores['GP']
-
-    # Vamos a quitar los datos de los jugadores que no hayan jugado ningún partido para no dividir entre 0
+    
+    # Filtrar jugadores que han jugado al menos un partido
     df_estadisticas_jugadores = df_estadisticas_jugadores[df_estadisticas_jugadores['GP'] != 0]
 
-    # Y hacemos lo mismo con la varianza y cuartiles
+    # Calcular varianzas y cuartiles
     varianzas = df_estadisticas_jugadores[estadisticas].var()
     cuartiles = df_estadisticas_jugadores[estadisticas].quantile([0.25, 0.75])
 
@@ -65,17 +79,21 @@ def calcular_puntuaciones():
     ajuste_varianza = 0.5
     df_puntuaciones_finales = ajustar_por_varianza(df_puntuaciones_ajustadas, [col + '_normalizado' for col in columnas_normalizadas], varianzas, umbral_varianza, ajuste_varianza)
 
-    # Ahora vamos a calcular la media de puntos que han obtenido y ver cuál es el mejor jugador según nuestros cálculos de la NBA
+    # Calcular la media de puntos obtenidos
     columnas_puntuaciones = [stat + '_por_GP_normalizado' for stat in estadisticas]
     df_puntuaciones_finales['Puntuacion_Total'] = df_puntuaciones_finales[columnas_puntuaciones].mean(axis=1)
 
-    # Y quiero expresar el resultado en formato tarjeta FIFA que es valoración de 1 a 100
+    # Expresar el resultado en formato tarjeta FIFA (valoración de 1 a 100)
     df_puntuaciones_finales['Puntuacion_Total'] = (df_puntuaciones_finales['Puntuacion_Total'] * 10).round(2)
 
     return df_puntuaciones_finales
 
 # Llama a la función para obtener los resultados finales
 if __name__ == "__main__":
-    df_resultados = calcular_puntuaciones()
+    ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
+    ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
+    df_jugadores_nba = cargar_datos(ruta_equipos_nba, ruta_jugadores_nba)
+    df_resultados = calcular_puntuaciones(df_jugadores_nba)
     print(df_resultados[['Nombre', 'Apellido', 'Puntuacion_Total']].sort_values(by='Puntuacion_Total', ascending=False))
+
 
