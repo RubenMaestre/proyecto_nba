@@ -438,7 +438,7 @@ def display():
 
     st.markdown("<h3 style='text-align: center;'>Creación de fichas de puntación para los jugadores de la NBA</h3>", unsafe_allow_html=True)
 
-    col15, col16 = st.columns([2, 5])
+    col15, col16, col17 = st.columns([2, 1, 5])
     with col15:
         st.markdown("### Top 20 Jugadores")
         jugadores = obtener_top_20_jugadores(df_puntuaciones_finales)
@@ -446,7 +446,7 @@ def display():
             if st.button(f"{jugador['Nombre']} {jugador['Apellido']}"):
                 st.session_state['jugador_seleccionado'] = index
 
-    with col16:
+    with col17:
         if 'jugador_seleccionado' in st.session_state:
             jugador = jugadores.loc[st.session_state['jugador_seleccionado']]
             imagen = obtener_imagen_jugador(jugador)
