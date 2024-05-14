@@ -34,7 +34,12 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
     )
 
     nombre_archivo = f"{jugador['Nombre']}_{jugador['Apellido']}.png"
-    fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
+
+    try:
+        fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
+    except ValueError as e:
+        st.error(f"Error al guardar la imagen: {e}")
+        return None
 
     carpeta_imagenes = 'fichas_nba/'
     carpeta_logos = 'logos_equipos/png/'

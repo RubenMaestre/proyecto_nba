@@ -448,6 +448,10 @@ def display():
         if 'jugador_seleccionado' in st.session_state:
             jugador = jugadores.loc[st.session_state['jugador_seleccionado']]
             ficha = crear_ficha_jugador(df_puntuaciones_finales, jugador)
-            st.image(ficha, use_column_width=True)
+            if ficha:
+                st.image(ficha, use_column_width=True)
+            else:
+                st.error("No se pudo crear la ficha del jugador. Por favor, revise los detalles.")
+
 
 display()
