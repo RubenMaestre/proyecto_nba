@@ -45,10 +45,12 @@ def display():
     """)
 
 
-    st.markdown("<br>", unsafe_allow_html=True)            
+    st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("""
         **💪 ¿Buscas soluciones basadas en datos para tu negocio?**
-        Estoy abierto a colaboraciones y oportunidades que beneficien de mi experiencia en Data Science y marketing digital. Juntos, podemos crear estrategias que marquen la diferencia.
+        Estoy abierto a colaboraciones y oportunidades que se beneficien de mi experiencia en Data Science y marketing digital. Juntos, podemos crear estrategias que marquen la diferencia. Mi pasión por los datos, la tecnología y la comunicación me impulsa a buscar continuamente nuevos retos y proyectos profesionales donde pueda aplicar mis habilidades y conocimientos.
+
+        Mis puntos fuertes incluyen una sólida capacidad de liderazgo, una creatividad que transforma datos en historias impactantes y una visión integradora que combina tecnología y negocio. Estoy preparado para afrontar desafíos complejos y convertirlos en soluciones innovadoras y personalizadas.
 
         Siempre abierto a nuevos retos y proyectos profesionales.
 
@@ -57,6 +59,7 @@ def display():
 
         _"Los trofeos se llenan de polvo. Los recuerdos duran para siempre" – Mary Lou Retton_
         """, unsafe_allow_html=True)
+
 
 display()
 
