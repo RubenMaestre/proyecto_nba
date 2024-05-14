@@ -275,36 +275,42 @@ def display():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Explicación y gráficos de radar
-    col1, col2 = st.columns([5, 2])
+    col1, col2 = st.columns([4, 3])
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
     df_puntuaciones_finales = calcular_puntuaciones()
 
     with col1:
         st.markdown("""
         #### Elección de categorías estadísticas
-        Seleccioné categorías clave como porcentajes de tiros de campo (FG%), triples (3P%) y tiros libres (FT%), rebotes, asistencias, robos, bloqueos, pérdidas y faltas personales.
+        Para crear una evaluación integral de los jugadores, seleccioné categorías estadísticas clave que son representativas de las habilidades ofensivas y defensivas. Estas categorías incluyen:
+        - **FG% (Porcentaje de tiros de campo)**: Mide la eficiencia de un jugador en anotar tiros de campo.
+        - **3P% (Porcentaje de triples)**: Refleja la habilidad de un jugador para anotar desde la línea de tres puntos.
+        - **FT% (Porcentaje de tiros libres)**: Indica la precisión de un jugador en la línea de tiros libres.
+        - **OREB (Rebotes ofensivos)**: Muestra la capacidad de un jugador para recuperar el balón tras un tiro fallido en la ofensiva.
+        - **DREB (Rebotes defensivos)**: Indica la habilidad de un jugador para capturar rebotes en defensa.
+        - **AST (Asistencias)**: Refleja la capacidad de un jugador para pasar el balón a un compañero de equipo de manera que lleve a una anotación.
+        - **STL (Robos)**: Mide la habilidad de un jugador para quitarle el balón al equipo contrario.
+        - **BLK (Bloqueos)**: Indica la capacidad de un jugador para bloquear tiros del oponente.
+        - **TOV (Pérdidas)**: Muestra la frecuencia con la que un jugador pierde la posesión del balón.
+        - **PF (Faltas personales)**: Indica la cantidad de faltas personales cometidas por un jugador.
 
         #### Normalización de estadísticas
-        Normalicé las estadísticas para cada jugador en relación con el valor máximo de cada categoría entre los tres mejores jugadores, permitiendo una comparación justa.
+        Para permitir una comparación justa entre los jugadores, normalicé las estadísticas seleccionadas. La normalización se realizó en relación con el valor máximo de cada categoría entre los tres mejores jugadores. Este proceso asegura que cada estadística se mida en la misma escala, facilitando la comparación directa entre jugadores.
 
         #### Configuración y creación del gráfico
-        Configuré un gráfico de radar para cada uno de los tres mejores jugadores.
-        Utilicé un bucle para graficar los valores normalizados de cada jugador en las categorías seleccionadas.
-        Añadí estilos y colores para mejorar la legibilidad y estética del gráfico.
+        Configuré un gráfico de radar para visualizar las estadísticas normalizadas de cada uno de los tres mejores jugadores. Este tipo de gráfico es ideal para mostrar el rendimiento de los jugadores en múltiples categorías en un solo vistazo. El proceso incluyó:
+        - Utilizar un bucle para graficar los valores normalizados de cada jugador en las categorías seleccionadas.
+        - Asegurar que el primer valor se repita al final para cerrar el círculo del gráfico de radar.
+        - Añadir estilos y colores para mejorar la legibilidad y la estética del gráfico, haciendo que los datos sean más comprensibles.
 
         #### Presentación de los resultados
-        Cada gráfico muestra visualmente cómo cada jugador se compara en las diferentes categorías estadísticas.
-        Los títulos de los gráficos incluyen el nombre del jugador, lo que facilita la identificación.
+        Los gráficos resultantes muestran visualmente cómo cada jugador se compara en las diferentes categorías estadísticas. Los títulos de los gráficos incluyen el nombre del jugador, lo que facilita la identificación y permite una comprensión rápida de sus puntos fuertes y áreas de mejora.
 
         #### Uso de Plotly para gráficos interactivos
-        Repetí el proceso de normalización y creación de gráficos de radar utilizando Plotly.
+        Para una mayor interactividad, repetí el proceso de normalización y creación de gráficos de radar utilizando Plotly. Plotly permite crear gráficos interactivos que los usuarios pueden explorar para obtener detalles adicionales sobre las estadísticas de cada jugador. Esta funcionalidad interactiva es especialmente útil para un análisis más profundo y una presentación más dinámica de los datos.
         """)
 
     with col2:
-        # Ya tenemos los cálculos hechos... ahora vamos a graficar
-        # Primero vamos a poner el top3 de jugadores ofensivos en un gráfico tipo radar 
-
-        # Categorías para el gráfico de radar
         categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
         N = len(categorias)
 
