@@ -4,13 +4,6 @@ import os
 def cargar_datos(ruta_equipos, ruta_jugadores):
     """
     Carga los datos de los equipos y jugadores desde archivos Excel.
-
-    Args:
-    ruta_equipos (str): Ruta del archivo Excel con los datos de los equipos.
-    ruta_jugadores (str): Ruta del archivo Excel con los datos de los jugadores.
-
-    Returns:
-    pd.DataFrame: DataFrame con los datos de los jugadores.
     """
     df_equipos_nba = pd.read_excel(ruta_equipos)
     df_jugadores_nba = pd.read_excel(ruta_jugadores)
@@ -19,12 +12,6 @@ def cargar_datos(ruta_equipos, ruta_jugadores):
 def calcular_puntuaciones(df_jugadores_nba):
     """
     Calcula las puntuaciones de los jugadores y devuelve el DataFrame con las puntuaciones finales.
-
-    Args:
-    df_jugadores_nba (pd.DataFrame): DataFrame que contiene los datos de los jugadores.
-
-    Returns:
-    pd.DataFrame: DataFrame con las puntuaciones finales de los jugadores.
     """
     estadisticas = ['MIN', 'PTS', 'FGM', 'FGA', '3PM', '3PA', 'FTM', 'FTA', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'EFF']
     
@@ -113,24 +100,12 @@ def calcular_puntuaciones(df_jugadores_nba):
 def obtener_top_20_jugadores(df_puntuaciones_finales):
     """
     Obtiene los 20 mejores jugadores ordenados por Puntuacion_Total.
-
-    Args:
-    df (pd.DataFrame): DataFrame que contiene los datos de los jugadores.
-
-    Returns:
-    pd.DataFrame: DataFrame con los 20 mejores jugadores.
     """
     return df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(20)
 
 def obtener_imagen_jugador(jugador):
     """
     Obtiene la ruta de la imagen de un jugador.
-
-    Args:
-    jugador (pd.Series): Serie de pandas que contiene los datos de un jugador.
-
-    Returns:
-    str: Ruta de la imagen del jugador si existe, de lo contrario None.
     """
     nombre_fichero = f"{jugador['Nombre']}_{jugador['Apellido']}.png"
     ruta_fichero = os.path.join('fichas_nba', nombre_fichero)

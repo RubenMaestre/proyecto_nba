@@ -436,7 +436,7 @@ def display():
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
     df_puntuaciones_finales = calcular_puntuaciones()
 
-    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Creación de fichas de puntación para los jugadores de la NBA</h3>", unsafe_allow_html=True)
 
 
 display()
