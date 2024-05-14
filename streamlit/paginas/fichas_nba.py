@@ -351,7 +351,7 @@ def display():
     st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
-    col1, col2 = st.columns([2, 5])
+    col1, col2 = st.columns([3, 4])
 
     with col1:
         st.markdown("""
