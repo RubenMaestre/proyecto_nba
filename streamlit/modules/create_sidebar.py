@@ -4,7 +4,13 @@ from streamlit_option_menu import option_menu
 from paginas import inicio, datos, limpieza, eda, sobre_proyecto, sobre_mi, fichas_nba
 
 def create_sidebar():
-    # Añadir texto personalizado en el sidebar con markdown y HTML
+    st.sidebar.markdown(
+        f'<div style="text-align: center; margin-bottom: 30px;">'
+        f'<img src="streamlit/sources/logo_ruben_maestre.png" alt="Logo" style="width: 100%; max-width: 200px;">'
+        f'</div>',
+        unsafe_allow_html=True
+    )
+
     st.sidebar.markdown(
         f'<div style="text-align: center; font-size: 18px; margin-bottom: 30px;">'
         f'Proyecto realizado por<br>'
@@ -13,13 +19,11 @@ def create_sidebar():
         unsafe_allow_html=True
     )
 
-    # Crear el menú de opciones en el sidebar con option_menu
     with st.sidebar:
         selected = option_menu("Menú", ["Inicio", "Datos", "Limpieza", "EDA", "Ficha NBA", "Sobre el proyecto", "Sobre mi"],
             icons=["house", "database", "funnel-fill", "bar-chart-line", "file-person", "book", "people"],
             menu_icon="cast", default_index=0, orientation="vertical")
 
-    # Llama a la función de la página correspondiente en función de la selección
     if selected == "Inicio":
         inicio.display()
     elif selected == "Datos":
@@ -34,4 +38,5 @@ def create_sidebar():
         sobre_proyecto.display()
     elif selected == "Sobre mi":
         sobre_mi.display()
+
 
