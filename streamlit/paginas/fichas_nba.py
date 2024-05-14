@@ -28,4 +28,123 @@ def display():
     with col3:
         st.image('streamlit/sources/ficha_ejemplo.png', use_column_width=True)
 
+
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("### Explicación de cálculos matemáticos")
+
+    # Explicación de la preparación de datos y cálculo de estadísticas
+    col1, col2 = st.columns([2, 5])
+
+    with col1:
+        st.markdown("""
+        #### Preparación de datos y cálculo de estadísticas
+        Importación de datos:
+        Importé datos de jugadores y equipos de la NBA desde archivos Excel que previamente había guardado.
+        
+        Cálculo de estadísticas normalizadas:
+        Creé una copia del DataFrame de jugadores para trabajar sin modificar los datos originales.
+        Calculé las medias por partido jugado (GP) para una variedad de estadísticas como minutos, puntos, rebotes, asistencias, etc.
+        Eliminé a los jugadores que no habían jugado ningún partido para evitar divisiones por cero.
+        """)
+    
+    with col2:
+        st.code("""
+        # Vamos a calcular de todos los jugadores respecto a los partidos jugados la media, varianza y quartiles 1 y 3 de todos sus datos
+
+        # Lo primero vamos a crear un nuevo dataframe que sea copia del original para trabajar en él y tener el original por si
+        # necesitamos incorporar algún dato sin modificar
+
+        df_estadisticas_jugadores = df_jugadores_nba.copy()
+        # Calculamos la media
+        estadisticas = ['MIN', 'PTS', 'FGM', 'FGA', '3PM', '3PA', 'FTM', 'FTA', 'OREB', 'DREB', 'REB', 'AST', 'STL', 'BLK', 'TOV', 'PF', 'EFF']
+        for stat in estadisticas:
+            df_estadisticas_jugadores[stat + '_por_GP'] = df_estadisticas_jugadores[stat] / df_estadisticas_jugadores['GP']
+
+        # Vamos a quitar los datos de los jugadores que no hayan jugado ningún partido para no dividir entre 0
+        df_estadisticas_jugadores = df_estadisticas_jugadores[df_estadisticas_jugadores['GP'] != 0]
+
+        # Y hacemos lo mismo con la varianza y quartiles
+        varianzas = df_estadisticas_jugadores[estadisticas].var()
+        cuartiles = df_estadisticas_jugadores[estadisticas].quantile([0.25, 0.75])
+                """)
+    
+    # Explicación de la normalización de estadísticas
+    col3, col4 = st.columns([2, 5])
+
+    with col3:
+        st.markdown("""
+        #### Normalización de estadísticas
+        Normalicé las estadísticas calculadas para escalarlas en un rango de 0 a 10, utilizando el mínimo y máximo de cada estadística.
+        """)
+    
+    with col4:
+        st.code("""
+        # Paso 2: Normalizar las estadísticas
+        def normalizar_min_max(df, columnas):
+            for columna in columnas:
+                minimo = df[columna].min()
+                maximo = df[columna].max()
+                df[columna + '_normalizado'] = 10 * (df[columna] - minimo) / (maximo - minimo)
+            return df
+
+        columnas_normalizadas = [stat + '_por_GP' for stat in estadisticas]
+        df_estadisticas_normalizadas = normalizar_min_max(df_estadisticas_jugadores, columnas_normalizadas)
+                """)
+
+    # Explicación del ajuste por cuartiles
+    col5, col6 = st.columns([2, 5])
+
+    with col5:
+        st.markdown("""
+        #### Ajuste por cuartiles
+        Ajusté las puntuaciones normalizadas basándome en los cuartiles. Incrementé las puntuaciones de aquellos jugadores cuyas estadísticas estaban en el cuartil superior (Q3) y disminuí las de los que estaban en el cuartil inferior (Q1).
+        Este paso estaba destinado a valorar más a los jugadores que superaban ciertos umbrales estadísticos.
+        """)
+    
+    with col6:
+        st.code("""
+        # Paso 3: Ajustar puntuaciones según los cuartiles
+        def ajustar_por_cuartiles(df, columnas, q1, q3, incremento_q3, decremento_q1):
+            for columna in columnas:
+                df.loc[df[columna] > q3[columna.replace('_normalizado', '')], columna] += incremento_q3
+                df.loc[df[columna] < q1[columna.replace('_normalizado', '')], columna] -= decremento_q1
+                df[columna] = df[columna].clip(lower=0, upper=10)
+            return df
+
+        cuartiles = df_estadisticas_jugadores[columnas_normalizadas].quantile([0.25, 0.75])
+        incremento_q3 = 1
+        decremento_q1 = 1
+        df_puntuaciones_ajustadas = ajustar_por_cuartiles(df_estadisticas_normalizadas, [col + '_normalizado' for col in columnas_normalizadas], cuartiles.loc[0.25], cuartiles.loc[0.75], incremento_q3, decremento_q1)
+                """)
+
+    # Explicación del ajuste por varianza
+    col7, col8 = st.columns([2, 5])
+
+    with col7:
+        st.markdown("""
+        #### Ajuste por varianza
+        Realicé un ajuste adicional basado en la varianza de cada estadística. Modifiqué las puntuaciones para aquellos jugadores cuyas estadísticas variaban significativamente de la media.
+        Este paso me ayudó a identificar y ajustar las puntuaciones de jugadores con rendimientos estadísticos particularmente inconsistentes.
+        """)
+    
+    with col8:
+        st.code("""
+        # Paso 4: Ajustar puntuaciones según la varianza
+        def ajustar_por_varianza(df, columnas, varianzas, umbral_varianza, ajuste_varianza):
+            varianza_media = varianzas.mean()
+            for columna in columnas:
+                varianza_columna = df[columna.replace('_normalizado', '')].var()
+                if varianza_columna > varianza_media * umbral_varianza:
+                    df[columna] -= ajuste_varianza
+                elif varianza_columna < varianza_media / umbral_varianza:
+                    df[columna] += ajuste_varianza
+                df[columna] = df[columna].clip(lower=0, upper=10)
+            return df
+
+        umbral_varianza = 1.5
+        ajuste_varianza = 0.5
+        df_puntuaciones_finales = ajustar_por_varianza(df_puntuaciones_ajustadas, [col + '_normalizado' for col in columnas_normalizadas], varianzas, umbral_varianza, ajuste_varianza)
+                """)
+
+
 display()
