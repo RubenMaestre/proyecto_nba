@@ -28,4 +28,5 @@ def grafica_top_jugadores():
         ax.set_ylabel('')
 
     # Ajustar el layout para evitar superposición de títulos y labels
-    plt.tight_layou
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95])
+    st.pyplot(fig)
