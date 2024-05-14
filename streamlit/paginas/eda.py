@@ -5,6 +5,7 @@ from modules.graph.grafica_2 import grafica_conferencias
 from modules.graph.grafica_3 import mapa_equipos_nba
 from modules.graph.grafica_4 import grafica_top_jugadores
 from modules.graph.grafica_5 import grafica_correlacion_ppg_apg
+from modules.graph.grafica_6 import grafica_correlacion_equipos_ppg_apg
 
 def display():
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
@@ -23,7 +24,8 @@ def display():
                "Clasificación de equipos por división / conferencia",
                "Mapa interactivo de equipos NBA",
                "Top 10 jugadores en estadísticas clave",
-               "Correlación entre Puntos por Partido y Asistencias por Partido"]
+               "Correlación entre puntos por partido y asistencias por partido en jugadores",
+               "Correlación entre puntos por partido y asistencias por partido en equipos"]
 
     choice = st.selectbox("Seleccione el análisis que desea visualizar:", options)
 
@@ -37,5 +39,7 @@ def display():
         grafica_top_jugadores()
     elif choice == "Correlación entre Puntos por Partido y Asistencias por Partido":
         grafica_correlacion_ppg_apg()
+    elif choice == "Correlación entre Puntos por Partido y Asistencias por Partido en Equipos":
+        grafica_correlacion_equipos_ppg_apg()
 
 display()
