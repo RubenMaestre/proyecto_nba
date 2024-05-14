@@ -1,9 +1,5 @@
-#paginas/fichas_nba.py
+# paginas/fichas_nba.py
 import streamlit as st
-import plotly.express as px
-import plotly.graph_objects as go
-import numpy as np
-from modules.calculos_finales import calcular_puntuaciones
 from modules.tarjetas_nba import cargar_datos, calcular_puntuaciones, obtener_top_20_jugadores, obtener_imagen_jugador
 
 def display():
@@ -72,7 +68,7 @@ def display():
         varianzas = df_estadisticas_jugadores[estadisticas].var()
         cuartiles = df_estadisticas_jugadores[estadisticas].quantile([0.25, 0.75])
                 """)
-    
+
     # Explicación de la normalización de estadísticas
     col3, col4 = st.columns([2, 5])
 
@@ -180,14 +176,13 @@ def display():
 
         print(df_puntuaciones_finales[['Nombre', 'Apellido', 'Puntuacion_Total']].sort_values(by='Puntuacion_Total', ascending=False))
                 """)
-        
+
     st.markdown("""
         #### Visualización de los mejores jugadores
         Finalmente, ordené y presenté los jugadores según su puntuación total, permitiéndome ver quiénes eran los jugadores mejor valorados según mi sistema de puntuación.
 
         Esta idea me permite crear una especie de sistema de clasificación para catalogar a los jugadores de la NBA, combinando varias estadísticas clave en una sola puntuación. Este sistema no solo me da una visión general del rendimiento de los jugadores, sino que también me permite identificar a los jugadores más destacados en distintas áreas del juego. Puedo ver quiénes son los mejores ofensivamente, defensivamente, etc.
         """)
-
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Asignación de valores monetarios ficticios a jugadores de la NBA</h3>", unsafe_allow_html=True)
@@ -428,27 +423,13 @@ def display():
                 fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
                 """)
 
-    st.markdown("<h1 style='text-align: center;'>Fichas de jugadores de la NBA</h1>", unsafe_allow_html=True)
-
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
-    df_puntuaciones_finales = calcular_puntuaciones()
-
-    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
-
-    # Definir las rutas de los archivos
-    ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
-    ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
-
-    # Cargar los datos
-    df_jugadores_nba = cargar_datos(ruta_equipos_nba, ruta_jugadores_nba)
-
-    # Calcular las puntuaciones
     df_puntuaciones_finales = calcular_puntuaciones(df_jugadores_nba)
+
+    st.markdown("<h3 style='text-align: center;'>Top 20 Jugadores de la NBA</h3>", unsafe_allow_html=True)
 
     # Obtener el top 20 de jugadores
     top_20_jugadores = obtener_top_20_jugadores(df_puntuaciones_finales)
-
-    st.title("Top 20 Jugadores de la NBA")
 
     col1, col2 = st.columns(2)
 
@@ -470,5 +451,5 @@ def display():
         else:
             st.error("No se pudo encontrar la imagen del jugador. Por favor, revise los detalles.")
 
-
 display()
+
