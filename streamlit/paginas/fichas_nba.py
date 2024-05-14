@@ -1,5 +1,9 @@
-# paginas/fichas_nba.py
+#paginas/fichas_nba.py
 import streamlit as st
+import plotly.express as px
+import plotly.graph_objects as go
+import numpy as np
+from modules.calculos_finales import calcular_puntuaciones
 from modules.tarjetas_nba import cargar_datos, calcular_puntuaciones, obtener_top_20_jugadores, obtener_imagen_jugador
 
 def display():
@@ -68,7 +72,7 @@ def display():
         varianzas = df_estadisticas_jugadores[estadisticas].var()
         cuartiles = df_estadisticas_jugadores[estadisticas].quantile([0.25, 0.75])
                 """)
-
+    
     # Explicación de la normalización de estadísticas
     col3, col4 = st.columns([2, 5])
 
@@ -176,13 +180,14 @@ def display():
 
         print(df_puntuaciones_finales[['Nombre', 'Apellido', 'Puntuacion_Total']].sort_values(by='Puntuacion_Total', ascending=False))
                 """)
-
+        
     st.markdown("""
         #### Visualización de los mejores jugadores
         Finalmente, ordené y presenté los jugadores según su puntuación total, permitiéndome ver quiénes eran los jugadores mejor valorados según mi sistema de puntuación.
 
         Esta idea me permite crear una especie de sistema de clasificación para catalogar a los jugadores de la NBA, combinando varias estadísticas clave en una sola puntuación. Este sistema no solo me da una visión general del rendimiento de los jugadores, sino que también me permite identificar a los jugadores más destacados en distintas áreas del juego. Puedo ver quiénes son los mejores ofensivamente, defensivamente, etc.
         """)
+
 
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Asignación de valores monetarios ficticios a jugadores de la NBA</h3>", unsafe_allow_html=True)
@@ -342,7 +347,7 @@ def display():
 
             st.plotly_chart(fig)
 
-    # Explicación y diseño de las fichas tipo FIFA
+     # Explicación y diseño de las fichas tipo FIFA
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
@@ -452,4 +457,3 @@ def display():
             st.error("No se pudo encontrar la imagen del jugador. Por favor, revise los detalles.")
 
 display()
-
