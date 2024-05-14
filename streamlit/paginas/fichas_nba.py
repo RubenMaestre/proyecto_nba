@@ -3,8 +3,8 @@ import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-from modules.calculos_finales import cargar_datos, calcular_puntuaciones
-from modules.tarjetas_nba import cargar_datos, calcular_puntuaciones, obtener_top_20_jugadores, obtener_imagen_jugador
+from modules.calculos_finales import calcular_puntuaciones
+from modules.tarjetas_nba import crear_ficha_jugador
 
 def display():
     st.markdown("<h1 style='text-align: center;'>Fichas de jugadores de la NBA</h1>", unsafe_allow_html=True)
@@ -276,16 +276,6 @@ def display():
     st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # Definir las rutas de los archivos
-    ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
-    ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
-
-    # Cargar los datos
-    df_jugadores_nba = cargar_datos(ruta_equipos_nba, ruta_jugadores_nba)
-
-    # Calcular las puntuaciones
-    df_puntuaciones_finales = calcular_puntuaciones(df_jugadores_nba)
-
     # Explicación y gráficos de radar
     col1, col2 = st.columns([2, 2])
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
@@ -357,6 +347,92 @@ def display():
 
             st.plotly_chart(fig)
 
-    
+    # Explicación y diseño de las fichas tipo FIFA
+    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    col1, col2 = st.columns([3, 4])
+
+    with col1:
+        st.markdown("""
+            #### Creación de la carpeta para guardar las fichas
+            Primero, creé una carpeta para guardar las fichas de los jugadores si aún no existía.
+
+            #### Selección de los 10 mejores jugadores
+            Luego, seleccioné los 10 mejores jugadores basándome en la 'Puntuacion_Total' que había calculado previamente.
+
+            #### Normalización y creación de gráficos
+            Normalicé las estadísticas para cada jugador y creé un gráfico de radar para cada uno utilizando Plotly, representando sus habilidades en diferentes categorías.
+            Guardé cada gráfico de radar como un archivo PNG con fondo transparente para usarlos posteriormente en las fichas.
+
+            #### Diseño de las fichas con PIL (Python Imaging Library)
+            - **Configuración de fuentes y textos**: Configuré las fuentes y tamaños para el texto que aparecería en las fichas. Preparé los textos para cada categoría estadística y otros detalles del jugador como el nombre, edad, país y dorsal.
+            - **Integración de elementos gráficos y texto**: Comencé con una imagen de fondo que serviría como la base de la ficha. Colocqué los gráficos de radar y los logos de los equipos en sus posiciones correspondientes en la ficha. Utilicé PIL para dibujar el texto con las estadísticas, la puntuación total y el valor monetario de cada jugador en la ficha.
+            - **Guardado de las fichas finales**: Una vez completada la integración de todos los elementos, guardé cada ficha como un archivo PNG.
+
+            #### Futuras mejoras
+            Para el futuro se podrían implementar en el diseño imágenes de montajes gráficos de los jugadores con su foto, además de otros elementos gráficos para hacerla más atractiva. Pero lo que quería era ver la capacidad de diseño que podía hacer con Python y la librería PIL que no la conocía.
+            """)
+
+    with col2:
+        st.code("""
+            # Ahora quiero insertar los gráficos en una imagen para crear la ficha tipo FIFA para la NBA
+            # He estado investigando a ver como hacerlo.
+            # Primero hay que guardar los gráficos en png
+
+            import os
+            import plotly.graph_objects as go
+
+            # Crear la carpeta si no existe
+            carpeta = 'fichas_nba/'
+            if not os.path.exists(carpeta):
+                os.makedirs(carpeta)
+
+            # Obtener los 10 primeros jugadores por 'Puntuacion_Total'
+            top_10_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(10)
+
+            # Categorías para normalizar y graficar
+            categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
+
+            # Crear y guardar un gráfico de radar para cada jugador
+            for index, jugador in top_10_jugadores.iterrows():
+                # Normalizar las estadísticas para el jugador actual
+                jugador_normalizado = jugador.copy()
+                for cat in categorias:
+                    max_value = top_10_jugadores[cat].max()
+                    if max_value > 0:
+                        jugador_normalizado[cat] = (jugador[cat] / max_value) * 10
+
+                fig = go.Figure()
+
+                fig.add_trace(go.Scatterpolar(
+                    r=[jugador_normalizado[cat] for cat in categorias] + [jugador_normalizado[categorias[0]]],
+                    theta=categorias + [categorias[0]],
+                    fill='toself'
+                ))
+
+                fig.update_layout(
+                    polar=dict(
+                        radialaxis=dict(visible=True, range=[0, 10])
+                    ),
+                    showlegend=False,
+                    paper_bgcolor='rgba(0,0,0,0)',  # Fondo transparente
+                    plot_bgcolor='rgba(0,0,0,0)'   # Fondo transparente
+                )
+
+                # Nombre del archivo
+                nombre_archivo = f"{jugador['Nombre']}_{jugador['Apellido']}.png"
+
+                # Guardar el gráfico como PNG con fondo transparente
+                fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
+                """)
+
+    st.markdown("<h1 style='text-align: center;'>Fichas de jugadores de la NBA</h1>", unsafe_allow_html=True)
+
+    # Calcular las puntuaciones utilizando la función de calculos_finales.py
+    df_puntuaciones_finales = calcular_puntuaciones()
+
+    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
 
 display()
