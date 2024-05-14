@@ -39,7 +39,7 @@ def display():
         </style>
         """, 
         unsafe_allow_html=True
-
+    )
     options = ["Análisis de victorias y derrotas por equipo", 
                "Clasificación de equipos por división / conferencia",
                "Mapa interactivo de equipos NBA",
