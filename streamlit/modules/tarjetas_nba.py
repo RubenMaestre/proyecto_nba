@@ -33,6 +33,8 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
         img_bytes = fig.to_image(format="png", width=430, height=600, scale=1)
     except ValueError as e:
         raise ValueError(f"Error al generar la imagen: {e}. Asegúrate de que `kaleido` está instalado correctamente.") from e
+    except Exception as e:
+        raise Exception(f"Se produjo un error inesperado al generar la imagen: {e}") from e
     
     grafica_radar = Image.open(BytesIO(img_bytes))
 
