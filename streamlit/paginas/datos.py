@@ -29,9 +29,9 @@ def display():
     """)
 
     # Creación de dos columnas con Streamlit
-    col1, col2 = st.columns(2)
+    col19, col20, col21 = st.columns(2,0.5,2)
 
-    with col1:
+    with col19:
         # Fuente de los datos
         st.header('Fuente de los datos')
         st.markdown("""
@@ -47,7 +47,7 @@ def display():
             </div>
         """, unsafe_allow_html=True)
 
-    with col2:
+    with col21:
         # Selección de fuentes de datos y análisis a realizar
         st.header('Selección de fuentes de datos y análisis a realizar')
         st.markdown("""
