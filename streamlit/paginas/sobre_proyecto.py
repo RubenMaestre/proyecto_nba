@@ -115,11 +115,11 @@ def display():
         st.write("""
             Si mi proyecto te ha inspirado o te ha resultado útil, la mejor manera de contribuir y apoyarme es compartiéndolo con otros. Hablar de mi trabajo con colegas, amigos y en tus redes sociales, especialmente en plataformas profesionales como LinkedIn, amplifica mi alcance y abre nuevas oportunidades para mí.
 
-            Cada mención y cada discusión sobre mi proyecto no solo me ayuda a ganar visibilidad, sino que también me acerca un paso más a realizar mi sueño de convertirme en un profesional influyente en el campo de la ciencia de datos. Si te ha gustado mi enfoque y los resultados, por favor, comparte mi historia y menciona las habilidades y la dedicación que he puesto en este esfuerzo.
+            Cada mención y cada discusión sobre mi proyecto no solo me ayuda a ganar visibilidad, sino que también me acerca un paso más a formar parte de un equipo de análisis de datos y poder aportar mi granito de arena en la creatividad, análisis, storytelling... Si te ha gustado mi enfoque y los resultados, por favor, comparte mi historia y menciona las habilidades y la dedicación que he puesto en este esfuerzo.
 
             Además, Streamlit ofrece la posibilidad de 'estrellar' las aplicaciones que te gustan. Puedes encontrar esta opción en la parte superior derecha de la página. Darle a la estrella ayuda a recomendar mi proyecto dentro de la comunidad de Streamlit, incrementando su visibilidad y demostrando apoyo a mi esfuerzo y trabajo.
 
-            Más allá de compartir y estrellar, habla de mí y de mi deseo de demostrar mi capacidad y talento. Estoy preparado y deseoso de asumir nuevos retos y proyectos estimulantes, y cuanto más me conozca la gente, mejor será para mi desarrollo profesional y personal. Tu apoyo y reconocimiento son la mayor contribución que podrías ofrecerme y estoy profundamente agradecido por ello.
+            Más allá de compartir y estrellar, habla de mí y de mi deseo de demostrar mi capacidad y talento. Estoy preparado y con ganas de asumir nuevos retos y proyectos estimulantes, y cuanto más me conozca la gente, mejor será para mi desarrollo profesional y personal. Tu apoyo y reconocimiento son la mayor contribución que podrías ofrecerme y estoy profundamente agradecido por ello.
         """)
 
 # Llama a la función para mostrar la página
