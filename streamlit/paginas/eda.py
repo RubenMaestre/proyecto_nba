@@ -8,6 +8,7 @@ from modules.graph.grafica_5 import grafica_correlacion_ppg_apg
 from modules.graph.grafica_6 import grafica_correlacion_equipos_ppg_apg
 from modules.graph.grafica_7 import grafica_distribucion_posiciones
 from modules.graph.grafica_8 import grafica_top_jugadores_por_minutos
+from modules.graph.grafica_9 import grafica_relacion_minutos_puntos
 
 def display():
     st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
@@ -29,7 +30,8 @@ def display():
                "Correlación entre puntos por partido y asistencias por partido en jugadores",
                "Correlación entre puntos por partido y asistencias por partido en equipos",
                "Distribución de posiciones de jugadores en la NBA",
-               "Eficiencia de los jugadores con mayor tiempo en pista"]
+               "Eficiencia de los jugadores con mayor tiempo en pista",
+               "Relación entre minutos en pista y puntos anotados"]
 
     choice = st.selectbox("Seleccione el análisis que desea visualizar:", options)
 
@@ -49,5 +51,7 @@ def display():
         grafica_distribucion_posiciones()
     elif choice == "Eficiencia de los jugadores con mayor tiempo en pista":
         grafica_top_jugadores_por_minutos()
+    elif choice == "Relación entre minutos en pista y puntos anotados":
+        grafica_relacion_minutos_puntos()
 
 display()
