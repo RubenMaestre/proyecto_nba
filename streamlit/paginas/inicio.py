@@ -53,7 +53,7 @@ def display():
     st.markdown("""
         <div style='text-align: justify;'>
             <h4 style='text-align: center;'>Desafíos y logros</h4>
-            El principal desafío que enfrenté fue la automatización de la recolección de datos ante las complejidades técnicas y las restricciones del sitio web de la NBA. No solo logré superar estos retos desarrollando un código adaptable y robusto contra errores, sino que además, meses después de finalizar el proyecto, pude verificar que el código seguía funcionando de manera eficiente, actualizando los datos hasta el final de la temporada regular 2023/2024. Esta capacidad para extraer datos sin ser limitado por las restricciones del sitio demostró la robustez y la escalabilidad de la solución implementada.
+            El principal desafío que me encontré fue la automatización de la recolección de datos ante las complejidades técnicas y las restricciones del sitio web de la NBA. No solo logré superar estos retos desarrollando un código adaptable y robusto contra errores, sino que además, meses después de finalizar el proyecto, pude verificar que el código seguía funcionando de manera eficiente, actualizando los datos hasta el final de la temporada regular 2023/2024. Esta capacidad para extraer datos sin ser limitado por las restricciones del sitio demostró la robustez y la escalabilidad de la solución implementada.
         </div>
     """, unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
