@@ -13,15 +13,18 @@ def grafica_top_jugadores_por_minutos():
     ruta_jugadores_nba = 'excels/descargados/datos_jugadores_nba.xlsx'
     df_jugadores_nba = pd.read_excel(ruta_jugadores_nba)
 
+    # Crear una nueva columna para nombre completo
+    df_jugadores_nba['Nombre Completo'] = df_jugadores_nba['Nombre'] + ' ' + df_jugadores_nba['Apellido']
+
     # Preparación de datos para graficar
     top_jugadores_por_minutos = df_jugadores_nba.nlargest(10, 'MIN')
     top_jugadores_por_minutos = top_jugadores_por_minutos.sort_values('EFF', ascending=False)
 
     # Creación de la gráfica de barras interactiva con Plotly
-    fig = px.bar(top_jugadores_por_minutos, x='Nombre', y='EFF',
+    fig = px.bar(top_jugadores_por_minutos, x='Nombre Completo', y='EFF',
                  hover_data=['GP'],
                  title='Eficiencia de los jugadores con mayor tiempo en pista',
-                 labels={'EFF': 'Eficiencia', 'Nombre': 'Jugador', 'GP': 'Partidos Jugados'})
+                 labels={'EFF': 'Eficiencia', 'Nombre Completo': 'Jugador', 'GP': 'Partidos Jugados'})
 
     fig.update_layout(title_font_size=24,
                       xaxis_title_font_size=18,
@@ -29,3 +32,4 @@ def grafica_top_jugadores_por_minutos():
                       width=960)
 
     st.plotly_chart(fig)
+
