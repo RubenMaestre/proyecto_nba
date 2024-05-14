@@ -313,6 +313,9 @@ def display():
         """)
 
     with col2:
+        # Llama a la función para obtener los resultados finales
+        df_puntuaciones_finales = calcular_puntuaciones()
+
         categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
         N = len(categorias)
 
@@ -434,5 +437,6 @@ def display():
     df_puntuaciones_finales = calcular_puntuaciones()
 
     st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
+
 
 display()
