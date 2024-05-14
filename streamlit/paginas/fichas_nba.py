@@ -4,6 +4,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
 from modules.calculos_finales import calcular_puntuaciones
+from modules.tarjetas_nba import crear_ficha_jugador
 
 def display():
     st.markdown("<h1 style='text-align: center;'>Fichas de jugadores de la NBA</h1>", unsafe_allow_html=True)
@@ -427,5 +428,26 @@ def display():
                 fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
                 """)
 
+    st.markdown("<h1 style='text-align: center;'>Fichas de jugadores de la NBA</h1>", unsafe_allow_html=True)
+
+    # Calcular las puntuaciones utilizando la función de calculos_finales.py
+    df_puntuaciones_finales = calcular_puntuaciones()
+
+    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
+
+    col1, col2 = st.columns([2, 5])
+
+    with col1:
+        st.markdown("### Top 20 Jugadores")
+        jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(20)
+        for index, jugador in jugadores.iterrows():
+            if st.button(f"{jugador['Nombre']} {jugador['Apellido']}"):
+                st.session_state['jugador_seleccionado'] = index
+
+    with col2:
+        if 'jugador_seleccionado' in st.session_state:
+            jugador = jugadores.loc[st.session_state['jugador_seleccionado']]
+            ficha = crear_ficha_jugador(df_puntuaciones_finales, jugador)
+            st.image(ficha, use_column_width=True)
 
 display()
