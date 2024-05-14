@@ -2,7 +2,14 @@
 import streamlit as st
 
 def display():
-    st.image("streamlit/sources/logo_nba.png")
+    st.markdown(
+    """
+    <div style='text-align: center;'>
+        <img src='streamlit/sources/logo_nba.png' width='350'>
+    </div>
+    """,
+    unsafe_allow_html=True
+    )
     st.markdown("<br><br>", unsafe_allow_html=True)  # Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
     # Título
     st.markdown("<h1 style='text-align: center;'>Breve análisis de datos en la NBA</h1>", unsafe_allow_html=True)
