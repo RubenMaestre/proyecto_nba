@@ -1,7 +1,7 @@
 import pandas as pd
 
 def calcular_puntuaciones():
-    # Lo primero es importar los datos descargados de airtable que tenemos almacenados en un excel para hacer gráficas. 
+    # Lo primero es importar los datos descargados de airtable que tenemos almacenados en un excel para hacer gráficas.
     ruta_equipos_nba = 'excels/actualizados/datos_nuevos_equipos_nba.xlsx'
     ruta_jugadores_nba = 'excels/actualizados/jugadores_completos.xlsx'
 
@@ -78,3 +78,4 @@ def calcular_puntuaciones():
 if __name__ == "__main__":
     df_resultados = calcular_puntuaciones()
     print(df_resultados[['Nombre', 'Apellido', 'Puntuacion_Total']].sort_values(by='Puntuacion_Total', ascending=False))
+
