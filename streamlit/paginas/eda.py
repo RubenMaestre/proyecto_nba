@@ -19,15 +19,16 @@ def display():
     st.markdown("""
     ### ¿Qué es un Análisis Exploratorio de Datos?
     El **Análisis Exploratorio de Datos** (EDA) es un enfoque utilizado en estadística y análisis de datos con el objetivo de descubrir patrones, identificar anomalías, probar hipótesis y verificar supuestos a través de estadísticas descriptivas y visualizaciones gráficas. 
-    En el mundo del deporte, el EDA nos permite comprender mejor los datos de partidos, jugadores y equipos, proporcionando una base sólida antes de realizar análisis más complejos y predictivos.
+    En el mundo del deporte, el EDA me permite comprender mejor los datos de partidos, jugadores y equipos, proporcionando una base sólida antes de realizar análisis más complejos y predictivos.
 
-    En esta página, encontrarás diversas visualizaciones interactivas que te permitirán explorar diferentes aspectos de los datos de la NBA. Hemos implementado un selector en Streamlit para elegir la gráfica o el mapa que deseas visualizar, lo que hace que la aplicación sea más rápida y eficiente.
+    En esta página, encontrarás diversas visualizaciones interactivas que te permitirán explorar diferentes aspectos de los datos de la NBA. He implementado un selector en Streamlit para que puedas elegir la gráfica o el mapa que deseas visualizar, lo que hace que la aplicación sea más rápida y eficiente.
 
-    Entre las opciones disponibles, podrás analizar victorias y derrotas por equipo, clasificaciones por división y conferencia, un mapa interactivo de los equipos de la NBA, y el top 10 de jugadores en estadísticas clave. También incluimos gráficos de correlación entre puntos por partido y asistencias por partido, tanto a nivel de jugadores como de equipos, distribución de posiciones de jugadores, eficiencia de los jugadores con mayor tiempo en pista, y la relación entre minutos jugados y puntos anotados.
+    Entre las opciones disponibles, podrás analizar victorias y derrotas por equipo, clasificaciones por división y conferencia, un mapa interactivo de los equipos de la NBA, y el top 10 de jugadores en estadísticas clave. También incluyo gráficos de correlación entre puntos por partido y asistencias por partido, tanto a nivel de jugadores como de equipos, distribución de posiciones de jugadores, eficiencia de los jugadores con mayor tiempo en pista, y la relación entre minutos jugados y puntos anotados.
 
-    Nuestro objetivo es proporcionar una comprensión profunda y detallada de los datos de la NBA, permitiendo a aficionados y profesionales del deporte apreciar mejor la estrategia y el rendimiento en el baloncesto.
+    Mi objetivo es proporcionar una comprensión profunda y detallada de los datos de la NBA, permitiendo a aficionados y profesionales del deporte apreciar mejor la estrategia y el rendimiento en el baloncesto.
     """, unsafe_allow_html=True)
     st.markdown("<br><br>", unsafe_allow_html=True)
+
 
 
     options = ["Análisis de victorias y derrotas por equipo", 
