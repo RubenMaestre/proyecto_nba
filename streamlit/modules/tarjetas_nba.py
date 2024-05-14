@@ -1,7 +1,6 @@
 import os
 import plotly.graph_objects as go
 from PIL import Image, ImageDraw, ImageFont
-import kaleido
 from io import BytesIO
 
 def crear_ficha_jugador(df_puntuaciones_finales, jugador):
@@ -30,7 +29,11 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
         plot_bgcolor='rgba(0,0,0,0)'   # Fondo transparente
     )
 
-    img_bytes = fig.to_image(format="png", width=430, height=600, scale=1)
+    try:
+        img_bytes = fig.to_image(format="png", width=430, height=600, scale=1)
+    except ValueError as e:
+        raise ValueError(f"Error al generar la imagen: {e}. Asegúrate de que `kaleido` está instalado correctamente.") from e
+    
     grafica_radar = Image.open(BytesIO(img_bytes))
 
     carpeta_logos = 'logos_equipos/png/'
@@ -57,7 +60,6 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
     }
     espaciado_vertical = 70
 
-    # Cargar la imagen de fondo
     imagen_fondo = Image.open('streamlit/sources/tarjeta_base_nba.png')
     grafica_radar = grafica_radar.resize((700, 977))
     imagen_fondo.paste(grafica_radar, (450, 150), grafica_radar)
@@ -97,7 +99,6 @@ def crear_ficha_jugador(df_puntuaciones_finales, jugador):
     posicion_valor_monetario = (150, 1550)
     draw.text(posicion_valor_monetario, texto_valor_monetario, fill=(255, 255, 255), font=fuente_grande)
 
-    # Guardar la imagen final en BytesIO
     buffer = BytesIO()
     imagen_fondo.save(buffer, format="PNG")
     buffer.seek(0)
