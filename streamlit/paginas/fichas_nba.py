@@ -347,7 +347,7 @@ def display():
 
             st.plotly_chart(fig)
 
-     # Explicación y diseño de las fichas tipo FIFA
+    # Explicación y diseño de las fichas tipo FIFA
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
     st.markdown("<br>", unsafe_allow_html=True)
@@ -428,32 +428,30 @@ def display():
                 fig.write_image(carpeta + nombre_archivo, width=430, height=600, scale=1, format='png')
                 """)
 
+    st.markdown("<h1 style='text-align: center;'>Fichas de jugadores de la NBA</h1>", unsafe_allow_html=True)
+
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
-    df_puntuaciones_finales = calcular_puntuaciones(df_jugadores_nba)
+    df_puntuaciones_finales = calcular_puntuaciones()
 
-    st.markdown("<h3 style='text-align: center;'>Top 20 Jugadores de la NBA</h3>", unsafe_allow_html=True)
+    st.markdown("<h3 style='text-align: center;'>Desarrollo de un sistema de puntuación para jugadores de la NBA</h3>", unsafe_allow_html=True)
 
-    # Obtener el top 20 de jugadores
-    top_20_jugadores = obtener_top_20_jugadores(df_puntuaciones_finales)
+    col15, col16 = st.columns([2, 5])
 
-    col1, col2 = st.columns(2)
-
-    with col1:
+    with col15:
         st.markdown("### Top 20 Jugadores")
-        for index, jugador in top_20_jugadores.iterrows():
+        jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(20)
+        for index, jugador in jugadores.iterrows():
             if st.button(f"{jugador['Nombre']} {jugador['Apellido']}"):
                 st.session_state['jugador_seleccionado'] = index
 
-    # Mostrar por defecto la imagen del primer jugador si no hay ningún jugador seleccionado
-    if 'jugador_seleccionado' not in st.session_state:
-        st.session_state['jugador_seleccionado'] = top_20_jugadores.index[0]
+    with col16:
+        if 'jugador_seleccionado' in st.session_state:
+            jugador = jugadores.loc[st.session_state['jugador_seleccionado']]
+            ficha = crear_ficha_jugador(df_puntuaciones_finales, jugador)
+            if ficha:
+                st.image(ficha, use_column_width=True)
+            else:
+                st.error("No se pudo crear la ficha del jugador. Por favor, revise los detalles.")
 
-    with col2:
-        jugador = top_20_jugadores.loc[st.session_state['jugador_seleccionado']]
-        ficha = obtener_imagen_jugador(jugador)
-        if ficha:
-            st.image(ficha, use_column_width=True)
-        else:
-            st.error("No se pudo encontrar la imagen del jugador. Por favor, revise los detalles.")
 
 display()
