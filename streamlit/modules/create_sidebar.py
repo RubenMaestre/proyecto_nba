@@ -4,13 +4,7 @@ from streamlit_option_menu import option_menu
 from paginas import inicio, datos, limpieza, eda, sobre_proyecto, sobre_mi, fichas_nba
 
 def create_sidebar():
-    st.sidebar.markdown(
-        f'<div style="text-align: center; margin-bottom: 30px;">'
-        f'<img src="streamlit/sources/logo_ruben_maestre.png" alt="Logo" style="width: 100%; max-width: 200px;">'
-        f'</div>',
-        unsafe_allow_html=True
-    )
-
+    st.image('streamlit/sources/logo_ruben_maestre.png', use_column_width=True)
     st.sidebar.markdown(
         f'<div style="text-align: center; font-size: 18px; margin-bottom: 30px;">'
         f'Proyecto realizado por<br>'
