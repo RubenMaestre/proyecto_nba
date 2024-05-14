@@ -1,6 +1,7 @@
 #paginas/fichas_nba.py
 import streamlit as st
-import matplotlib.pyplot as plt
+import plotly.express as px
+import plotly.graph_objects as go
 import numpy as np
 from modules.calculos_finales import calcular_puntuaciones
 
@@ -314,8 +315,8 @@ def display():
         categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
         N = len(categorias)
 
-        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 5
-        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(5)
+        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 3
+        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(3)
 
         # Normalizamos las estadísticas para cada jugador
         for cat in categorias:
@@ -323,19 +324,27 @@ def display():
             if max_value > 0:
                 top_jugadores[cat] = top_jugadores[cat] / max_value
 
-        # Crear un gráfico de radar para cada jugador
+        # Crear un gráfico de radar para cada jugador utilizando Plotly
         for index, jugador in top_jugadores.iterrows():
-            valores = [jugador[cat] for cat in categorias] + [jugador[categorias[0]]]  # Repite el primer valor al final para cerrar el círculo
-            angulos = [n / float(N) * 2 * np.pi for n in range(N)]
-            angulos += angulos[:1]
+            fig = go.Figure()
 
-            fig, ax = plt.subplots(figsize=(6, 6), subplot_kw=dict(polar=True))
-            plt.xticks(angulos[:-1], categorias)
+            fig.add_trace(go.Scatterpolar(
+                r=[jugador[cat] for cat in categorias],
+                theta=categorias,
+                fill='toself',
+                name=f"{jugador['Nombre']} {jugador['Apellido']}"
+            ))
 
-            ax.plot(angulos, valores)
-            ax.fill(angulos, valores, 'teal', alpha=0.1)
+            fig.update_layout(
+                polar=dict(
+                    radialaxis=dict(
+                        visible=True,
+                        range=[0, 1]
+                    )),
+                showlegend=True,
+                title=f"Estadísticas de {jugador['Nombre']} {jugador['Apellido']}"
+            )
 
-            plt.title(f"Estadísticas de {jugador['Nombre']} {jugador['Apellido']}")
-            st.pyplot(fig)
+            st.plotly_chart(fig)
 
 display()
