@@ -14,7 +14,7 @@ def display():
     """, unsafe_allow_html=True)
 
     # Crear tres columnas: 5/7 para el texto, 0.5/7 como espacio y 2/7 para la imagen
-    col1, col2, col3 = st.columns([5, 0.5, 2])
+    col1, col2, col3 = st.columns([4.8, 0.8, 2])
 
     with col1:
         st.markdown("""
