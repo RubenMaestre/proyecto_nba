@@ -13,8 +13,8 @@ def display():
     Para la distribución de los puntos, opté por utilizar los cuartiles en lugar de una distribución lineal. Los jugadores que se encuentran en el cuartil superior (Q3) en términos de rendimiento recibieron una puntuación más alta, reflejando así su superioridad estadística. Esta distribución se basa en la distancia respecto a la mediana para proporcionar una representación más precisa del desempeño relativo de los jugadores.
     """, unsafe_allow_html=True)
 
-    # Crear dos columnas: 5/7 para el texto y 2/7 para la imagen
-    col1, col2 = st.columns([5, 2])
+    # Crear tres columnas: 5/7 para el texto, 0.5/7 como espacio y 2/7 para la imagen
+    col1, col2, col3 = st.columns([5, 0.5, 2])
 
     with col1:
         st.markdown("""
@@ -23,8 +23,9 @@ def display():
 
         En el futuro, planeo combinar el diseño gráfico manual con la automatización proporcionada por Python, optimizando así la creación de fichas personalizadas para cada jugador. Este enfoque mixto me permitirá equilibrar la personalización y la eficiencia, creando un producto final que sea tanto estéticamente atractivo como informativamente robusto.
         """, unsafe_allow_html=True)
-
-    with col2:
+    
+    # Dejar col2 vacío para crear espacio entre las columnas
+    with col3:
         st.image('streamlit/sources/ficha_ejemplo.png', use_column_width=True)
 
 display()
