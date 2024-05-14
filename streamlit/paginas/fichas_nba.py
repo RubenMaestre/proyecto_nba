@@ -146,9 +146,9 @@ def display():
         df_puntuaciones_finales = ajustar_por_varianza(df_puntuaciones_ajustadas, [col + '_normalizado' for col in columnas_normalizadas], varianzas, umbral_varianza, ajuste_varianza)
                 """)
 
-
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### Cálculo de la puntuación total")
+    st.markdown("<h3 style='text-align: center;'>Cálculo de la puntuación total</h3>", unsafe_allow_html=True)
+    st.markdown("<br>", unsafe_allow_html=True)
 
     # Explicación del cálculo de la puntuación total
     col9, col10 = st.columns([2, 2])
