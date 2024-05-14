@@ -25,7 +25,7 @@ def grafica_correlacion_ppg_apg():
     fig = px.scatter(df_para_graficar, x='PPG', y='APG',
                      title='Correlación entre puntos por partido (PPG) y asistencias por partido (APG)',
                      labels={'PPG': 'Puntos por partido (PPG)', 'APG': 'Asistencias por partido (APG)'},
-                     hover_data=['Nombre del Jugador'])
+                     hover_data=['Nombre'])
 
     fig.update_traces(marker=dict(color='blue', size=10),
                       selector=dict(mode='markers'))
@@ -35,3 +35,4 @@ def grafica_correlacion_ppg_apg():
                       yaxis_title_font_size=18)
 
     st.plotly_chart(fig)
+
