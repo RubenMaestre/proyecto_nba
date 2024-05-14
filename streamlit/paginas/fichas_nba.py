@@ -276,7 +276,7 @@ def display():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Explicación y gráficos de radar
-    col1, col2 = st.columns([3, 2])
+    col1, col2 = st.columns([2, 2])
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
     df_puntuaciones_finales = calcular_puntuaciones()
 
@@ -315,8 +315,8 @@ def display():
         categorias = ['FG%', '3P%', 'FT%', 'OREB', 'DREB', 'AST', 'STL', 'BLK', 'TOV', 'PF']
         N = len(categorias)
 
-        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 3
-        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(3)
+        # Ordenamos los jugadores por 'Puntuacion_Total' y seleccionamos los top 5
+        top_jugadores = df_puntuaciones_finales.sort_values(by='Puntuacion_Total', ascending=False).head(5)
 
         # Normalizamos las estadísticas para cada jugador
         for cat in categorias:
