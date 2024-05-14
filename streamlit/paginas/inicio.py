@@ -3,7 +3,7 @@ import streamlit as st
 
 def display():
     # Crear dos columnas con tamaños 5 y 1
-    col1, col2 = st.columns([5,1])
+    col1, col2 = st.columns([4,1])
 
     # En la primera columna, colocamos el título
     with col1:
@@ -11,7 +11,7 @@ def display():
 
     # En la segunda columna, colocamos el logo
     with col2:
-        st.image("streamlit/sources/logo_nba.png", width=350)
+        st.image("streamlit/sources/logo_nba.png", width=200)
 
     st.markdown("<br><br>", unsafe_allow_html=True)
        
