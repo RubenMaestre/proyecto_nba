@@ -2,7 +2,7 @@
 import streamlit as st
 
 def display():
-    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
+    
     st.markdown("<br><br>", unsafe_allow_html=True)  # Esto lo utilizamos para generar más espacio y darle aire para que respire el texto
     # Título
     st.markdown("<h1 style='text-align: center;'>Breve análisis de datos en la NBA</h1>", unsafe_allow_html=True)
@@ -13,9 +13,11 @@ def display():
         st.markdown("""
             <div style='text-align: justify;'>
                 <h3>Proyecto realizado por Rubén Maestre</h3>
-                <p><strong style='font-size: 18px;'>Este proyecto constituye un análisis profundo de datos de la NBA, explorando tendencias y patrones en el rendimiento de equipos y jugadores. Como un proyecto personal dentro de mi formación en ciencia de datos, este trabajo refleja mi pasión por el baloncesto y la analítica deportiva.</strong></p>
+                <p><strong style='font-size: 18px;'>Este proyecto nace de mi primer desafío en el bootcamp de Hack a Boss y se ha convertido en una exploración continua y detallada del rendimiento de equipos y jugadores de la NBA, mostrando cómo los datos pueden transformar nuestra visión del deporte. A lo largo de mi formación en ciencia de datos, he evolucionado este análisis inicial, enriqueciéndolo con nuevas funcionalidades y visualizaciones, como la integración en Streamlit que mejora la interacción y el acceso a la información.</strong></p>
+                <p><strong style='font-size: 18px;'>Una de las innovaciones más destacadas de este trabajo es el apartado de 'Fichas NBA' disponible en el menú de la aplicación. Aunque es un diseño simple, encapsula un concepto poderoso: democratizar el acceso a datos analíticos de calidad. Imagina aplicar esta idea a competiciones locales o amateurs, ofreciendo a los participantes y seguidores un nivel de detalle y profesionalismo en la presentación de estadísticas y datos que tradicionalmente solo se encuentra en los niveles profesionales del deporte.</strong></p>
             </div>
         """, unsafe_allow_html=True)
+
     with col2:
         st.write("")
 
@@ -30,7 +32,7 @@ def display():
         st.markdown("""
             <div style='text-align: justify;'>
                 <h4 style='text-align: center;'>Motivación</h4>
-                Este estudio ha sido impulsado por un interés profundo en cómo los datos pueden revelar historias ocultas detrás de los juegos y estadísticas. Los desafíos y aprendizajes que surgen de analizar un deporte tan dinámico como la NBA son enormes y ofrecen una gran oportunidad para aplicar técnicas avanzadas de análisis de datos.
+                Inicialmente, este estudio surgió como una tarea obligatoria en mi formación en el bootcamp de Hack a Boss de Data Science & IA. Sin embargo, pronto descubrí una oportunidad para explorar más allá de los deportes que domino, como el fútbol o el fútbol sala, y adentrarme en el baloncesto. Este cambio de enfoque no solo fue un reto, sino también una oportunidad de crecimiento personal y profesional al analizar un deporte tan dinámico y lleno de datos como la NBA, lo que me permitió aplicar y expandir mis habilidades en ciencia de datos.
             </div>
         """, unsafe_allow_html=True)
 
@@ -40,8 +42,8 @@ def display():
     with col6:
         st.markdown("""
             <div style='text-align: justify;'>
-                <h4 style='text-align: center;'>Herramientas y Tecnologías</h4>
-                En el proyecto, he utilizado herramientas de extracción de datos como Selenium y BeautifulSoup para capturar datos en tiempo real desde el sitio web oficial de la NBA. Posteriormente, empleé Pandas y NumPy para la manipulación y estructuración de datos, preparándolos para análisis y visualización con herramientas como Matplotlib y Plotly.
+                <h4 style='text-align: center;'>Herramientas y tecnologías</h4>
+                Para el desarrollo del proyecto, empleé herramientas avanzadas de extracción de datos como Selenium y BeautifulSoup, que me permitieron capturar datos en tiempo real desde el sitio web oficial de la NBA. Posteriormente, utilicé bibliotecas de Python como Pandas y NumPy para la manipulación y estructuración de datos. Para la visualización, recurrí a Matplotlib y Plotly, mientras que exploré la librería Pillow para el diseño y la manipulación de imágenes, lo que enriqueció significativamente el contenido visual del análisis.
             </div>
         """, unsafe_allow_html=True)
 
@@ -49,8 +51,9 @@ def display():
 
     st.markdown("""
         <div style='text-align: justify;'>
-            <h4 style='text-align: center;'>Desafíos y Logros</h4>
-            Uno de los mayores desafíos fue la automatización de la recolección de datos debido a la complejidad del sitio web de la NBA y las restricciones de acceso a datos. Sin embargo, logré superar estos obstáculos desarrollando un código adaptable y resistente a errores, lo que me permitió obtener un conjunto de datos rico y actualizado que forma la base de este análisis.
+            <h4 style='text-align: center;'>Desafíos y logros</h4>
+            El principal desafío que enfrenté fue la automatización de la recolección de datos ante las complejidades técnicas y las restricciones del sitio web de la NBA. No solo logré superar estos retos desarrollando un código adaptable y robusto contra errores, sino que además, meses después de finalizar el proyecto, pude verificar que el código seguía funcionando de manera eficiente, actualizando los datos hasta el final de la temporada regular 2023/2024. Esta capacidad para extraer datos sin ser limitado por las restricciones del sitio demostró la robustez y la escalabilidad de la solución implementada.
         </div>
     """, unsafe_allow_html=True)
 
+    st.image('streamlit/sources/cabecera.jpg', use_column_width=True)
