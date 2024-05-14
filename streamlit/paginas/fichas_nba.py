@@ -150,7 +150,7 @@ def display():
         st.markdown("### Cálculo de la puntuación total")
 
     # Explicación del cálculo de la puntuación total
-    col9, col10 = st.columns([5, 2])
+    col9, col10 = st.columns([2, 2])
 
     with col9:
         st.markdown("""
@@ -159,13 +159,9 @@ def display():
         
         #### Escalado a formato tipo FIFA
         Escalé la puntuación total a un formato de 1 a 100, similar a las valoraciones en el videojuego FIFA, para facilitar la comparación y la interpretación.
-
-        #### Visualización de los mejores jugadores
-        Finalmente, ordené y presenté los jugadores según su puntuación total, permitiéndome ver quiénes eran los jugadores mejor valorados según mi sistema de puntuación.
-
-        Esta idea me permite crear una especie de sistema de clasificación para catalogar a los jugadores de la NBA, combinando varias estadísticas clave en una sola puntuación. Este sistema no solo me da una visión general del rendimiento de los jugadores, sino que también me permite identificar a los jugadores más destacados en distintas áreas del juego. Puedo ver quiénes son los mejores ofensivamente, defensivamente, etc.
         """)
     
+   
     with col10:
         st.code("""
         # Ahora vamos a calcular la media de puntos que han obtenido y ver cuál es el mejor jugador según nuestros cálculos de la NBA
@@ -178,5 +174,12 @@ def display():
 
         print(df_puntuaciones_finales[['Nombre', 'Apellido', 'Puntuacion_Total']].sort_values(by='Puntuacion_Total', ascending=False))
                 """)
+        
+    st.markdown("""
+        #### Visualización de los mejores jugadores
+        Finalmente, ordené y presenté los jugadores según su puntuación total, permitiéndome ver quiénes eran los jugadores mejor valorados según mi sistema de puntuación.
+
+        Esta idea me permite crear una especie de sistema de clasificación para catalogar a los jugadores de la NBA, combinando varias estadísticas clave en una sola puntuación. Este sistema no solo me da una visión general del rendimiento de los jugadores, sino que también me permite identificar a los jugadores más destacados en distintas áreas del juego. Puedo ver quiénes son los mejores ofensivamente, defensivamente, etc.
+        """)
 
 display()
