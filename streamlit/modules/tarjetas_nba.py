@@ -1,6 +1,7 @@
 import os
 import plotly.graph_objects as go
 from PIL import Image, ImageDraw, ImageFont
+import kaleido
 
 def crear_ficha_jugador(df_puntuaciones_finales, jugador):
     carpeta = 'fichas_nba/'
