@@ -276,7 +276,7 @@ def display():
     st.markdown("<br>", unsafe_allow_html=True)
 
     # Explicación y gráficos de radar
-    col1, col2 = st.columns([3, 1])
+    col1, col2 = st.columns([3, 2])
     # Calcular las puntuaciones utilizando la función de calculos_finales.py
     df_puntuaciones_finales = calcular_puntuaciones()
 
